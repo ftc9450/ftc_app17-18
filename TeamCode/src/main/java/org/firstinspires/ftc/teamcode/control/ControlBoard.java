@@ -13,15 +13,6 @@ public class ControlBoard {
         driverController = controller;
     }
 
-    public boolean moveSliderLeft() {
-        return driverController.dpad_left;
-    }
-
-    public boolean moveSliderRight() {
-        return driverController.dpad_right;
-    }
-
-
     public boolean reduceSpeed() {
         return driverController.left_bumper;
     }
@@ -34,11 +25,4 @@ public class ControlBoard {
         return driverController.right_stick_x;
     }
 
-    public boolean toggleShooterOn() {
-        return driverController.x;
-    }
-
-    public boolean toggleShooterOff() {
-        return driverController.b;
-    }
 }
