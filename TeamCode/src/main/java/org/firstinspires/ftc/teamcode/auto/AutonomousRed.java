@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 import static android.R.transition.move;
 
@@ -43,6 +44,7 @@ public class AutonomousRed extends LinearOpMode{
         while(leftFront.isBusy()||leftBack.isBusy()||rightFront.isBusy()||rightBack.isBusy()){}
     }
     public String readJewel(ColorSensor c){
+        if(c instanceof SwitchableLight){((SwitchableLight) c).enableLight(true);}
         int r=c.red();int g=c.green();int b=c.blue(); int a=c.alpha();
         if(a<20||a>200){return "BLACK";}//???? Check projected alpha values
         if(r>g+(r/2)&&r>b+(r/2)){return "RED";}
