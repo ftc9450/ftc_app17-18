@@ -8,13 +8,18 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.DriveSignal;
 import org.firstinspires.ftc.teamcode.util.Util;
 
+import static android.R.attr.left;
+import static android.R.attr.right;
+
 /**
  * Created by O on 10/28/2017.
  */
 
 public class Drivetrain extends Subsystem {
-    private DcMotor left;
-    private DcMotor right;
+    private DcMotor leftFront;
+    private DcMotor rightFront;
+    private DcMotor leftBack;
+    private DcMotor rightBack;
 
     private float maxPower;
 
@@ -24,9 +29,11 @@ public class Drivetrain extends Subsystem {
         OPEN_LOOP
     }
 
-    public Drivetrain(DcMotor left, DcMotor right) {
-        this.left = left;
-        this.right = right;
+    public Drivetrain(DcMotor lf, DcMotor lb, DcMotor rf, DcMotor rb) {
+        this.leftFront = lf;
+        this.leftBack=lb;
+        this.rightFront=rf;
+        this.rightBack = rb;
         maxPower = Constants.Drivetrain.HIGH_POWER;
     }
 
@@ -41,8 +48,10 @@ public class Drivetrain extends Subsystem {
 
     public void setOpenLoop(DriveSignal signal) {
         controlState = DriveControlState.OPEN_LOOP;
-        left.setPower(signal.rightMotor * maxPower);
-        right.setPower(-signal.leftMotor * maxPower);
+        rightFront.setPower(signal.rightFrontMotor * maxPower);
+        rightBack.setPower(signal.rightBackMotor*maxPower);
+        leftFront.setPower(-signal.leftFrontMotor * maxPower);
+        leftBack.setPower(-signal.leftBackMotor*maxPower);
     }
 
     @Override
