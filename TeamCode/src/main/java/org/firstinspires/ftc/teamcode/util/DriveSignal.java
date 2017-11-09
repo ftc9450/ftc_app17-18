@@ -26,6 +26,12 @@ public class DriveSignal {
         this.rightBackMotor=rb;
         this.breakMode = breakMode;
     }
+    public static DriveSignal pivot(double power){//positive power is pivot to right
+        return new DriveSignal(power, power, -1.0*power, -1.0*power);
+    }
+    public static DriveSignal lateralMove(double power){//positive power is move to right
+        return new DriveSignal(power,-power,-power,power);
+    }
 
     public static DriveSignal NEUTRAL = new DriveSignal(0, 0,0,0);
     public static DriveSignal BRAKE = new DriveSignal(0, 0, 0,0,true);
@@ -34,5 +40,6 @@ public class DriveSignal {
     public String toString() {
         return "LF: " + leftFrontMotor + ",LB: " +", RF: " + rightFrontMotor+", RB: "+rightBackMotor;
     }
+
 
 }
