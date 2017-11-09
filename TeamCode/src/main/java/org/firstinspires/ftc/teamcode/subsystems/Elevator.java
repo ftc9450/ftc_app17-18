@@ -12,7 +12,7 @@ public class Elevator extends Subsystem{
     private double speed = 0.3;
 
     public enum ElevatorState{
-        UP,DOWN
+        UP,DOWN,OFF
     }
     private ElevatorState state;
 
@@ -41,6 +41,10 @@ public class Elevator extends Subsystem{
             case DOWN:
                 elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
                 elevatorMotor.setPower(speed);
+                break;
+            case OFF:
+            default:
+                stop();
         }
     }
 }
