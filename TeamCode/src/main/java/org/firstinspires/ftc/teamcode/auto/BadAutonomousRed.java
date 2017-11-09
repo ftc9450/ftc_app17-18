@@ -12,7 +12,7 @@ import static android.R.transition.move;
  * Created by PinkUnicornRainbow on 10/28/2017.
  */
 
-public class AutonomousRed extends LinearOpMode{
+public class BadAutonomousRed extends LinearOpMode{
     DcMotor leftFront=hardwareMap.dcMotor.get("leftFront");
     DcMotor leftBack=hardwareMap.dcMotor.get("leftBack");
     DcMotor rightFront=hardwareMap.dcMotor.get("rightFront");

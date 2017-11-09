@@ -73,6 +73,7 @@ public class Drivetrain extends Subsystem {
     }
     public void moveFB(int distance, double power){
         resetMotors();
+        leftFront.setTargetPosition(distance);leftBack.setTargetPosition(distance);rightFront.setTargetPosition(distance);rightBack.setTargetPosition(distance);
         setOpenLoop(new DriveSignal(power, power, power,power));
         while(isBusy()){}
     }
