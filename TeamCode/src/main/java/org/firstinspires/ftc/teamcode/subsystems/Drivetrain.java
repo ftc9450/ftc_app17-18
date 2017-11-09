@@ -28,15 +28,13 @@ public class Drivetrain extends Subsystem {
     public enum DriveControlState {
         OPEN_LOOP
     }
-
     public Drivetrain(DcMotor lf, DcMotor lb, DcMotor rf, DcMotor rb) {
-        this.leftFront = lf;
-        this.leftBack=lb;
+        this.leftFront = lf;this.leftFront.setDirection(DcMotor.Direction.REVERSE);
+        this.leftBack=lb;this.leftBack.setDirection(DcMotor.Direction.REVERSE);
         this.rightFront=rf;
         this.rightBack = rb;
         maxPower = Constants.Drivetrain.HIGH_POWER;
     }
-
     public void setMaxPower(float maxPower) {
         this.maxPower = maxPower;
         System.out.println("max power: " + maxPower);
@@ -53,6 +51,9 @@ public class Drivetrain extends Subsystem {
         leftFront.setPower(-signal.leftFrontMotor * maxPower);
         leftBack.setPower(-signal.leftBackMotor*maxPower);
     }
+    public boolean isBusy(){
+        return leftFront.isBusy()||leftBack.isBusy()||rightFront.isBusy()||rightBack.isBusy();
+    }
 
     @Override
     public synchronized void stop() {
@@ -63,7 +64,24 @@ public class Drivetrain extends Subsystem {
     public synchronized void zeroSensors() {
 
     }
-
+    //Autonomous actions
+    public void resetMotors(){
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    public void moveFB(int distance, double power){
+        resetMotors();
+        setOpenLoop(new DriveSignal(power, power, power,power));
+        while(isBusy()){}
+    }
+    public void pivot(int distance, double power){
+        resetMotors();
+        leftFront.setTargetPosition(distance);leftBack.setTargetPosition(distance);rightFront.setTargetPosition(-1*distance);rightBack.setTargetPosition(-1*distance);
+        setOpenLoop(DriveSignal.pivot(power));
+        while(isBusy()){}
+    }
     public void loop() {
         switch(controlState) {
             case OPEN_LOOP:
