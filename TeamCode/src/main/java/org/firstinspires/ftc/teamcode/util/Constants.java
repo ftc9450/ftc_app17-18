@@ -9,4 +9,9 @@ public class Constants {
         public static final float HIGH_POWER = 1.0f;
         public static final float LOW_POWER = 0.3f;
     }
+
+    public class Rudder {
+        public static final float RUDDER_IN = 0f;
+        public static final float RUDDER_OUT = 0f;
+    }
 }
