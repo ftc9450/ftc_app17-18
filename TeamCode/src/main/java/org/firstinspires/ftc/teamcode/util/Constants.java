@@ -13,4 +13,9 @@ public class Constants {
         public static final float RUDDER_IN = 0f;
         public static final float RUDDER_OUT = 0f;
     }
+    public class Color{
+        public static final int RED=1;
+        public static final int BLUE=0;
+        public static final int UNDECIDED=-1;
+    }
 }

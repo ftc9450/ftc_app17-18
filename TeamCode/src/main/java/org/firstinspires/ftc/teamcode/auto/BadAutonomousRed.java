@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,7 +12,7 @@ import static android.R.transition.move;
 /**
  * @author Grace
  */
-
+@Autonomous
 public class BadAutonomousRed extends LinearOpMode{
     DcMotor leftFront=hardwareMap.dcMotor.get("leftFront");
     DcMotor leftBack=hardwareMap.dcMotor.get("leftBack");
@@ -51,7 +52,6 @@ public class BadAutonomousRed extends LinearOpMode{
         if(b>g+(b/2)&&b>r+(b/2)){return "BLUE";}return "BLACK";
     }
     public void runOpMode() throws InterruptedException {
-        moveFB(0,0.5);
         jewelRudder.setPosition(90);
         moveFB(-840,0.5);//move 18 inches backwards
         //Take out jewels-check with mechanical to see which way they put the servo

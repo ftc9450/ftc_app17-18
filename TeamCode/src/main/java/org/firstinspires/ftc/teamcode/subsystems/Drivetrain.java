@@ -65,22 +65,34 @@ public class Drivetrain extends Subsystem {
 
     }
     //Autonomous actions
+    public void setPower(DriveSignal signal) {
+        rightFront.setPower(signal.rightFrontMotor * maxPower);
+        rightBack.setPower(signal.rightBackMotor*maxPower);
+        leftFront.setPower(-signal.leftFrontMotor * maxPower);
+        leftBack.setPower(-signal.leftBackMotor*maxPower);
+    }
     public void resetMotors(){
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
-    public void moveFB(int distance, double power){
+    public void moveFB(int distance, double power){//positive power is move forward
         resetMotors();
         leftFront.setTargetPosition(distance);leftBack.setTargetPosition(distance);rightFront.setTargetPosition(distance);rightBack.setTargetPosition(distance);
-        setOpenLoop(new DriveSignal(power, power, power,power));
+        setPower(new DriveSignal(power, power, power,power));
         while(isBusy()){}
     }
-    public void pivot(int distance, double power){
+    public void pivot(int distance, double power){//positive power is move to right
         resetMotors();
         leftFront.setTargetPosition(distance);leftBack.setTargetPosition(distance);rightFront.setTargetPosition(-1*distance);rightBack.setTargetPosition(-1*distance);
-        setOpenLoop(DriveSignal.pivot(power));
+        setPower(DriveSignal.pivot(power));
+        while(isBusy()){}
+    }
+    public void moveLR(int distance, double power){//positive power is move to right
+        resetMotors();
+        leftFront.setTargetPosition(distance);leftBack.setTargetPosition(-1*distance);rightFront.setTargetPosition(-1*distance);rightBack.setTargetPosition(distance);
+        setPower(DriveSignal.lateralMove(power));
         while(isBusy()){}
     }
     public void loop() {
