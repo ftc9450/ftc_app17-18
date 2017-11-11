@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Rudder;
 
 /**
- * Created by PinkUnicornRainbow on 11/9/2017.
+ * @author Grace
  */
 
 public class StateBaseAutoRed extends LinearOpMode{

@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import static com.sun.tools.javac.jvm.ByteCodes.error;
 
 /**
- * Created by PinkUnicornRainbow on 11/9/2017.
+ * @author Grace
  */
 @TeleOp
 public class MotorTest extends LinearOpMode {

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.SwitchableLight;
 import static android.R.transition.move;
 
 /**
- * Created by PinkUnicornRainbow on 10/28/2017.
+ * @author Grace
  */
 
 public class BadAutonomousRed extends LinearOpMode{
