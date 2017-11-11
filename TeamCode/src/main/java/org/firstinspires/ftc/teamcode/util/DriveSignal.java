@@ -40,6 +40,12 @@ public class DriveSignal {
     public String toString() {
         return "LF: " + leftFrontMotor + ",LB: " +", RF: " + rightFrontMotor+", RB: "+rightBackMotor;
     }
+    public void scale(double power){
+        this.leftBackMotor*=power;
+        this.leftFrontMotor*=power;
+        this.rightBackMotor*=power;
+        this.rightFrontMotor*=power;
+    }
 
 
 }
