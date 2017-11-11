@@ -32,7 +32,7 @@ public class StateBaseAutoRed extends LinearOpMode{
         driveTrain.moveFB(1600,0.5);//move 30 inches
     }
 
-    public int[] readColor() {
-        
-    }
+//    public int[] readColor() {
+//
+//    }
 }
