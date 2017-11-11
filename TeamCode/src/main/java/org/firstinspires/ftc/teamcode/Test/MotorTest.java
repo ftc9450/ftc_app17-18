@@ -17,6 +17,6 @@ public class MotorTest extends LinearOpMode {
         DcMotor testMe=null;
         try{testMe=hardwareMap.dcMotor.get("motor");}catch(Exception e){telemetry.addData("errorMesssage","Definition error!");}
         testMe.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        testMe.setMode(DcMotor.RunMode.RUN_TO_POSITION);testMe.setTargetPosition(10000000);while(testMe.isBusy()){}
+        testMe.setMode(DcMotor.RunMode.RUN_TO_POSITION);//testMe.setTargetPosition(10000000);while(testMe.isBusy()){}
     }
 }
