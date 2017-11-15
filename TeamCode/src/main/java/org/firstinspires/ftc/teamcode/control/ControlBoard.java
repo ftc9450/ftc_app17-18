@@ -14,10 +14,10 @@ public class ControlBoard {
     public ControlBoard(Gamepad controller) {
         driverController = controller;
     }
-    public DriveSignal pivot(){
-        double power=Math.sqrt(Math.pow(driverController.left_stick_x,2)+Math.pow(driverController.left_stick_y,2));
-        if(driverController.left_stick_y>0){return DriveSignal.pivot(Math.sqrt(power));}
-        return DriveSignal.pivot(power);//Not done. This method is utter garbage
+    public DriveSignal translate(){
+        double angle=Math.atan2(driverController.left_stick_y,driverController.left_stick_x);
+        double deg45=Math.PI/4;
+        return new DriveSignal(Math.sin(angle-deg45), Math.sin(angle+deg45), Math.sin(angle+deg45), Math.sin(angle-deg45));
     }
     public boolean reduceSpeed() {
         return driverController.left_bumper;
@@ -27,8 +27,9 @@ public class ControlBoard {
         return driverController.left_stick_y;
     }
 
-    public float turn() {
-        return driverController.right_stick_x;
-    }
+//    public float turn() {
+//        return driverController.right_stick_x;
+//    }
+    public DriveSignal turn(){return DriveSignal.pivot(driverController.right_stick_x);}
 
 }
