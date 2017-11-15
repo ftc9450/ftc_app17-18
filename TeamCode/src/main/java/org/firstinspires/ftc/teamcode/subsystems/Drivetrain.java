@@ -28,13 +28,20 @@ public class Drivetrain extends Subsystem {
     public enum DriveControlState {
         OPEN_LOOP
     }
+
     public Drivetrain(DcMotor lf, DcMotor lb, DcMotor rf, DcMotor rb) {
-        this.leftFront = lf;this.leftFront.setDirection(DcMotor.Direction.REVERSE);
-        this.leftBack=lb;this.leftBack.setDirection(DcMotor.Direction.REVERSE);
-        this.rightFront=rf;
+        this.leftFront = lf;
+        this.leftFront.setDirection(DcMotor.Direction.REVERSE);
+
+        this.leftBack = lb;
+        this.leftBack.setDirection(DcMotor.Direction.REVERSE);
+
+        this.rightFront = rf;
         this.rightBack = rb;
+
         maxPower = Constants.Drivetrain.HIGH_POWER;
     }
+
     public void setMaxPower(float maxPower) {
         this.maxPower = maxPower;
         System.out.println("max power: " + maxPower);
@@ -47,12 +54,12 @@ public class Drivetrain extends Subsystem {
     public void setOpenLoop(DriveSignal signal) {
         controlState = DriveControlState.OPEN_LOOP;
         rightFront.setPower(signal.rightFrontMotor * maxPower);
-        rightBack.setPower(signal.rightBackMotor*maxPower);
+        rightBack.setPower(signal.rightBackMotor * maxPower);
         leftFront.setPower(-signal.leftFrontMotor * maxPower);
-        leftBack.setPower(-signal.leftBackMotor*maxPower);
+        leftBack.setPower(-signal.leftBackMotor * maxPower);
     }
     public boolean isBusy(){
-        return leftFront.isBusy()||leftBack.isBusy()||rightFront.isBusy()||rightBack.isBusy();
+        return leftFront.isBusy() || leftBack.isBusy() || rightFront.isBusy() || rightBack.isBusy();
     }
 
     @Override
@@ -64,37 +71,56 @@ public class Drivetrain extends Subsystem {
     public synchronized void zeroSensors() {
 
     }
-    //Autonomous actions
+
+    // Autonomous actions
     public void setPower(DriveSignal signal) {
         rightFront.setPower(signal.rightFrontMotor * maxPower);
-        rightBack.setPower(signal.rightBackMotor*maxPower);
+        rightBack.setPower(signal.rightBackMotor * maxPower);
         leftFront.setPower(-signal.leftFrontMotor * maxPower);
-        leftBack.setPower(-signal.leftBackMotor*maxPower);
+        leftBack.setPower(-signal.leftBackMotor * maxPower);
     }
+
     public void resetMotors(){
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
-    public void moveFB(int distance, double power){//positive power is move forward
+
+    public void moveFB(int distance, double power){ //positive power is move forward
         resetMotors();
-        leftFront.setTargetPosition(distance);leftBack.setTargetPosition(distance);rightFront.setTargetPosition(distance);rightBack.setTargetPosition(distance);
+        leftFront.setTargetPosition(distance);
+        leftBack.setTargetPosition(distance);
+        rightFront.setTargetPosition(distance);
+        rightBack.setTargetPosition(distance);
         setPower(new DriveSignal(power, power, power,power));
-        while(isBusy()){}
+        while(isBusy());
     }
-    public void pivot(int distance, double power){//positive power is move to right
+
+    public void pivot(int distance, double power){ //positive power is move to right
         resetMotors();
-        leftFront.setTargetPosition(distance);leftBack.setTargetPosition(distance);rightFront.setTargetPosition(-1*distance);rightBack.setTargetPosition(-1*distance);
+        leftFront.setTargetPosition(distance);
+        leftBack.setTargetPosition(distance);
+        rightFront.setTargetPosition(-1*distance);
+        rightBack.setTargetPosition(-1*distance);
         setPower(DriveSignal.pivot(power));
-        while(isBusy()){}
+        while(isBusy());
     }
+
     public void moveLR(int distance, double power){//positive power is move to right
         resetMotors();
-        leftFront.setTargetPosition(distance);leftBack.setTargetPosition(-1*distance);rightFront.setTargetPosition(-1*distance);rightBack.setTargetPosition(distance);
+        leftFront.setTargetPosition(distance);
+        leftBack.setTargetPosition(-distance);
+        rightFront.setTargetPosition(-distance);
+        rightBack.setTargetPosition(distance);
         setPower(DriveSignal.lateralMove(power));
-        while(isBusy()){}
+        while(isBusy());
     }
+
     public void loop() {
         switch(controlState) {
             case OPEN_LOOP:
