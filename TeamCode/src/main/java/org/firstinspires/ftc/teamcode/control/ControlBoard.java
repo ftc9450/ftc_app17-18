@@ -15,17 +15,14 @@ public class ControlBoard {
         driverController = controller;
     }
     public DriveSignal translate(){
-        double angle=Math.atan2(driverController.left_stick_y,driverController.left_stick_x);
-        double deg45=Math.PI/4;
-        return new DriveSignal(Math.sin(angle-deg45), Math.sin(angle+deg45), Math.sin(angle+deg45), Math.sin(angle-deg45));
+        double angle=Math.atan2(driverController.left_stick_y,driverController.left_stick_x)-Math.PI/4;
+        return new DriveSignal(Math.sin(angle)*throttle(), Math.cos(angle)*throttle(), Math.cos(angle)*throttle(), Math.sin(angle)*throttle());
     }
     public boolean reduceSpeed() {
         return driverController.left_bumper;
     }
 
-    public float throttle() {
-        return driverController.left_stick_y;
-    }
+    public float throttle() {return Math.abs(driverController.left_stick_y);}
 
 //    public float turn() {
 //        return driverController.right_stick_x;
