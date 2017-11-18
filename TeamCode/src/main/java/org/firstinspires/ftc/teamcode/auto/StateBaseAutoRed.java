@@ -29,14 +29,14 @@ public class StateBaseAutoRed extends LinearOpMode{
 
         // color detection-assumes that color sensor is mounted on left
         if (isRed() == Constants.Color.RED) {
-            driveTrain.moveLR(100,0.5); // calibrate
+            driveTrain.moveLR(2*Constants.Drivetrain.INCH,0.5); // calibrate
         } else if(isRed() == Constants.Color.BLUE){
-            driveTrain.moveLR(-100,0.5); // calibrate
+            driveTrain.moveLR(-2*Constants.Drivetrain.INCH,0.5); // calibrate
         }
         jewelRudder.setState(Rudder.RudderState.IN);
-        driveTrain.moveFB(1680,0.5); // move 36 inches forwards
-        driveTrain.pivot(-90,0.5); // CALIBRATE ASAP!!!!!!! Supposed to be 90 degrees left
-        driveTrain.moveFB(1600,0.5); // move 30 inches
+        driveTrain.moveFB(36*Constants.Drivetrain.INCH,0.5); // move 36 inches forwards
+        driveTrain.pivot(90*Constants.Drivetrain.DEGREE,0.5); // CALIBRATE ASAP!!!!!!! Supposed to be 90 degrees left
+        driveTrain.moveFB(30*Constants.Drivetrain.INCH,0.5); // move 30 inches
     }
 
     public int isRed() {
