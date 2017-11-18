@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.control;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
+
+import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 import org.firstinspires.ftc.teamcode.util.*;
 
 /**
@@ -23,7 +25,11 @@ public class ControlBoard {
         double throttle=throttle();
         return new DriveSignal(Math.sin(angle)*throttle, Math.cos(angle)*throttle, Math.cos(angle)*throttle, Math.sin(angle)*throttle);
     }
-
+    public Grabber.GrabberState servoCommand(){
+        if(driverController.x){
+            return Grabber.GrabberState.CLOSED;
+        }return Grabber.GrabberState.OPEN;
+    }
     public boolean reduceSpeed() {
         return driverController.left_bumper;
     }

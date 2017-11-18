@@ -34,7 +34,7 @@ public class Grabber extends Subsystem{
     @Override
     public void stop() {
         leftServo.setPosition(openPosition);
-        rightServo.setPosition(closedPosition);
+        rightServo.setPosition(openPosition);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class Grabber extends Subsystem{
             default:
                 leftServo.setPosition(openPosition);
                 rightServo.setPosition(openPosition);
+                break;
         }
     }
 

@@ -19,6 +19,11 @@ public class TeleOp extends OpMode{
     public void init() {
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get("leftFront"), hardwareMap.dcMotor.get("leftBack"), hardwareMap.dcMotor.get("rightFront"), hardwareMap.dcMotor.get("rightBack"));
         subsystemManager.add(drivetrain);
+        elevator=new Elevator(hardwareMap.dcMotor.get("elevator"));
+        subsystemManager.add(elevator);
+        grabber=new Grabber(hardwareMap.servo.get("servoLeft"),hardwareMap.servo.get("servoRight"));
+        subsystemManager.add(grabber);
+
     }
 
     @Override
