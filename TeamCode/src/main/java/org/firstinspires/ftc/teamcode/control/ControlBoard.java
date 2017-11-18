@@ -60,10 +60,7 @@ public class ControlBoard {
 //        return driverController.right_stick_x;
 //    }
     public DriveSignal turn(){
-        float x=driverController.right_stick_x;float y=driverController.right_stick_y;
-        if(x!=0){
-            return DriveSignal.pivot(driverController.right_stick_x);
-        }else{return new DriveSignal(y,y,y,y);}
+        return DriveSignal.pivot(driverController.right_stick_x);
     }
 
 }

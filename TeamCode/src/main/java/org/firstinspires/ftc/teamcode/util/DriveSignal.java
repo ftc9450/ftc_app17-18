@@ -44,7 +44,9 @@ public class DriveSignal {
     public String toString() {
         return "LF: " + leftFrontMotor + ",LB: " +", RF: " + rightFrontMotor+", RB: "+rightBackMotor;
     }
-
+    public boolean isZero(){
+        return leftFrontMotor==0&&leftBackMotor==0&&rightFrontMotor==0&&rightBackMotor==0;
+    }
     public DriveSignal scale(double power){
         this.leftBackMotor *= power;
         this.leftFrontMotor *= power;

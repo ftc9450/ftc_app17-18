@@ -30,7 +30,16 @@ public class TeleOp extends OpMode{
 
     @Override
     public void loop() {
-        DriveSignal d=DriveSignal.average(controlBoard.translate(),controlBoard.turn());
+        DriveSignal translate=controlBoard.translate();
+        DriveSignal turn=controlBoard.turn();
+        DriveSignal d=null;
+        if(turn.isZero()){
+            d=translate;
+        }else if(translate.isZero()){
+            d=turn;
+        }else{
+            d=DriveSignal.average(controlBoard.translate(),controlBoard.turn());
+        }
         if(controlBoard.reduceDriveSpeed()){
             d.scale(Constants.Drivetrain.LOW_POWER);
         }
