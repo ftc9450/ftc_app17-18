@@ -4,12 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.util.Constants;
-import org.firstinspires.ftc.teamcode.util.DriveSignal;
-import org.firstinspires.ftc.teamcode.util.Util;
-
-import static android.R.attr.left;
-import static android.R.attr.right;
+import org.firstinspires.ftc.teamcode.util.*;
 
 /**
  * Created by O on 10/28/2017.

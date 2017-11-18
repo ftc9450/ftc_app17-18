@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.control;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.util.DriveSignal;
+import org.firstinspires.ftc.teamcode.util.*;
 
 /**
  * Created by O on 10/28/2017.
