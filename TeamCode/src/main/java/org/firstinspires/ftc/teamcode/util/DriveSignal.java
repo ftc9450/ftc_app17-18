@@ -34,7 +34,9 @@ public class DriveSignal {
     public static DriveSignal lateralMove(double power){ // positive power is move to right
         return new DriveSignal(power, -power, -power, power);
     }
-
+    public static DriveSignal average(DriveSignal a, DriveSignal b){
+        return new DriveSignal((a.leftFrontMotor+b.leftFrontMotor)/2.0, (a.leftBackMotor+b.leftBackMotor)/2.0, (a.rightFrontMotor+b.rightFrontMotor)/2.0, (a.rightBackMotor+b.rightBackMotor)/2.0);
+    }
     public static DriveSignal NEUTRAL = new DriveSignal(0, 0, 0, 0);
     public static DriveSignal BRAKE = new DriveSignal(0, 0, 0, 0, true);
 
@@ -43,11 +45,12 @@ public class DriveSignal {
         return "LF: " + leftFrontMotor + ",LB: " +", RF: " + rightFrontMotor+", RB: "+rightBackMotor;
     }
 
-    public void scale(double power){
+    public DriveSignal scale(double power){
         this.leftBackMotor *= power;
         this.leftFrontMotor *= power;
         this.rightBackMotor *= power;
         this.rightFrontMotor *= power;
+        return this;
     }
 
 

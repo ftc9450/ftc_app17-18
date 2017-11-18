@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.control.ControlBoard;
 import org.firstinspires.ftc.teamcode.subsystems.*;
+import org.firstinspires.ftc.teamcode.util.Constants;
+import org.firstinspires.ftc.teamcode.util.DriveSignal;
 
 /**
  * @author Grace
@@ -28,7 +30,13 @@ public class TeleOp extends OpMode{
 
     @Override
     public void loop() {
-
+        DriveSignal d=DriveSignal.average(controlBoard.translate(),controlBoard.turn());
+        if(controlBoard.reduceDriveSpeed()){
+            d.scale(Constants.Drivetrain.LOW_POWER);
+        }
+        drivetrain.setOpenLoop(d);
+        elevator.setState(controlBoard.elevatorCommand());
+        grabber.setState(controlBoard.grabberCommand());
         subsystemManager.loopSystems();
     }
 }

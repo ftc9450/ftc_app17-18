@@ -6,8 +6,6 @@ import org.firstinspires.ftc.teamcode.control.ControlBoard;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 
-import java.util.ResourceBundle;
-
 /**
  * Created by Grace on 11/18/2017.
  */
@@ -23,7 +21,7 @@ public class GrabberTest extends OpMode {
 
     @Override
     public void loop() {
-        grabber.setState(controlBoard.servoCommand());
+        grabber.setState(controlBoard.grabberCommand());
         subsystemManager.loopSystems();
     }
 }
