@@ -3,13 +3,15 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.util.*;
+
 /**
  * Created by O on 10/28/2017.
  */
 
 public class Elevator extends Subsystem{
     private DcMotor elevatorMotor;
-    private double speed = 0.3;
+    private double speed = Constants.Elevator.POWER;
 
     public enum ElevatorState{
         UP,DOWN,OFF
