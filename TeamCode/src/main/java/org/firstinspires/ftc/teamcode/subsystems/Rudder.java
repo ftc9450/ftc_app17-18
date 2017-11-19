@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.qualcomm.robotcore.hardware.Servo;
+import android.graphics.Color;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
+
 import org.firstinspires.ftc.teamcode.util.*;
 
 /**
@@ -14,13 +17,15 @@ public class Rudder extends Subsystem {
 
     private RudderState state;
     private Servo rudderServo;
+    private ColorSensor colorSensor;
 
     public enum RudderState {
         OUT, IN
     }
 
-    public Rudder(Servo rudderServo) {
+    public Rudder(Servo rudderServo, ColorSensor colorSensor) {
         this.rudderServo = rudderServo;
+        this.colorSensor = colorSensor;
         this.state = RudderState.IN;
     }
 
@@ -31,6 +36,15 @@ public class Rudder extends Subsystem {
     @Override
     public void stop() {
 
+    }
+
+    public int isRed() {
+        if(colorSensor instanceof SwitchableLight) ((SwitchableLight) colorSensor).enableLight(true);
+        int r = colorSensor.red(), g = colorSensor.green(), b = colorSensor.blue(), a = colorSensor.alpha();
+        if(a < 20 || a > 200) return Constants.Color.UNDECIDED; //???? Check projected alpha values
+        if(r > g*2 && r > b*2) return Constants.Color.RED;
+        if(b > g*2 && b > r*2) return Constants.Color.BLUE;
+        return Constants.Color.UNDECIDED;
     }
 
     @Override
