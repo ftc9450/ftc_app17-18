@@ -25,4 +25,10 @@ public class Constants {
         public static final int BLUE = 0;
         public static final int UNDECIDED = -1;
     }
+
+    public class HardwareMap {
+        public static final String DCTEST = "frontLeft";
+        public static final String RUDDER = "rudder_servo";
+        public static final String COLOR = "sensor_color_distance";
+    }
 }
