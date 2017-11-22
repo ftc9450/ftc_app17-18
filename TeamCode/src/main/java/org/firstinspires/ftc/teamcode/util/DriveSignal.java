@@ -57,7 +57,10 @@ public class DriveSignal {
         this.rightFrontMotor *= power;
         return this;
     }
-    public static double floatToDouble(float f){
+    public static double floatToDouble(float f) {
+        Float d=new Float(f);
+        return d.doubleValue();
+    }
 
     public static float doubleToFloat(double d){
         Double f=new Double(d);

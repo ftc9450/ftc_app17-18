@@ -16,7 +16,7 @@ public class Drivetrain extends Subsystem {
     private DcMotor leftBack;
     private DcMotor rightBack;
 
-    private float maxPower;
+    private double maxPower;
 
     private DriveControlState controlState;
 
@@ -42,7 +42,7 @@ public class Drivetrain extends Subsystem {
         System.out.println("max power: " + maxPower);
     }
 
-    public float getMaxPower() {
+    public double getMaxPower() {
         return this.maxPower;
     }
 
@@ -112,7 +112,7 @@ public class Drivetrain extends Subsystem {
         leftBack.setTargetPosition(-distance);
         rightFront.setTargetPosition(-distance);
         rightBack.setTargetPosition(distance);
-        setPower(DriveSignal.lateralMove(power));
+        setPower(DriveSignal.lateralMove(DriveSignal.doubleToFloat(power)));
         while(isBusy());
     }
 

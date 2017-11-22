@@ -41,6 +41,9 @@ public class ControlBoard {
             return Grabber.GrabberState.CLOSED;
         }return Grabber.GrabberState.OPEN;
     }
+    public float kms(){
+        return driverController.left_stick_x;
+    }
     public Elevator.ElevatorState elevatorCommand(){
         if(driverController.dpad_up){
             return Elevator.ElevatorState.UP;
