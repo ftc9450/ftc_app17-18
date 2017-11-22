@@ -19,9 +19,9 @@ public class TeleOp extends OpMode{
     Grabber grabber;
     @Override
     public void init() {
-        drivetrain=new Drivetrain(hardwareMap.dcMotor.get("leftFront"), hardwareMap.dcMotor.get("leftBack"), hardwareMap.dcMotor.get("rightFront"), hardwareMap.dcMotor.get("rightBack"));
+        drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         subsystemManager.add(drivetrain);
-        elevator=new Elevator(hardwareMap.dcMotor.get("elevator"));
+        elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
         subsystemManager.add(elevator);
         grabber=new Grabber(hardwareMap.servo.get("servoLeft"),hardwareMap.servo.get("servoRight"));
         subsystemManager.add(grabber);

@@ -9,12 +9,20 @@ public class Constants {
         public static final float LOW_POWER = 0.3f;
         public static final int INCH=90;
         public static final int DEGREE=1;
+        public static final String LF="leftFront";
+        public static final String LB="leftBack";
+        public static final String RF="rightFront";
+        public static final String RB="rightBack";
     }
 
     public class Elevator {
         public static final float POWER = 0.3f;
+        public static final String ELEVATOR="elevator";
     }
-
+    public class Grabber{
+        public static final String L="leftServo";
+        public static final String R="rightServo";
+    }
     public class Rudder {
         public static final float RUDDER_IN = 0f;
         public static final float RUDDER_OUT = 0f;
