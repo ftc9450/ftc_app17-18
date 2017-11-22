@@ -23,8 +23,8 @@ public class Rudder extends Subsystem {
         OUT, IN
     }
 
-    /** Rudder initialization
-     *
+    /**
+     * Rudder initialization
      * @param rudderServo   servo attached to rudder
      * @param colorSensor   color sensor for checking color of jewel
      */
@@ -34,9 +34,9 @@ public class Rudder extends Subsystem {
         this.state = RudderState.IN;
     }
 
-    /** Changing state
-     *
-     * @param state state to change current state to
+    /**
+     * Changes state
+     * @param state new state
      */
     public void setState(RudderState state) {
         this.state = state;
@@ -47,11 +47,11 @@ public class Rudder extends Subsystem {
 
     }
 
-    /** Checks if jewel is red
-     *
+    /**
+     * Check color of jewel
      * @return RED if red jewel detected, BLUE if blue jewel detected, UNDECIDED if not sure
      */
-    public int isRed() {
+    public int getColor() {
         if(colorSensor instanceof SwitchableLight) ((SwitchableLight) colorSensor).enableLight(true);
         int r = colorSensor.red(), g = colorSensor.green(), b = colorSensor.blue(), a = colorSensor.alpha();
         if(a < 20 || a > 200) return Constants.Color.UNDECIDED; //???? Check projected alpha values
