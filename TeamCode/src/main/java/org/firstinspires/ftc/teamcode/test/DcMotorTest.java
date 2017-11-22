@@ -1,23 +1,31 @@
 package org.firstinspires.ftc.teamcode.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * @author Grace
  */
-@TeleOp
-public class DcMotorTest extends LinearOpMode {
-    public void runOpMode() throws InterruptedException {
-        DcMotor testMe = null;
+@Autonomous
+public class DcMotorTest extends OpMode {
+    DcMotor testMe = null;
+    public void init() {
         try {
-            testMe=hardwareMap.dcMotor.get("motor");
+            testMe=hardwareMap.dcMotor.get("frontLeft");
+            testMe.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            testMe.setPower(0.5);
         } catch(Exception e) {
             telemetry.addData("errorMesssage","Definition error!");
         }
+    }
 
-        testMe.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        testMe.setPower(0.5);
+    @Override
+    public void loop() {
+        testMe.setTargetPosition(100000000);
+        while(testMe.isBusy()){}
+        testMe.setTargetPosition(0);while(testMe.isBusy()){}
     }
 }

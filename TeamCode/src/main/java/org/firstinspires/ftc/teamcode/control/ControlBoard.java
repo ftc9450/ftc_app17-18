@@ -47,7 +47,7 @@ public class ControlBoard {
             return Elevator.ElevatorState.DOWN;
         }return Elevator.ElevatorState.OFF;
     }
-    public boolean reduceDriveSpeed() {return driverController.left_bumper;}
+    public boolean reduceDriveSpeed() {return driverController.left_stick_button||driverController.right_stick_button;}
 
     /**
      * Use for scaling movements for a joystick
