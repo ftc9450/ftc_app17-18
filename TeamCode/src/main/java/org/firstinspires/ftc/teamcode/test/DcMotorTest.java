@@ -10,22 +10,24 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * @author Grace
  */
 @Autonomous
-public class DcMotorTest extends OpMode {
+public class DcMotorTest extends LinearOpMode {
     DcMotor testMe = null;
-    public void init() {
+
+    @Override
+    public void runOpMode() throws InterruptedException {
         try {
             testMe=hardwareMap.dcMotor.get("frontLeft");
+            testMe.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             testMe.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             testMe.setPower(0.5);
         } catch(Exception e) {
             telemetry.addData("errorMesssage","Definition error!");
         }
-    }
 
-    @Override
-    public void loop() {
-        testMe.setTargetPosition(100000000);
+        testMe.setTargetPosition(1000);
         while(testMe.isBusy()){}
         testMe.setTargetPosition(0);while(testMe.isBusy()){}
     }
+
+
 }
