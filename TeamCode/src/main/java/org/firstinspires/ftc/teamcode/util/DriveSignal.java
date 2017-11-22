@@ -27,11 +27,14 @@ public class DriveSignal {
         this.breakMode = breakMode;
     }
 
-    public static DriveSignal pivot(double power){ // positive power is pivot to right
+    public static DriveSignal pivot(float pow){
+        // positive power is pivot to right
+        double power=floatToDouble(pow);
         return new DriveSignal(power, power, -power, -power);
     }
 
-    public static DriveSignal lateralMove(double power){ // positive power is move to right
+    public static DriveSignal lateralMove(float pow){ // positive power is move to right
+        double power=floatToDouble(pow);
         return new DriveSignal(power, -power, -power, power);
     }
     public static DriveSignal average(DriveSignal a, DriveSignal b){
@@ -54,6 +57,10 @@ public class DriveSignal {
         this.rightFrontMotor *= power;
         return this;
     }
+    public static double floatToDouble(float f){
 
-
+    public static float doubleToFloat(double d){
+        Double f=new Double(d);
+        return f.floatValue();
+    }
 }

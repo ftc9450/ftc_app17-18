@@ -21,10 +21,10 @@ public class TeleOp extends OpMode{
     public void init() {
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         subsystemManager.add(drivetrain);
-        elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
-        subsystemManager.add(elevator);
-        grabber=new Grabber(hardwareMap.servo.get("servoLeft"),hardwareMap.servo.get("servoRight"));
-        subsystemManager.add(grabber);
+//        elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
+//        subsystemManager.add(elevator);
+//        grabber=new Grabber(hardwareMap.servo.get("servoLeft"),hardwareMap.servo.get("servoRight"));
+//        subsystemManager.add(grabber);
 
     }
 
@@ -42,10 +42,12 @@ public class TeleOp extends OpMode{
         }
         if(controlBoard.reduceDriveSpeed()){
             d.scale(Constants.Drivetrain.LOW_POWER);
+        }else{
+            d.scale(Constants.Drivetrain.HIGH_POWER);
         }
         drivetrain.setOpenLoop(d);
-        elevator.setState(controlBoard.elevatorCommand());
-        grabber.setState(controlBoard.grabberCommand());
-        subsystemManager.loopSystems();
+//        elevator.setState(controlBoard.elevatorCommand());
+//        grabber.setState(controlBoard.grabberCommand());
+//        subsystemManager.loopSystems();
     }
 }

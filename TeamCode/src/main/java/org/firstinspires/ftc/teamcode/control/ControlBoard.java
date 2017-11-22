@@ -22,15 +22,16 @@ public class ControlBoard {
      * @return DriveSignal to power translational movement corresponding to the position of the joystick
      */
     public DriveSignal translate(){
-        float x=driverController.left_stick_x;float y=driverController.left_stick_y;
+        float a=driverController.left_stick_x;float b=driverController.left_stick_y;
+        double x=DriveSignal.floatToDouble(a);double y=DriveSignal.floatToDouble(b);
         if(x!=0) {
             double angle = Math.atan2(y, x) - Math.PI / 4;
-            return new DriveSignal(Math.sin(angle), Math.cos(angle), Math.cos(angle), Math.sin(angle)).scale(throttle(x,y));
+            return new DriveSignal(Math.sin(angle), Math.cos(angle), Math.cos(angle), Math.sin(angle)).scale(throttle(a,b));
         }else{
             if(y>0){
-                return new DriveSignal(1,1,1,1).scale(throttle(x,y));
+                return new DriveSignal(1,1,1,1).scale(throttle(a,b));
             }else if(y<0){
-                return new DriveSignal(-1,-1,-1,-1).scale(throttle(x,y));
+                return new DriveSignal(-1,-1,-1,-1).scale(throttle(a,b));
 
             }return new DriveSignal(0,0,0,0);
         }
@@ -53,7 +54,9 @@ public class ControlBoard {
      * Use for scaling movements for a joystick
      * @return distance given an x and y coordinate
      */
-    public double throttle(float x, float y){return Math.pow(Math.pow(x,2)+Math.pow(y,2),0.5);}
+    public double throttle(float a, float b){
+        Double x=DriveSignal.floatToDouble(a); double y=DriveSignal.floatToDouble(b);
+        return Math.pow(Math.pow(x,2)+Math.pow(y,2),0.5);}
 //    public double throttle() {return Math.pow(Math.pow(driverController.left_stick_y,2)+Math.pow(driverController.left_stick_x,2),0.5);}
 
 //    public float turn() {

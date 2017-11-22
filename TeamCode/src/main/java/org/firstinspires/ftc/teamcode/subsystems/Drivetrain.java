@@ -102,7 +102,7 @@ public class Drivetrain extends Subsystem {
         leftBack.setTargetPosition(distance);
         rightFront.setTargetPosition(-1*distance);
         rightBack.setTargetPosition(-1*distance);
-        setPower(DriveSignal.pivot(power));
+        //setPower(DriveSignal.pivot(power));
         while(isBusy());
     }
 

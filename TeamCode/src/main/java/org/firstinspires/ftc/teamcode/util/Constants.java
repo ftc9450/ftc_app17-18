@@ -5,14 +5,14 @@ package org.firstinspires.ftc.teamcode.util;
  */
 public class Constants {
     public class Drivetrain {
-        public static final float HIGH_POWER = 1.0f;
-        public static final float LOW_POWER = 0.3f;
+        public static final double HIGH_POWER = 1;
+        public static final double LOW_POWER = 0.3;
         public static final int INCH=90;
         public static final int DEGREE=1;
-        public static final String LF="leftFront";
-        public static final String LB="leftBack";
-        public static final String RF="rightFront";
-        public static final String RB="rightBack";
+        public static final String LF="frontLeft";
+        public static final String LB="backLeft";
+        public static final String RF="frontRight";
+        public static final String RB="backRight";
     }
 
     public class Elevator {
