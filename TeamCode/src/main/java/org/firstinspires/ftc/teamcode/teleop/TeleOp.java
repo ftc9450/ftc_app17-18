@@ -49,6 +49,6 @@ public class TeleOp extends OpMode{
         drivetrain.setOpenLoop(d);
 //        elevator.setState(controlBoard.elevatorCommand());
 //        grabber.setState(controlBoard.grabberCommand());
-//        subsystemManager.loopSystems();
+       subsystemManager.loopSystems();
     }
 }
