@@ -5,19 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.control.ControlBoard;
+import org.firstinspires.ftc.teamcode.control.GameBoard;
 
 /**
  * Created by Grace on 11/22/2017.
  */
 @TeleOp
 public class DriverControllerStupidity extends OpMode {
-    ControlBoard c=new ControlBoard(gamepad1);
+    GameBoard gb = new GameBoard(gamepad1);
     public void init() {
 
     }
 
     @Override
     public void loop() {
-        telemetry.addData("gamepad", gamepad1.left_stick_x);
+        telemetry.addData("gamepad", gb.getX());
     }
 }
