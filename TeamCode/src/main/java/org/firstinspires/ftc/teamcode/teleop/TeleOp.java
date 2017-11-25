@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 
 import org.firstinspires.ftc.teamcode.control.ControlBoard;
 import org.firstinspires.ftc.teamcode.subsystems.*;
@@ -32,7 +33,7 @@ public class TeleOp extends OpMode{
     public void loop() {
         DriveSignal translate=controlBoard.translate();
         DriveSignal turn=controlBoard.turn();
-        DriveSignal d=null;
+        DriveSignal d;
         if(turn.isZero()){
             d=translate;
         }else if(translate.isZero()){

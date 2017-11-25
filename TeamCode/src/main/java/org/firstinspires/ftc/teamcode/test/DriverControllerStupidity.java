@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.control.ControlBoard;
 
 /**
  * Created by Grace on 11/22/2017.
  */
-@Autonomous
+@TeleOp
 public class DriverControllerStupidity extends OpMode {
     ControlBoard c=new ControlBoard(gamepad1);
     public void init() {
@@ -18,7 +18,6 @@ public class DriverControllerStupidity extends OpMode {
 
     @Override
     public void loop() {
-        telemetry.addData("gamepad", c.kms());
-        c.elevatorCommand();
+        telemetry.addData("gamepad", gamepad1.left_stick_x);
     }
 }
