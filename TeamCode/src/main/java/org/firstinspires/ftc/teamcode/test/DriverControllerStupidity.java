@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.control.GameBoard;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 import org.firstinspires.ftc.teamcode.util.Constants;
+import org.firstinspires.ftc.teamcode.util.DriveSignal;
 
 /**
  * Created by Grace on 11/22/2017.
@@ -23,8 +24,8 @@ public class DriverControllerStupidity extends OpMode {
 
     @Override
     public void loop() {
-        drivetrain.setOpenLoop(gb.translate());
+        //telemetry.addData("gamepad", gb.getLeftX());
+        drivetrain.setOpenLoop(new DriveSignal(1,1,1,1));
         drivetrain.loop();
-        telemetry.addData("gamepad", gb.getLeftX());
     }
 }

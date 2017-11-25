@@ -25,9 +25,12 @@ public class GameBoard {
                 return new DriveSignal(1,1,1,1);
             }else if(y<0){
                 return new DriveSignal(-1,-1,-1,-1);
-
             }return new DriveSignal(0,0,0,0);
         }
+    }
+    public DriveSignal testMovement(){
+        //if(gamepad.left_stick_button){return new DriveSignal(1,1,1,1);}
+        return new DriveSignal(0,0,0,0);
     }
     public float getLeftX() {
         return gamepad.left_stick_x;
