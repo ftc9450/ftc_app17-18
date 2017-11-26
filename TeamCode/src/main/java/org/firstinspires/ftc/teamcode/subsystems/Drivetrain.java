@@ -26,10 +26,10 @@ public class Drivetrain extends Subsystem {
 
     public Drivetrain(DcMotor lf, DcMotor lb, DcMotor rf, DcMotor rb) {
         this.leftFront = lf;
-        this.leftFront.setDirection(DcMotor.Direction.REVERSE);
+        //this.leftFront.setDirection(DcMotor.Direction.REVERSE);
 
         this.leftBack = lb;
-        this.leftBack.setDirection(DcMotor.Direction.REVERSE);
+        //this.leftBack.setDirection(DcMotor.Direction.REVERSE);
 
         this.rightFront = rf;
         this.rightBack = rb;
