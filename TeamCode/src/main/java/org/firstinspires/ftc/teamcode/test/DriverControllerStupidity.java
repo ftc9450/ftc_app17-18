@@ -16,10 +16,11 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
  */
 @TeleOp
 public class DriverControllerStupidity extends OpMode {
-    GameBoard gb = new GameBoard(gamepad1);
+    GameBoard gb;
     Drivetrain drivetrain;
     SubsystemManager subsystemManager;
     public void init() {
+        gb = new GameBoard(gamepad1);
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         //subsystemManager.add(drivetrain);
     }
