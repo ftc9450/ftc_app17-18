@@ -19,7 +19,7 @@ public class GamepadTest extends OpMode {
     @Override
     public void loop() {
         if (gamepad1.a) testPad();
-
+        else if (gamepad1.b) testBoard();
     }
 
     public void testPad() {
