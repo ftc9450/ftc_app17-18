@@ -18,10 +18,10 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
 public class DriverControllerStupidity extends OpMode {
     GameBoard gb = new GameBoard(gamepad1);
     Drivetrain drivetrain;
-    SubsystemManager subsystemManager;
+    SubsystemManager subsystemManager=new SubsystemManager();
     public void init() {
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-        //subsystemManager.add(drivetrain);
+        subsystemManager.add(drivetrain);
     }
     public boolean reduceDriveSpeed() {return gamepad1.left_stick_button||gamepad1.right_stick_button;}
     @Override
@@ -44,7 +44,7 @@ public class DriverControllerStupidity extends OpMode {
         }
         if(reduceDriveSpeed()){d.scale(Constants.Drivetrain.LOW_POWER);}
         drivetrain.setOpenLoop(d);
-        drivetrain.loop();
+        subsystemManager.loopSystems();
     }
     public DriveSignal turn(float a){
         return DriveSignal.pivot(a);
