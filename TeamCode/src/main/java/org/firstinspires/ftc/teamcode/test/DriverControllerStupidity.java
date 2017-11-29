@@ -43,7 +43,6 @@ public class DriverControllerStupidity extends OpMode {
         }else{
             d.scale(Constants.Drivetrain.HIGH_POWER);
         }
-        if(reduceDriveSpeed()){d.scale(Constants.Drivetrain.LOW_POWER);}
         drivetrain.setOpenLoop(d);
         subsystemManager.loopSystems();
     }
@@ -51,10 +50,10 @@ public class DriverControllerStupidity extends OpMode {
         return DriveSignal.pivot(a);
     }
     public double throttle(float a, float b){
-        Double x=DriveSignal.floatToDouble(a); double y=DriveSignal.floatToDouble(b);
+        Double x=Constants.floatToDouble(a); double y=Constants.floatToDouble(b);
         return Math.pow(Math.pow(x,2)+Math.pow(y,2),0.5);}
     public DriveSignal translate(float a, float b){
-        double x=DriveSignal.floatToDouble(a);double y=DriveSignal.floatToDouble(b);
+        double x=Constants.floatToDouble(a);double y=Constants.floatToDouble(b);
         if(x!=0) {
             double angle = Math.atan2(y, x) - Math.PI / 4;
             return new DriveSignal(Math.sin(angle), Math.cos(angle), Math.cos(angle), Math.sin(angle));

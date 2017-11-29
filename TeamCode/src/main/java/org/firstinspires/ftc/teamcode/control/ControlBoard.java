@@ -23,7 +23,7 @@ public class ControlBoard {
      */
     public DriveSignal translate(){
         float a=driverController.left_stick_x;float b=driverController.left_stick_y;
-        double x=DriveSignal.floatToDouble(a);double y=DriveSignal.floatToDouble(b);
+        double x=Constants.floatToDouble(a);double y=Constants.floatToDouble(b);
         if(x!=0) {
             double angle = Math.atan2(y, x) - Math.PI / 4;
             return new DriveSignal(Math.sin(angle), Math.cos(angle), Math.cos(angle), Math.sin(angle)).scale(throttle(a,b));
@@ -58,7 +58,7 @@ public class ControlBoard {
      * @return distance given an x and y coordinate
      */
     public double throttle(float a, float b){
-        Double x=DriveSignal.floatToDouble(a); double y=DriveSignal.floatToDouble(b);
+        Double x=Constants.floatToDouble(a); double y=Constants.floatToDouble(b);
         return Math.pow(Math.pow(x,2)+Math.pow(y,2),0.5);}
 //    public double throttle() {return Math.pow(Math.pow(driverController.left_stick_y,2)+Math.pow(driverController.left_stick_x,2),0.5);}
 

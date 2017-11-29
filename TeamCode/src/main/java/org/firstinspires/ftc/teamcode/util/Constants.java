@@ -33,7 +33,15 @@ public class Constants {
         public static final int BLUE = 0;
         public static final int UNDECIDED = -1;
     }
+    public static double floatToDouble(float f) {
+        Float d=new Float(f);
+        return d.doubleValue();
+    }
 
+    public static float doubleToFloat(double d){
+        Double f=new Double(d);
+        return f.floatValue();
+    }
     public class HardwareMap {
         public static final String DCTEST = "frontLeft";
         public static final String RUDDER = "rudder_servo";

@@ -112,7 +112,7 @@ public class Drivetrain extends Subsystem {
         leftBack.setTargetPosition(-distance);
         rightFront.setTargetPosition(-distance);
         rightBack.setTargetPosition(distance);
-        setPower(DriveSignal.lateralMove(DriveSignal.doubleToFloat(power)));
+        setPower(DriveSignal.lateralMove(Constants.doubleToFloat(power)));
         while(isBusy());
     }
 

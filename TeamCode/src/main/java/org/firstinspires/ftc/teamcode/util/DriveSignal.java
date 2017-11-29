@@ -29,12 +29,12 @@ public class DriveSignal {
 
     public static DriveSignal pivot(float pow){
         // positive power is pivot to right
-        double power=floatToDouble(pow);
+        double power=Constants.floatToDouble(pow);
         return new DriveSignal(power, power, -power, -power);
     }
 
     public static DriveSignal lateralMove(float pow){ // positive power is move to right
-        double power=floatToDouble(pow);
+        double power=Constants.floatToDouble(pow);
         return new DriveSignal(power, -power, -power, power);
     }
     public static DriveSignal average(DriveSignal a, DriveSignal b){
@@ -45,7 +45,7 @@ public class DriveSignal {
 
     @Override
     public String toString() {
-        return "LF: " + leftFrontMotor + ",LB: " +", RF: " + rightFrontMotor+", RB: "+rightBackMotor;
+        return "LF: " + leftFrontMotor + ",LB: " +leftBackMotor+", RF: " + rightFrontMotor+", RB: "+rightBackMotor;
     }
     public boolean isZero(){
         return leftFrontMotor==0&&leftBackMotor==0&&rightFrontMotor==0&&rightBackMotor==0;
@@ -57,13 +57,5 @@ public class DriveSignal {
         this.rightFrontMotor *= power;
         return this;
     }
-    public static double floatToDouble(float f) {
-        Float d=new Float(f);
-        return d.doubleValue();
-    }
 
-    public static float doubleToFloat(double d){
-        Double f=new Double(d);
-        return f.floatValue();
-    }
 }
