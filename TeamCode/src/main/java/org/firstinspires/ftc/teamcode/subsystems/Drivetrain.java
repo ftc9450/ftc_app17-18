@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.*;
 
 /**
@@ -26,10 +24,8 @@ public class Drivetrain extends Subsystem {
 
     public Drivetrain(DcMotor lf, DcMotor lb, DcMotor rf, DcMotor rb) {
         this.leftFront = lf;
-        //this.leftFront.setDirection(DcMotor.Direction.REVERSE);
 
         this.leftBack = lb;
-        //this.leftBack.setDirection(DcMotor.Direction.REVERSE);
 
         this.rightFront = rf;
         this.rightBack = rb;
@@ -75,7 +71,7 @@ public class Drivetrain extends Subsystem {
         leftBack.setPower(-signal.leftBackMotor * maxPower);
     }
 
-    public void resetMotors(){
+    public void enableAndResetEncoders(){
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -85,9 +81,14 @@ public class Drivetrain extends Subsystem {
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
-
+    public void disconnectEncoders(){
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
     public void moveFB(int distance, double power){ //positive power is move forward
-        resetMotors();
+        enableAndResetEncoders();
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(distance);
         rightFront.setTargetPosition(distance);
@@ -97,7 +98,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void pivot(int distance, double power){ //positive power is move to right
-        resetMotors();
+        enableAndResetEncoders();
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(distance);
         rightFront.setTargetPosition(-1*distance);
@@ -107,7 +108,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void moveLR(int distance, double power){//positive power is move to right
-        resetMotors();
+        enableAndResetEncoders();
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(-distance);
         rightFront.setTargetPosition(-distance);

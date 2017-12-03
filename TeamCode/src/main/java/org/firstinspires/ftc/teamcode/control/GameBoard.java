@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
 /**
  * Created by dhruv on 11/25/17.
  */
-
+@Deprecated
 public class GameBoard {
     private Gamepad gamepad;
     public GameBoard(Gamepad gamepad) {

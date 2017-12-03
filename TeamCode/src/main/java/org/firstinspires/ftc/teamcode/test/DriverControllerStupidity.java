@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
 /**
  * Created by Grace on 11/22/2017.
  */
-@TeleOp
+@TeleOp@Disabled
 public class DriverControllerStupidity extends OpMode {
     GameBoard gb;
     Drivetrain drivetrain;
