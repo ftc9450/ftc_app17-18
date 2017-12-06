@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.util.*;
 
@@ -24,12 +25,13 @@ public class Drivetrain extends Subsystem {
 
     public Drivetrain(DcMotor lf, DcMotor lb, DcMotor rf, DcMotor rb) {
         this.leftFront = lf;
-
         this.leftBack = lb;
-
         this.rightFront = rf;
         this.rightBack = rb;
-
+        this.leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         maxPower = Constants.Drivetrain.HIGH_POWER;
     }
 
@@ -46,13 +48,15 @@ public class Drivetrain extends Subsystem {
         controlState = DriveControlState.OPEN_LOOP;
         rightFront.setPower(signal.rightFrontMotor * maxPower);
         rightBack.setPower(signal.rightBackMotor * maxPower);
-        leftFront.setPower(-signal.leftFrontMotor * maxPower);
-        leftBack.setPower(-signal.leftBackMotor * maxPower);
+        leftFront.setPower(signal.leftFrontMotor * maxPower);
+        leftBack.setPower(signal.leftBackMotor * maxPower);
     }
     public boolean isBusy(){
         return leftFront.isBusy() || leftBack.isBusy() || rightFront.isBusy() || rightBack.isBusy();
     }
-
+    public String toString(){
+        return leftFront.getPower()+" "+leftBack.getPower()+" "+rightFront.getPower()+" "+rightBack.getPower();
+    }
     @Override
     public synchronized void stop() {
         setOpenLoop(DriveSignal.NEUTRAL);
@@ -67,8 +71,8 @@ public class Drivetrain extends Subsystem {
     public void setPower(DriveSignal signal) {
         rightFront.setPower(signal.rightFrontMotor * maxPower);
         rightBack.setPower(signal.rightBackMotor * maxPower);
-        leftFront.setPower(-signal.leftFrontMotor * maxPower);
-        leftBack.setPower(-signal.leftBackMotor * maxPower);
+        leftFront.setPower(signal.leftFrontMotor * maxPower);
+        leftBack.setPower(signal.leftBackMotor * maxPower);
     }
 
     public void enableAndResetEncoders(){
@@ -101,8 +105,8 @@ public class Drivetrain extends Subsystem {
         enableAndResetEncoders();
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(distance);
-        rightFront.setTargetPosition(-1*distance);
-        rightBack.setTargetPosition(-1*distance);
+        rightFront.setTargetPosition(distance);
+        rightBack.setTargetPosition(distance);
         //setPower(DriveSignal.pivot(power));
         while(isBusy());
     }
@@ -110,8 +114,8 @@ public class Drivetrain extends Subsystem {
     public void moveLR(int distance, double power){//positive power is move to right
         enableAndResetEncoders();
         leftFront.setTargetPosition(distance);
-        leftBack.setTargetPosition(-distance);
-        rightFront.setTargetPosition(-distance);
+        leftBack.setTargetPosition(distance);
+        rightFront.setTargetPosition(distance);
         rightBack.setTargetPosition(distance);
         setPower(DriveSignal.lateralMove(Constants.doubleToFloat(power)));
         while(isBusy());

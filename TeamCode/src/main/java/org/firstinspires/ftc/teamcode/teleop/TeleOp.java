@@ -50,6 +50,8 @@ public class TeleOp extends OpMode{
         }
         telemetry.addData("dpad",gamepad1.dpad_down);
         d.scale(controlBoard.reduceDriveSpeed());
+        telemetry.addData("power",gamepad1.left_stick_y);
+        telemetry.addData("motor power",drivetrain.toString());
         drivetrain.setOpenLoop(d);
         subsystemManager.loopSystems();
     }

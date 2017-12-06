@@ -22,7 +22,7 @@ public class ControlBoard {
      * @return DriveSignal to power translational movement corresponding to the position of the joystick
      */
     public DriveSignal translate(){
-        float a=driverController.left_stick_x;float b=driverController.left_stick_y;
+        float a=driverController.left_stick_x;float b=-driverController.left_stick_y;
         boolean u=driverController.dpad_up;boolean d=driverController.dpad_down;boolean l=driverController.dpad_left;boolean r=driverController.dpad_right;
         if(u||d||l||r){
             if(u){b=0.3f;}
