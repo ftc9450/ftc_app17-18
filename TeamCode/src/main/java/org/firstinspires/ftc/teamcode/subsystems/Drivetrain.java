@@ -26,12 +26,12 @@ public class Drivetrain extends Subsystem {
     public Drivetrain(DcMotor lf, DcMotor lb, DcMotor rf, DcMotor rb) {
         this.leftFront = lf;
         this.leftBack = lb;
+        this.leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
         this.rightFront = rf;
         this.rightBack = rb;
-        this.leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         maxPower = Constants.Drivetrain.HIGH_POWER;
     }
 
@@ -98,7 +98,7 @@ public class Drivetrain extends Subsystem {
         rightFront.setTargetPosition(distance);
         rightBack.setTargetPosition(distance);
         setPower(new DriveSignal(power, power, power,power));
-        while(isBusy());
+        try{while(isBusy());}catch (Exception e){}
     }
 
     public void pivot(int distance, double power){ //positive power is move to right

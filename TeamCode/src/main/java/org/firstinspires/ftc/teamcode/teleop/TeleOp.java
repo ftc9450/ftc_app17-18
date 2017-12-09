@@ -24,8 +24,8 @@ public class TeleOp extends OpMode{
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         drivetrain.disconnectEncoders();
         subsystemManager.add(drivetrain);
-//        elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
-//        subsystemManager.add(elevator);
+        elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
+        subsystemManager.add(elevator);
 //        grabber=new Grabber(hardwareMap.servo.get("servoLeft"),hardwareMap.servo.get("servoRight"));
 //        subsystemManager.add(grabber);
 
@@ -39,7 +39,6 @@ public class TeleOp extends OpMode{
         if(controlBoard.flip()){
             drivetrain.pivot(Constants.Drivetrain.INCH*12,0.5);
             drivetrain.disconnectEncoders();
-            while(controlBoard.flip()){}
         }
         if(turn.isZero()){
             d=translate;
@@ -53,6 +52,7 @@ public class TeleOp extends OpMode{
         telemetry.addData("power",gamepad1.left_stick_y);
         telemetry.addData("motor power",drivetrain.toString());
         drivetrain.setOpenLoop(d);
+        elevator.setState(controlBoard.elevatorCommand());
         subsystemManager.loopSystems();
     }
 }

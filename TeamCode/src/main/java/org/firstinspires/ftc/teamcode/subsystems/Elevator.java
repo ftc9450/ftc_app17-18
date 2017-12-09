@@ -45,6 +45,7 @@ public class Elevator extends Subsystem{
                 elevatorMotor.setPower(speed);
                 break;
             case OFF:
+                elevatorMotor.setPower(0);
             default:
                 stop();
         }

@@ -16,7 +16,7 @@ public class Constants {
     }
 
     public class Elevator {
-        public static final float POWER = 0.3f;
+        public static final float POWER = 0.1f;
         public static final String ELEVATOR="elevator";
     }
     public class Grabber{

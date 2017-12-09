@@ -24,14 +24,14 @@ public class ControlBoard {
     public DriveSignal translate(){
         float a=driverController.left_stick_x;float b=-driverController.left_stick_y;
         boolean u=driverController.dpad_up;boolean d=driverController.dpad_down;boolean l=driverController.dpad_left;boolean r=driverController.dpad_right;
-        if(u||d||l||r){
-            if(u){b=0.3f;}
-            if(d){b=-0.3f;}
-            if(l){a=-0.3f;}
-            if(r){a=0.3f;}
-        }
         double x = Constants.floatToDouble(a);
         double y = Constants.floatToDouble(b);
+        if(u||d||l||r){
+            if(u){y=0.1;}
+            if(d){y=-0.1;}
+            if(l){x=-0.1;}
+            if(r){x=0.1;}
+        }
         if (x != 0) {
             double angle = Math.atan2(y, x) - Math.PI / 4;
             return new DriveSignal(Math.cos(angle), Math.sin(angle), Math.sin(angle), Math.cos(angle)).scale(throttle(a, b));
@@ -52,14 +52,14 @@ public class ControlBoard {
         }return Grabber.GrabberState.OPEN;
     }
     public Elevator.ElevatorState elevatorCommand(){
-        if(driverController.dpad_up){
+        if(driverController.y){
             return Elevator.ElevatorState.UP;
-        }else if(driverController.dpad_down){
+        }else if(driverController.a){
             return Elevator.ElevatorState.DOWN;
         }return Elevator.ElevatorState.OFF;
     }
     public float reduceDriveSpeed() {
-        if(driverController.left_trigger>0){return Constants.doubleToFloat(Constants.Drivetrain.HIGH_POWER-(driverController.left_trigger/2));}
+        if(driverController.left_trigger>0){return Constants.doubleToFloat(Constants.Drivetrain.HIGH_POWER-(driverController.left_trigger*(Constants.Drivetrain.HIGH_POWER-Constants.Drivetrain.LOW_POWER)));}
         return Constants.doubleToFloat(Constants.Drivetrain.HIGH_POWER-(driverController.right_trigger/2));
     }
     public boolean flip(){
