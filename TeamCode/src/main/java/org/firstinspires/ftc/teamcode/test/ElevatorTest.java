@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  * Created by dhruv on 12/9/17.
  */
 
+@TeleOp
 public class ElevatorTest extends OpMode {
     private Elevator elevator;
 
