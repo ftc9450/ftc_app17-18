@@ -6,28 +6,21 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.control.ControlBoard;
+
 /**
  * @author Grace
  */
-@Autonomous
-public class DcMotorTest extends LinearOpMode {
+@TeleOp
+public class DcMotorTest extends OpMode {
     DcMotor testMe = null;
-
     @Override
-    public void runOpMode() throws InterruptedException {
-        try {
-            testMe=hardwareMap.dcMotor.get("frontLeft");
-            testMe.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            testMe.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            testMe.setPower(0.5);
-        } catch(Exception e) {
-            telemetry.addData("errorMesssage","Definition error!");
-        }
-
-        testMe.setTargetPosition(1000);
-        while(testMe.isBusy()){}
-        testMe.setTargetPosition(0);while(testMe.isBusy()){}
+    public void init() {
+        testMe=hardwareMap.dcMotor.get("name");
     }
 
-
+    @Override
+    public void loop() {
+        testMe.setPower(-1.0*gamepad1.left_stick_y);
+    }
 }
