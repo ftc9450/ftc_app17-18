@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.util.*;
  * Created by O on 10/28/2017.
  */
 
-@TeleOp
 public class Elevator extends Subsystem{
     private DcMotor elevatorMotor;
     private double speed = Constants.Elevator.POWER;
