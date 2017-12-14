@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 
 import org.firstinspires.ftc.teamcode.control.ControlBoard;
 import org.firstinspires.ftc.teamcode.subsystems.*;
@@ -16,7 +15,7 @@ public class TeleOp extends OpMode{
     SubsystemManager subsystemManager=new SubsystemManager();
     Drivetrain drivetrain;
     ControlBoard controlBoard;
-    Elevator elevator;
+    RelicArm elevator;
     Grabber grabber;
     @Override
     public void init() {
@@ -24,7 +23,7 @@ public class TeleOp extends OpMode{
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         drivetrain.disconnectEncoders();
         subsystemManager.add(drivetrain);
-        elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
+        elevator=new RelicArm(hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         subsystemManager.add(elevator);
 //        grabber=new Grabber(hardwareMap.servo.get("servoLeft"),hardwareMap.servo.get("servoRight"));
 //        subsystemManager.add(grabber);
