@@ -43,7 +43,7 @@ public class DriveForward extends OpMode {
 
     @Override
     public void loop() {
-        DriveSignal signal;
+        DriveSignal signal = new DriveSignal(0, 0,0 ,0);
         double angle;
 
         float L[] = {gamepad1.left_stick_x, gamepad1.left_stick_y};
@@ -55,7 +55,7 @@ public class DriveForward extends OpMode {
         if (R[1] != 0) {
             if (R[1] > 0) signal = new DriveSignal(1, 1, -1, -1);
             else signal = new DriveSignal(-1, -1, 1, 1);
-        } else {
+        } else if (L[1] > 0){
             double a = Math.cos(angle) + Math.sin(angle);
             double b = Math.cos(angle) - Math.sin(angle);
             signal = new DriveSignal(a, b, b, a);
