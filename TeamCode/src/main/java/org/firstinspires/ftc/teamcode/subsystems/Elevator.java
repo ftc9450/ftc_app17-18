@@ -21,6 +21,9 @@ public class Elevator extends Subsystem{
 
     public Elevator(DcMotor elevatorMotor){
         this.elevatorMotor = elevatorMotor;
+        this.elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         state = ElevatorState.OFF;
     }
 
@@ -36,19 +39,20 @@ public class Elevator extends Subsystem{
 
     @Override
     public void loop() {
-        switch(state){
-            case UP:
-                elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        switch (state) {
+        case UP:
+            if(elevatorMotor.getCurrentPosition()<Constants.Elevator.maxEncoder) {
                 elevatorMotor.setPower(speed);
-                break;
-            case DOWN:
-                elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-                elevatorMotor.setPower(speed);
-                break;
-            case OFF:
-                elevatorMotor.setPower(0);
-            default:
-                stop();
+            }else{stop();}
+            break;
+        case DOWN:
+            if(elevatorMotor.getCurrentPosition()>0) {
+                elevatorMotor.setPower(-1 * speed);
+            }else{stop();}
+            break;
+        case OFF:
+        default:
+            stop();
         }
     }
 }

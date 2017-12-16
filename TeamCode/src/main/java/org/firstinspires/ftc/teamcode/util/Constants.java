@@ -16,8 +16,9 @@ public class Constants {
     }
 
     public class Elevator {
-        public static final float POWER = 0.1f;
+        public static final float POWER = 1.0f;
         public static final String ELEVATOR="elevator";
+        public static final double maxEncoder=10*420;//420 ppr for neverest 60
     }
     public class Grabber{
         public static final String L="leftServo";
