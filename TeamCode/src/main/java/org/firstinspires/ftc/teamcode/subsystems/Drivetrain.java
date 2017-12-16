@@ -26,12 +26,12 @@ public class Drivetrain extends Subsystem {
     public Drivetrain(DcMotor lf, DcMotor lb, DcMotor rf, DcMotor rb) {
         this.leftFront = lf;
         this.leftBack = lb;
+        this.rightFront = rf;
+        this.rightBack = rb;
         this.leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         this.rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         this.rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
-        this.rightFront = rf;
-        this.rightBack = rb;
         maxPower = Constants.Drivetrain.HIGH_POWER;
     }
 
@@ -101,13 +101,13 @@ public class Drivetrain extends Subsystem {
         try{while(isBusy());}catch (Exception e){}
     }
 
-    public void pivot(int distance, double power){ //positive power is move to right
+    public void pivot(int distance, double power){
         enableAndResetEncoders();
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(distance);
         rightFront.setTargetPosition(distance);
         rightBack.setTargetPosition(distance);
-        //setPower(DriveSignal.pivot(power));
+        setPower(DriveSignal.pivot(Constants.doubleToFloat(power)));
         while(isBusy());
     }
 

@@ -17,15 +17,17 @@ import org.firstinspires.ftc.teamcode.util.*;
  */
 @Autonomous
 public class StateBaseAutoRed extends LinearOpMode{
-    Drivetrain driveTrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-    Rudder jewelRudder = new Rudder(hardwareMap.servo.get("jewelRudder"), hardwareMap.colorSensor.get("colorSensor"));
+    Drivetrain driveTrain;
+    Rudder jewelRudder;
 
     public void runOpMode() throws InterruptedException {
+        driveTrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
+        jewelRudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("sensor_color_distance"));
+        jewelRudder.loop();
         driveTrain.moveFB(0,0.5);
-
         // move jewel rudder down
-        jewelRudder.setState(Rudder.RudderState.OUT);
-        driveTrain.moveFB(-840, 0.5); // move 18 inches backwards
+        jewelRudder.setState(Rudder.RudderState.OUT);jewelRudder.loop();
+//        driveTrain.moveFB(-840, 0.5); // move 18 inches backwards
 
         // color detection-assumes that color sensor is mounted on left
         if (jewelRudder.getColor() == Constants.Color.RED) {

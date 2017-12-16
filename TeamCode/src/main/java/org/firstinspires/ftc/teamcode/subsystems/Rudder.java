@@ -30,6 +30,7 @@ public class Rudder extends Subsystem {
      */
     public Rudder(Servo rudderServo, ColorSensor colorSensor) {
         this.rudderServo = rudderServo;
+        this.rudderServo.setDirection(Servo.Direction.REVERSE);
         this.colorSensor = colorSensor;
         this.setState(RudderState.IN);
     }
@@ -41,12 +42,14 @@ public class Rudder extends Subsystem {
     public void setState(RudderState state) {
         this.state = state;
     }
-
     @Override
     public void stop() {
 
     }
-
+    public String toString(){
+        if(state==RudderState.IN){return "in";}
+        return "out";
+    }
     /**
      * Check color of jewel
      * @return RED if red jewel detected, BLUE if blue jewel detected, UNDECIDED if not sure

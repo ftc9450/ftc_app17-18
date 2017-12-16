@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,7 +15,7 @@ import static android.R.transition.move;
 /**
  * @author Grace
  */
-@Autonomous
+@Autonomous@Disabled@Deprecated
 public class BadAutonomousRed extends LinearOpMode{
     DcMotor leftFront=hardwareMap.dcMotor.get("leftFront");
     DcMotor leftBack=hardwareMap.dcMotor.get("leftBack");
