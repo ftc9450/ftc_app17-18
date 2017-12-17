@@ -52,8 +52,8 @@ public class DriveForward extends OpMode {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         angle = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
 
-        if (R[1] != 0) {
-            if (R[1] > 0) signal = new DriveSignal(1, 1, -1, -1);
+        if (R[0] != 0) {
+            if (R[0] > 0) signal = new DriveSignal(1, 1, -1, -1);
             else signal = new DriveSignal(-1, -1, 1, 1);
         } else if (L[1] > 0){
             double a = Math.cos(angle) + Math.sin(angle);
