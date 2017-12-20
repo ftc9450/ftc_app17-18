@@ -44,12 +44,9 @@ public class TeleOp extends OpMode{
         }else if(translate.isZero()){
             d=turn;
         }else{
-            d=DriveSignal.average(translate,turn);
+            d=DriveSignal.BRAKE;
         }
-        telemetry.addData("dpad",gamepad1.dpad_down);
         d.scale(controlBoard.reduceDriveSpeed());
-        telemetry.addData("power",gamepad1.left_stick_y);
-        telemetry.addData("motor power",drivetrain.toString());
         drivetrain.setOpenLoop(d);
         elevator.setState(controlBoard.elevatorCommand());
         subsystemManager.loopSystems();

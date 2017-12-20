@@ -6,7 +6,7 @@ package org.firstinspires.ftc.teamcode.util;
 public class Constants {
     public class Drivetrain {
         public static final double HIGH_POWER = 1;
-        public static final double LOW_POWER = 0.3;
+        public static final double LOW_POWER = 0.1;
         public static final int INCH=90;
         public static final int DEGREE=1;
         public static final String LF="frontLeft";
@@ -18,15 +18,15 @@ public class Constants {
     public class Elevator {
         public static final float POWER = 1.0f;
         public static final String ELEVATOR="elevator";
-        public static final double maxEncoder=10*420;//420 ppr for neverest 60
+        public static final double maxEncoder=10*1680;//1680 cpr for neverest 60
     }
     public class Grabber{
         public static final String L="leftServo";
         public static final String R="rightServo";
     }
     public class Rudder {
-        public static final float RUDDER_IN = 0f;
-        public static final float RUDDER_OUT = 0f;
+        public static final double RUDDER_IN = 0;
+        public static final double RUDDER_OUT = 0.5;
     }
 
     public class Color {

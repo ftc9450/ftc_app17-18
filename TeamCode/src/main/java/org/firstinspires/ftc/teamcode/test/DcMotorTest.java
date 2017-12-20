@@ -17,10 +17,15 @@ public class DcMotorTest extends OpMode {
     @Override
     public void init() {
         testMe=hardwareMap.dcMotor.get("name");
+        testMe.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        testMe.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     @Override
     public void loop() {
-        testMe.setPower(-1.0*gamepad1.left_stick_y);
+        if(gamepad1.y){
+            testMe.setPower(1);
+        }else{testMe.setPower(0);}
+        telemetry.addData("encoder counts",testMe.getCurrentPosition());
     }
 }
