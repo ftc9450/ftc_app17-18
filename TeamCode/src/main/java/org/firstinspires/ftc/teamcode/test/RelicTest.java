@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -8,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by dhruv on 12/20/17.
  */
 
-@TeleOp
+@Autonomous
 public class RelicTest extends OpMode {
     private Servo pivot;
     private Servo hand;
