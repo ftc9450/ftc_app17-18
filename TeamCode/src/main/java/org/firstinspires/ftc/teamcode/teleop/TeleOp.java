@@ -30,6 +30,8 @@ public class TeleOp extends OpMode{
     private BNO055IMU imu;
     Orientation angles;
 
+    float normal;
+
     @Override
     public void init() {
         // Get the calibration data
@@ -46,7 +48,7 @@ public class TeleOp extends OpMode{
         telemetry.log().add("saved to '%s'", filename);
         telemetry.log().add(imu.getCalibrationStatus().toString());
 
-        float normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
+        normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit    = BNO055IMU.AngleUnit.DEGREES;
@@ -67,7 +69,7 @@ public class TeleOp extends OpMode{
 
     @Override
     public void loop() {
-        telemetry.addData("heading", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES));
+        telemetry.addData("heading", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle - normal);
         DriveSignal d;
         DriveSignal translate=controlBoard.translate();
         DriveSignal turn=controlBoard.turn();
