@@ -103,19 +103,19 @@ public class Drivetrain extends Subsystem {
 
     public void pivot(int distance, double power){
         enableAndResetEncoders();
-        leftFront.setTargetPosition(distance);
-        leftBack.setTargetPosition(distance);
+        leftFront.setTargetPosition(-1*distance);
+        leftBack.setTargetPosition(-1*distance);
         rightFront.setTargetPosition(distance);
         rightBack.setTargetPosition(distance);
         setPower(DriveSignal.pivot(Constants.doubleToFloat(power)));
         while(isBusy());
     }
 
-    public void moveLR(int distance, double power){//positive power is move to right
+    public void moveLR(int distance, double power){//positive power and distance is move to right
         enableAndResetEncoders();
         leftFront.setTargetPosition(distance);
-        leftBack.setTargetPosition(distance);
-        rightFront.setTargetPosition(distance);
+        leftBack.setTargetPosition(-1*distance);
+        rightFront.setTargetPosition(-1*distance);
         rightBack.setTargetPosition(distance);
         setPower(DriveSignal.lateralMove(Constants.doubleToFloat(power)));
         while(isBusy());
