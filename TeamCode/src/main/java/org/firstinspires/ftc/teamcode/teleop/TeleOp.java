@@ -34,14 +34,14 @@ public class TeleOp extends OpMode{
 
     @Override
     public void init() {
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit    = BNO055IMU.AngleUnit.DEGREES;
-        parameters.calibrationDataFile  = "IMUCalibration.json";
-        parameters.loggingEnabled       = true;
-        parameters.loggingTag           = "IMU";
-
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-
+//        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+//        parameters.angleUnit    = BNO055IMU.AngleUnit.DEGREES;
+//        parameters.calibrationDataFile  = "IMUCalibration.json";
+//        parameters.loggingEnabled       = true;
+//        parameters.loggingTag           = "IMU";
+//
+//        imu = hardwareMap.get(BNO055IMU.class, "imu");
+//        imu.initialize(parameters);
         controlBoard=new ControlBoard(gamepad1);
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         drivetrain.disconnectEncoders();
@@ -49,13 +49,13 @@ public class TeleOp extends OpMode{
 //        grabber=new Grabber(hardwareMap.servo.get("servoLeft"),hardwareMap.servo.get("servoRight"));
 //        subsystemManager.add(grabber);
 
-        normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
+        //normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
 
     }
 
     @Override
     public void loop() {
-        telemetry.addData("heading", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle - normal);
+       // telemetry.addData("heading", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle - normal);
         DriveSignal d;
         DriveSignal translate=controlBoard.translate();
         DriveSignal turn=controlBoard.turn();
