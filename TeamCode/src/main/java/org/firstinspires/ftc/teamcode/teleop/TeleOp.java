@@ -54,6 +54,8 @@ public class TeleOp extends OpMode{
         parameters.loggingEnabled       = true;
         parameters.loggingTag           = "IMU";
 
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+
         controlBoard=new ControlBoard(gamepad1);
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         drivetrain.disconnectEncoders();
