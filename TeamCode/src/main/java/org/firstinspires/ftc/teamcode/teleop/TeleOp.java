@@ -34,22 +34,6 @@ public class TeleOp extends OpMode{
 
     @Override
     public void init() {
-        // Get the calibration data
-        BNO055IMU.CalibrationData calibrationData = imu.readCalibrationData();
-
-        // Save the calibration data to a file. You can choose whatever file
-        // name you wish here, but you'll want to indicate the same file name
-        // when you initialize the IMU in an opmode in which it is used. If you
-        // have more than one IMU on your robot, you'll of course want to use
-        // different configuration file names for each.
-        String filename = "IMUCalibration.json";
-        File file = AppUtil.getInstance().getSettingsFile(filename);
-        ReadWriteFile.writeFile(file, calibrationData.serialize());
-        telemetry.log().add("saved to '%s'", filename);
-        telemetry.log().add(imu.getCalibrationStatus().toString());
-
-        normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
-
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit    = BNO055IMU.AngleUnit.DEGREES;
         parameters.calibrationDataFile  = "IMUCalibration.json";
@@ -64,6 +48,8 @@ public class TeleOp extends OpMode{
         subsystemManager.add(drivetrain);
 //        grabber=new Grabber(hardwareMap.servo.get("servoLeft"),hardwareMap.servo.get("servoRight"));
 //        subsystemManager.add(grabber);
+
+        normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
 
     }
 
