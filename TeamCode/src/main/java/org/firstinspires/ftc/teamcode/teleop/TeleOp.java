@@ -50,12 +50,16 @@ public class TeleOp extends OpMode{
 //        subsystemManager.add(grabber);
 
         //normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
 
     }
 
     @Override
     public void loop() {
        // telemetry.addData("heading", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle - normal);
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        telemetry.addData("heading", angles.firstAngle - normal);
         DriveSignal d;
         DriveSignal translate=controlBoard.translate();
         DriveSignal turn=controlBoard.turn();
