@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 public class RelicArm extends Subsystem {
     private DcMotor RelicArmMotor;
     private double speed = Constants.Elevator.POWER;
+    private RelicArmState state;
 
     public enum RelicArmState {
         OUT, IN, OFF
