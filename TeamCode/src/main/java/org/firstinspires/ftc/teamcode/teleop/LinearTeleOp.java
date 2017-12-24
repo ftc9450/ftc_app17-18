@@ -34,6 +34,8 @@ public class LinearTeleOp extends LinearOpMode {
     float normal;
 
     public void runOpMode() {
+        telemetry.addData("heading", 9450);
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit    = BNO055IMU.AngleUnit.DEGREES;
         parameters.calibrationDataFile  = "IMUCalibration.json";
@@ -52,10 +54,11 @@ public class LinearTeleOp extends LinearOpMode {
         waitForStart();
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        //normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
+        normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
         while (opModeIsActive()) {
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            telemetry.addData("heading", angles.firstAngle);
+            telemetry.addData("heading", angles.firstAngle - normal);
+            telemetry.update();
             DriveSignal d;
             DriveSignal translate=controlBoard.translate();
             DriveSignal turn=controlBoard.turn();
