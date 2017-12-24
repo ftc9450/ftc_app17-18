@@ -54,7 +54,6 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-@Disabled
 public class LinearTest extends LinearOpMode {
 
     // Declare OpMode members.
@@ -73,7 +72,7 @@ public class LinearTest extends LinearOpMode {
         leftDrive  = hardwareMap.get(DcMotor.class, Constants.Drivetrain.LF);
         rightDrive = hardwareMap.get(DcMotor.class, Constants.Drivetrain.RF);
 
-        // Most robots need the motor on one side to be reversed to drive forward
+        // Most robots need the motor on one side to be reversed to drive forwardu
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);

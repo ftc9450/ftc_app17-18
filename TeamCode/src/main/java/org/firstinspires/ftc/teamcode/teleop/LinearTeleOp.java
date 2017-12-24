@@ -25,7 +25,7 @@ public class LinearTeleOp extends LinearOpMode {
     SubsystemManager subsystemManager=new SubsystemManager();
     Drivetrain drivetrain;
     ControlBoard controlBoard;
-    RelicArm elevator;
+    //RelicArm elevator;
     Grabber grabber;
 
     private BNO055IMU imu;
@@ -72,7 +72,7 @@ public class LinearTeleOp extends LinearOpMode {
             }
             d.scale(controlBoard.reduceDriveSpeed());
             drivetrain.setOpenLoop(d);
-            elevator.setState(controlBoard.elevatorCommand());
+            //elevator.setState(controlBoard.elevatorCommand());
             subsystemManager.loopSystems();
         }
     }

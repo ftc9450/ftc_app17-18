@@ -24,7 +24,7 @@ public class TeleOp extends OpMode{
     SubsystemManager subsystemManager=new SubsystemManager();
     Drivetrain drivetrain;
     ControlBoard controlBoard;
-    RelicArm elevator;
+    //RelicArm elevator;
     Grabber grabber;
 
     private BNO055IMU imu;
@@ -71,7 +71,7 @@ public class TeleOp extends OpMode{
         }
         d.scale(controlBoard.reduceDriveSpeed());
         drivetrain.setOpenLoop(d);
-        elevator.setState(controlBoard.elevatorCommand());
+        //elevator.setState(controlBoard.elevatorCommand());
         subsystemManager.loopSystems();
     }
 }
