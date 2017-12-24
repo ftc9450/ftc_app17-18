@@ -52,10 +52,10 @@ public class LinearTeleOp extends LinearOpMode {
         waitForStart();
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
+        //normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
         while (opModeIsActive()) {
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            telemetry.addData("heading", angles.firstAngle - normal);
+            telemetry.addData("heading", angles.firstAngle);
             DriveSignal d;
             DriveSignal translate=controlBoard.translate();
             DriveSignal turn=controlBoard.turn();
