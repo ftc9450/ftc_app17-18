@@ -54,6 +54,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@Disabled
 public class LinearTest extends LinearOpMode {
 
     // Declare OpMode members.

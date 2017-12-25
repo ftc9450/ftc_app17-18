@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Rudder;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 
 @Autonomous
+@Disabled
 public class ColorSensorTest extends OpMode {
     private Rudder rudder;
 
