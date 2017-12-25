@@ -10,7 +10,6 @@ public class Grabber extends Subsystem{
 
     private Servo leftServo;
     private Servo rightServo;
-    private Servo[] servos;
 
     private double openPosition = Servo.MIN_POSITION;
     private double closedPosition = Servo.MAX_POSITION;
