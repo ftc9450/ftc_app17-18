@@ -24,7 +24,7 @@ public class TeleOp extends OpMode{
     SubsystemManager subsystemManager=new SubsystemManager();
     Drivetrain drivetrain;
     ControlBoard controlBoard;
-    RelicArm elevator;
+    //RelicArm elevator;
     Grabber grabber;
 
     private BNO055IMU imu;
@@ -59,7 +59,7 @@ public class TeleOp extends OpMode{
     public void loop() {
        // telemetry.addData("heading", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle - normal);
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        telemetry.addData("heading", angles.firstAngle - normal);
+        telemetry.addData("heading", angles.firstAngle);
         DriveSignal d;
         DriveSignal translate=controlBoard.translate();
         DriveSignal turn=controlBoard.turn();
@@ -76,7 +76,7 @@ public class TeleOp extends OpMode{
         }
         d.scale(controlBoard.reduceDriveSpeed());
         drivetrain.setOpenLoop(d);
-        elevator.setState(controlBoard.elevatorCommand());
+        //elevator.setState(controlBoard.elevatorCommand());
         subsystemManager.loopSystems();
     }
 }

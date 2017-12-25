@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  * Created by Grace on 12/13/2017.
  */
 @TeleOp
+@Disabled
 public class ElevatorClassTest extends OpMode {
     RelicArm elevator;
     ControlBoard controlBoard;

@@ -15,7 +15,8 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
 /**
  * Created by Grace on 11/22/2017.
  */
-@TeleOp@Disabled
+@TeleOp
+@Disabled
 public class DriverControllerStupidity extends OpMode {
     GameBoard gb;
     Drivetrain drivetrain;

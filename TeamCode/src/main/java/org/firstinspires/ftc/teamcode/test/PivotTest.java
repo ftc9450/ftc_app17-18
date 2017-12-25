@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -22,6 +23,7 @@ import java.util.Locale;
  * Simple test to drive forward and pivot 180° while driving
  */
 
+@Disabled
 public class PivotTest extends OpMode {
     private Drivetrain drive;
     private BNO055IMU imu;
