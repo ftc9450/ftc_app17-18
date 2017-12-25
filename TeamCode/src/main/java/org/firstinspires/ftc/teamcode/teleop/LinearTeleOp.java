@@ -5,12 +5,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ReadWriteFile;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.control.ControlBoard;
+import org.firstinspires.ftc.teamcode.sensors.Gyroscope;
 import org.firstinspires.ftc.teamcode.subsystems.*;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.DriveSignal;
@@ -28,10 +31,13 @@ public class LinearTeleOp extends LinearOpMode {
     //RelicArm elevator;
     Grabber grabber;
 
-    private BNO055IMU imu;
-    Orientation angles;
-
+    //private BNO055IMU imu;
+    //Orientation angles;
     float normal;
+
+    private Gyroscope gyro;
+
+    VuforiaLocalizer vuforia;
 
     public void runOpMode() {
         telemetry.addData("heading", 9450);
@@ -42,7 +48,15 @@ public class LinearTeleOp extends LinearOpMode {
         parameters.loggingEnabled       = true;
         parameters.loggingTag           = "IMU";
 
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        /*int camID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters vuparam = new VuforiaLocalizer.Parameters(camID);
+        vuparam.vuforiaLicenseKey = Constants.Setup.VUFORIAKEY;
+        vuparam.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(vuparam);*/
+
+        //imu = hardwareMap.get(BNO055IMU.class, "imu");
+
+        gyro = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
 
         controlBoard=new ControlBoard(gamepad1);
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
@@ -53,11 +67,11 @@ public class LinearTeleOp extends LinearOpMode {
 
         waitForStart();
 
-        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        normal = AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
+        //angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        normal = gyro.getAngle();
         while (opModeIsActive()) {
-            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            telemetry.addData("heading", angles.firstAngle - normal);
+            //angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            telemetry.addData("heading", gyro.getAngle() - normal);
             telemetry.update();
             DriveSignal d;
             DriveSignal translate=controlBoard.translate();
