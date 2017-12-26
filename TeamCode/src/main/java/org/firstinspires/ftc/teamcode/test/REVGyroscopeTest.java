@@ -46,6 +46,6 @@ public class REVGyroscopeTest extends OpMode {
 
         telemetry.addData("status", imu.getSystemStatus());
         telemetry.addData("calibration", imu.getCalibrationStatus().toString());
-        telemetry.addData("heading", imu.getAngle()/*AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))*/);
+        telemetry.addData("heading", imu.getAngle());
     }
 }
