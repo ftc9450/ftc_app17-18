@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.control.ControlBoard;
+import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.RelicArm;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
@@ -14,10 +15,10 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 @TeleOp
 @Disabled
 public class ElevatorClassTest extends OpMode {
-    RelicArm elevator;
+    Elevator elevator;
     ControlBoard controlBoard;
     public void init() {
-        elevator=new RelicArm(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
+        elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
         controlBoard=new ControlBoard(gamepad1);
     }
 

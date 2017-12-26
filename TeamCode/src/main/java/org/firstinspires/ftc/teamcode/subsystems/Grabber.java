@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.util.Constants;
+
 /**
  * Created by O on 10/28/2017.
  */
@@ -11,8 +13,8 @@ public class Grabber extends Subsystem{
     private Servo leftServo;
     private Servo rightServo;
 
-    private double openPosition = Servo.MIN_POSITION;
-    private double closedPosition = Servo.MAX_POSITION;
+    private double openPosition = Constants.Grabber.openPos;
+    private double closedPosition = Constants.Grabber.closePos;
 
     public enum GrabberState{
         OPEN,CLOSED
@@ -23,8 +25,8 @@ public class Grabber extends Subsystem{
     public Grabber(Servo left, Servo right){
         this.leftServo = left;
         this.rightServo = right;
-        leftServo.setDirection(Servo.Direction.FORWARD);
-        rightServo.setDirection(Servo.Direction.REVERSE);
+        leftServo.setDirection(Servo.Direction.REVERSE);
+        rightServo.setDirection(Servo.Direction.FORWARD);
 
     }
     public void setState(GrabberState state){this.grabberState = state;}
@@ -46,13 +48,19 @@ public class Grabber extends Subsystem{
     public void loop() {
         switch(grabberState){
             case CLOSED:
-                leftServo.setPosition(closedPosition);
-                rightServo.setPosition(closedPosition);
+                double stor=leftServo.getPosition();
+                for(double i=stor;i<closedPosition;i+=0.05){
+                    leftServo.setPosition(i);
+                    rightServo.setPosition(i);
+                }
                 break;
             case OPEN:
             default:
-                leftServo.setPosition(openPosition);
-                rightServo.setPosition(openPosition);
+                double stor1=leftServo.getPosition();
+                for(double i=stor1;i>openPosition;i-=0.05){
+                    leftServo.setPosition(i);
+                    rightServo.setPosition(i);
+                }
                 break;
         }
     }

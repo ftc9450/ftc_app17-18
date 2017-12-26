@@ -23,6 +23,8 @@ public class Constants {
     public class Grabber{
         public static final String L="leftServo";
         public static final String R="rightServo";
+        public static final double openPos=0.5;
+        public static final double closePos=0.9;
     }
     public class Rudder {
         public static final double RUDDER_IN = 0;

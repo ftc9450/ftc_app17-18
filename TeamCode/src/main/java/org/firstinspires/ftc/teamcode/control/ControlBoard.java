@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.control;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.RelicArm;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 import org.firstinspires.ftc.teamcode.util.*;
@@ -51,12 +52,12 @@ public class ControlBoard {
             return Grabber.GrabberState.CLOSED;
         }return Grabber.GrabberState.OPEN;
     }
-    public RelicArm.RelicArmState elevatorCommand(){
+    public Elevator.ElevatorState elevatorCommand(){
         if(driverController.y){
-            return RelicArm.RelicArmState.OUT;
+            return Elevator.ElevatorState.UP;
         }else if(driverController.a){
-            return RelicArm.RelicArmState.IN;
-        }return RelicArm.RelicArmState.OFF;
+            return Elevator.ElevatorState.DOWN;
+        }return Elevator.ElevatorState.OFF;
     }
     public float reduceDriveSpeed() {
         if(driverController.left_trigger>0){return Constants.doubleToFloat(Constants.Drivetrain.HIGH_POWER-(driverController.left_trigger*(Constants.Drivetrain.HIGH_POWER-Constants.Drivetrain.LOW_POWER)));}
