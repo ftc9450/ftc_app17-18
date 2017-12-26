@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 @TeleOp
-@Disabled
 public class RelicTest extends OpMode {
     private CRServo pivot;
     private Servo hand;

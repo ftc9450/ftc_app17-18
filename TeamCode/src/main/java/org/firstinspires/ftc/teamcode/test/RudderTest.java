@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  * Created by Grace on 12/16/2017.
  */
 @TeleOp
-@Disabled
 public class RudderTest extends OpMode {
     Rudder rudder;
     Drivetrain drivetrain;

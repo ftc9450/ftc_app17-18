@@ -27,7 +27,7 @@ public class Constants {
         public static final double closePos=0.9;
     }
     public class Rudder {
-        public static final double RUDDER_IN = 0;
+        public static final double RUDDER_IN = 0.3;
         public static final double RUDDER_OUT = 0.5;
     }
 
