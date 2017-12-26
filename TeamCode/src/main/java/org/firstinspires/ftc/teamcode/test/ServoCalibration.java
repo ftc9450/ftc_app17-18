@@ -11,16 +11,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class ServoCalibration extends OpMode{
     Servo servo;
     public void init() {
-        servo=hardwareMap.servo.get("sensor_color_distance");
+        servo=hardwareMap.servo.get("rudder_servo");
     }
 
     @Override
     public void loop() {
-        if(gamepad1.y){servo.setPosition(servo.getPosition()+0.01);}
-        if(gamepad1.a){servo.setPosition(servo.getPosition()-0.01);}
+        double pos=servo.getPosition();
+        if(gamepad1.y){servo.setPosition(pos+0.001);}
+        if(gamepad1.a){servo.setPosition(pos-0.001);}
         if(gamepad1.x){servo.setDirection(Servo.Direction.REVERSE);}
         if(gamepad1.b){servo.setDirection(Servo.Direction.FORWARD);}
-        telemetry.addData("position",servo.getPosition());
+        telemetry.addData("position",pos);
         telemetry.addData("direction",servo.getDirection());
     }
 }

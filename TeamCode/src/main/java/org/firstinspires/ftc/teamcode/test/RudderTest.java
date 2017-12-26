@@ -22,17 +22,20 @@ public class RudderTest extends OpMode {
     }
 
     @Override
-    public void loop() {
+    public void loop() {//knock out red
         if(gamepad1.a){
             rudder.setState(Rudder.RudderState.OUT);
+            rudder.loop();
+            try {Thread.sleep(1000);} catch (InterruptedException e) {}
             if(rudder.getColor()==1){
-                drivetrain.pivot(10,1);
+                drivetrain.pivot(1000,1);
             }else{
-                drivetrain.pivot(-10,-1);
+                drivetrain.pivot(-1000,-1);
             }
         }else{
-            rudder.setState(Rudder.RudderState.IN);}
-        rudder.loop();
+            rudder.setState(Rudder.RudderState.START);
+            rudder.loop();
+        }
         telemetry.addData("state",rudder);
         telemetry.addData("color",rudder.getColor());
     }

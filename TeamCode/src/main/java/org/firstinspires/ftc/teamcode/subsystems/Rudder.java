@@ -20,7 +20,7 @@ public class Rudder extends Subsystem {
     private ColorSensor colorSensor;
 
     public enum RudderState {
-        OUT, IN
+        OUT, IN,START
     }
 
     /**
@@ -77,6 +77,10 @@ public class Rudder extends Subsystem {
             case OUT:
                 rudderServo.setPosition(Constants.Rudder.RUDDER_OUT);
                 break;
+            case START:
+                rudderServo.setPosition(Constants.Rudder.RUDDER_START);
+                break;
+
         }
     }
 }

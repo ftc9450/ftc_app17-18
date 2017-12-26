@@ -52,7 +52,10 @@ public class Drivetrain extends Subsystem {
         leftBack.setPower(signal.leftBackMotor * maxPower);
     }
     public boolean isBusy(){
-        return leftFront.isBusy() || leftBack.isBusy() || rightFront.isBusy() || rightBack.isBusy();
+        return isClose(leftFront) || isClose(leftBack) || isClose(rightFront) || isClose(rightBack);
+    }
+    public boolean isClose(DcMotor dcMotor){
+        return dcMotor.getCurrentPosition()>=dcMotor.getTargetPosition()-10&&dcMotor.getCurrentPosition()<=dcMotor.getTargetPosition()+10;
     }
     public String toString(){
         return leftFront.getPower()+" "+leftBack.getPower()+" "+rightFront.getPower()+" "+rightBack.getPower();

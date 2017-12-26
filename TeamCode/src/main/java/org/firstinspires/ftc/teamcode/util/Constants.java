@@ -27,8 +27,9 @@ public class Constants {
         public static final double closePos=0.9;
     }
     public class Rudder {
-        public static final double RUDDER_IN = 0.3;
-        public static final double RUDDER_OUT = 0.5;
+        public static final double RUDDER_START=0.3;
+        public static final double RUDDER_IN = 0.4;
+        public static final double RUDDER_OUT = 0.96;
     }
 
     public class Color {
