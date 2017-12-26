@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -23,8 +24,13 @@ public class RelicArm extends Subsystem {
         OPEN, CLOSED
     }
 
+    /*public enum PivotState {
+        OUT, IN
+    }*/
+
     private RelicArmState state;
     private HandState handState;
+    //private PivotState pivotState;
 
     public RelicArm(DcMotor relicArmMotor, Servo hand) {
         this.RelicArmMotor = relicArmMotor;
@@ -36,6 +42,10 @@ public class RelicArm extends Subsystem {
         this.hand = hand;
         this.hand.setDirection(Servo.Direction.FORWARD);
         this.handState = HandState.OPEN;
+
+        /*this.pivot = pivot;
+        this.pivot.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.pivotState = PivotState.IN;*/
     }
 
     public void setState(RelicArmState state) {
