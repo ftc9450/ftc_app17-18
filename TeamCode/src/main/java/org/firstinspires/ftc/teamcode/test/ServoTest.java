@@ -14,12 +14,11 @@ import java.util.concurrent.TimeUnit;
  * Created by Grace on 11/22/2017.
  */
 @TeleOp
-@Disabled
 public class ServoTest extends OpMode {
     Servo testMe;
     @Override
     public void init() {
-        testMe=hardwareMap.servo.get("rudder_servo");
+        testMe=hardwareMap.servo.get("pivot");
         testMe.setDirection(Servo.Direction.FORWARD);
     }
 
