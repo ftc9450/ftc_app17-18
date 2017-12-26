@@ -13,7 +13,6 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 
 @Autonomous
-@Disabled
 public class ColorSensorTest extends OpMode {
     private Rudder rudder;
 
