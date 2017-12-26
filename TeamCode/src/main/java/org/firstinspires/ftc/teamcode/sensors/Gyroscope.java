@@ -23,10 +23,20 @@ public class Gyroscope {
         parameters.loggingTag           = "IMU";
 
         this.imu = imu;
+
+        this.imu.initialize(parameters);
     }
 
     public float getAngle() {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         return AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+    }
+
+    public String getSystemStatus() {
+        return imu.getSystemStatus().toString();
+    }
+
+    public String getCalibrationStatus() {
+        return imu.getCalibrationStatus().toString();
     }
 }
