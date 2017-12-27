@@ -71,13 +71,16 @@ public class ControlBoard {
         return new DriveSignal(0, 0, 0, 0);
 
     }
+    public boolean moveUpSixInches(){return driverController.dpad_up;}
+    public boolean moveDownSixInches(){return driverController.dpad_down;}
     public Grabber.GrabberState topGrabberCommand(){
-        if(driverController.left_bumper){
+        if(driverController.right_bumper){
             return Grabber.GrabberState.CLOSED;
-        }return Grabber.GrabberState.OPEN;
+        }else if(driverController.left_bumper){return Grabber.GrabberState.OPEN;}
+        return null;
     }
     public Grabber.GrabberState bottomGrabberCommand(){
-        if(driverController.right_bumper){
+        if(driverController.right_trigger>0){
             return Grabber.GrabberState.CLOSED;
         }return Grabber.GrabberState.OPEN;
     }

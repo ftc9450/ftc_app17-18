@@ -5,8 +5,8 @@ package org.firstinspires.ftc.teamcode.util;
  */
 public class Constants {
     public class Drivetrain {
-        public static final double HIGH_POWER = 0.6;
-        public static final double LOW_POWER = 0.1;
+        public static final double HIGH_POWER = 0.75;
+        public static final double LOW_POWER = 0.25;
         public static final int INCH=90;
         public static final int DEGREE=1;
         public static final String LF="frontLeft";

@@ -71,7 +71,7 @@ public class TeleOp extends OpMode{
         d.scale(controlBoard.reduceDriveSpeed());
         drivetrain.setOpenLoop(d);
          **/
-        DriveSignal translate=controlBoard.translate(gyroscope.getAngle());
+        DriveSignal translate=controlBoard.translate();
         DriveSignal turn=controlBoard.turn();
         if(controlBoard.flip()){
             drivetrain.pivot(Constants.Drivetrain.INCH*12,0.5);

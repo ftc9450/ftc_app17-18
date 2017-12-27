@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.sensors.Gyroscope;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
 /**
  * Created by dhruv on 12/27/17.
  */
-
+@TeleOp
 public class FieldOrientedDrive extends LinearOpMode {
     Drivetrain drive;
     Gyroscope imu;
@@ -35,11 +36,11 @@ public class FieldOrientedDrive extends LinearOpMode {
             double z = gamepad1.right_stick_x;
             double angle = Math.PI * imu.getAngle()/180.0;
 
-            double temp = x;
-            x = x*Math.cos(angle) - y*Math.sin(angle);
-            y = temp*Math.sin(angle) + y*Math.cos(angle);
+//            double temp = x;
+//            x = x*Math.cos(angle) - y*Math.sin(angle);
+//            y = temp*Math.sin(angle) + y*Math.cos(angle);
 
-            signal = new DriveSignal(x + y + z, -x + y + z, x - y + z, -x - y + z);
+            signal = new DriveSignal(x + y + z, -x + y + z, -x + y + z, x + y - z);
             drive.setOpenLoop(signal);
             manager.loopSystems();
         }

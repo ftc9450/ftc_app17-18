@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.robotcore.external.Const;
+import org.firstinspires.ftc.teamcode.control.ControlBoard;
 import org.firstinspires.ftc.teamcode.util.*;
 
 /**
@@ -36,12 +38,22 @@ public class Elevator extends Subsystem{
     @Override
     public void zeroSensors() {
     }
-    public void moveToSixInches(){
-        if(elevatorMotor.getCurrentPosition()<Constants.Elevator.sixInches){
+    public void moveUpSixInches(){
+        int curr=elevatorMotor.getCurrentPosition();
+        if(curr<=Constants.Elevator.maxEncoder-Constants.Elevator.sixInches){
             elevatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            elevatorMotor.setTargetPosition(Constants.Elevator.sixInches);
+            elevatorMotor.setTargetPosition(Constants.Elevator.sixInches+curr);
             elevatorMotor.setPower(speed);
-            while(elevatorMotor.isBusy()||elevatorMotor.getCurrentPosition()<Constants.Elevator.sixInches-10){}
+            while(elevatorMotor.isBusy()){}
+        }
+    }
+    public void moveDownSixInches(){
+        int curr=elevatorMotor.getCurrentPosition();
+        if(curr>=Constants.Elevator.sixInches){
+            elevatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorMotor.setTargetPosition(curr-Constants.Elevator.sixInches);
+            elevatorMotor.setPower(-1*speed);
+            while(elevatorMotor.isBusy()){}
         }
     }
     @Override
