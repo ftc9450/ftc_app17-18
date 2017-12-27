@@ -17,7 +17,7 @@ public class Constants {
 
     public class Elevator {
         public static final float POWER = 1.0f;
-        public static final String ELEVATOR="elevator";
+        public static final String ELEVATOR="glypht";
         public static final int sixInches=2*1680;
         public static final double maxEncoder=10*1680;//1680 cpr for neverest 60
     }

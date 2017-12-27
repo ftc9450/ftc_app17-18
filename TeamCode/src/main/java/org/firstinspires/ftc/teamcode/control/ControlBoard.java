@@ -48,11 +48,32 @@ public class ControlBoard {
         return new DriveSignal(0, 0, 0, 0);
 
     }
-
+    public Grabber.GrabberState topGrabberCommand(){
+        if(driverController.left_bumper){
+            return Grabber.GrabberState.CLOSED;
+        }return Grabber.GrabberState.OPEN;
+    }
+    public Grabber.GrabberState bottomGrabberCommand(){
+        if(driverController.right_bumper){
+            return Grabber.GrabberState.CLOSED;
+        }return Grabber.GrabberState.OPEN;
+    }
     public Grabber.GrabberState grabberCommand(){
         if(driverController.x){
             return Grabber.GrabberState.CLOSED;
         }return Grabber.GrabberState.OPEN;
+    }
+    public RelicArm.RelicArmState relicCommand(){
+        if(driverController.b){
+            return RelicArm.RelicArmState.OUT;
+        }else if(driverController.x){
+            return RelicArm.RelicArmState.IN;
+        }return RelicArm.RelicArmState.OFF;
+    }
+    public RelicArm.HandState handCommand(){
+        if(driverController.dpad_left) {
+            return RelicArm.HandState.OPEN;
+        }return RelicArm.HandState.CLOSED;
     }
     public Elevator.ElevatorState elevatorCommand(){
         if(driverController.y){

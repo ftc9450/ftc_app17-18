@@ -17,12 +17,12 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  * Created by Grace on 12/26/2017.
  */
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class TeleOpFinal extends OpMode{
+public class Gamepad2TeleOp extends OpMode{
     ControlBoard controlBoard1;
     ControlBoard controlBoard2;
     Drivetrain drivetrain;
     RelicArm relicArm;
-    //Elevator elevator;
+    Elevator elevator;
     Grabber top;
     Grabber bottom;
     SubsystemManager subsystemManager;
@@ -37,10 +37,17 @@ public class TeleOpFinal extends OpMode{
         subsystemManager.add(bottom);
         relicArm=new RelicArm(hardwareMap.dcMotor.get(Constants.RelicArm.ARM),hardwareMap.servo.get(Constants.RelicArm.HAND));
         subsystemManager.add(relicArm);
-
+        elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
+        subsystemManager.add(elevator);
     }
 
     public void loop() {
+        relicArm.setHand(controlBoard2.handCommand());
+        relicArm.setState(controlBoard2.relicCommand());
+        elevator.setState(controlBoard2.elevatorCommand());
+        top.setState(controlBoard2.topGrabberCommand());
+        bottom.setState(controlBoard2.bottomGrabberCommand());
+        subsystemManager.loopSystems();
 
     }
 }
