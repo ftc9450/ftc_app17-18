@@ -22,7 +22,7 @@ public class ControlBoard {
      * Use with mecanum wheels to move in multiple directions
      * @return DriveSignal to power translational movement corresponding to the position of the joystick
      */
-    public DriveSignal translate(){
+    public DriveSignal translate(float offset){
         float a=driverController.left_stick_x;float b=-driverController.left_stick_y;
         boolean u=driverController.dpad_up;boolean d=driverController.dpad_down;boolean l=driverController.dpad_left;boolean r=driverController.dpad_right;
         double x = Constants.floatToDouble(a);
@@ -33,18 +33,19 @@ public class ControlBoard {
             if(l){x=-0.1;}
             if(r){x=0.1;}
         }
+        double angle;
         if (x != 0) {
-            double angle = Math.atan2(y, x) - Math.PI / 4;
-            return new DriveSignal(Math.cos(angle), Math.sin(angle), Math.sin(angle), Math.cos(angle)).scale(throttle(a, b));
-        } else {
-            if (y > 0) {
-                return new DriveSignal(1, 1, 1, 1).scale(throttle(a, b));
-            } else if (y < 0) {
-                return new DriveSignal(-1, -1, -1, -1).scale(throttle(a, b));
-
-            }
-            return new DriveSignal(0, 0, 0, 0);
+            angle = Math.atan2(y, x) - Math.PI / 4;
+            angle-=offset;
+            return DriveSignal.translate(angle).scale(throttle(a, b));
+        } else if (y > 0) {
+            angle=((Math.PI/4)-offset);
+            return DriveSignal.translate(angle).scale(throttle(a, b));
+        } else if (y < 0) {
+            angle=-1.0*((Math.PI/4)-offset);
+            return DriveSignal.translate(angle).scale(throttle(a, b));
         }
+        return new DriveSignal(0, 0, 0, 0);
 
     }
     public Grabber.GrabberState grabberCommand(){

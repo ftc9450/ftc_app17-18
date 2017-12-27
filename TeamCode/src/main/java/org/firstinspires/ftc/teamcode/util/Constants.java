@@ -20,9 +20,14 @@ public class Constants {
         public static final String ELEVATOR="elevator";
         public static final double maxEncoder=10*1680;//1680 cpr for neverest 60
     }
+    public class RelicArm{
+        public static final int maxEncoder=30400;
+    }
     public class Grabber{
-        public static final String L="leftServo";
-        public static final String R="rightServo";
+        public static final String LT="topLeft";
+        public static final String LB="bottomLeft";
+        public static final String RT="topRight";
+        public static final String RB="bottomRight";
         public static final double openPos=0.5;
         public static final double closePos=0.9;
     }

@@ -26,7 +26,9 @@ public class DriveSignal {
         this.rightBackMotor=rb;
         this.breakMode = breakMode;
     }
-
+    public static DriveSignal translate(double angle){
+        return new DriveSignal(Math.cos(angle), Math.sin(angle), Math.sin(angle), Math.cos(angle));
+    }
     public static DriveSignal pivot(float pow){
         // positive power is pivot to right
         double power=Constants.floatToDouble(pow);

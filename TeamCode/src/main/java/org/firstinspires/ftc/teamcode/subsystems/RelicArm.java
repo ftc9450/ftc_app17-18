@@ -71,7 +71,7 @@ public class RelicArm extends Subsystem {
     public void loop() {
         switch (state) {
             case OUT:
-                if (RelicArmMotor.getCurrentPosition() < Constants.Elevator.maxEncoder) {
+                if (RelicArmMotor.getCurrentPosition() < Constants.RelicArm.maxEncoder) {
                     RelicArmMotor.setPower(speed);
                 } else {
                     stop();

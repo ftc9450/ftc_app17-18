@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
  */
 @TeleOp
 @Disabled
+@Deprecated
 public class GamepadTest extends OpMode {
     private ControlBoard gameBoard;
 
@@ -32,7 +33,7 @@ public class GamepadTest extends OpMode {
     }
 
     public void testBoard() {
-        DriveSignal translate=gameBoard.translate();
+        DriveSignal translate=gameBoard.translate(0);
         DriveSignal turn=gameBoard.turn();
         DriveSignal d;
         if(turn.isZero()){
