@@ -21,7 +21,7 @@ public class BadAutonomousRed extends LinearOpMode{
     DcMotor leftBack=hardwareMap.dcMotor.get("leftBack");
     DcMotor rightFront=hardwareMap.dcMotor.get("rightFront");
     DcMotor rightBack=hardwareMap.dcMotor.get("rightBack");//1120 counts per revolution, wheel travels 12.56 in per revolution
-    Servo jewelRudder=hardwareMap.servo.get("jewelRudder");
+    Servo jewelRudder=hardwareMap.servo.get("rudder");
     ColorSensor leftColor=hardwareMap.colorSensor.get("leftColor");
     ColorSensor rightColor=hardwareMap.colorSensor.get("rightColor");
     public void initBot(){

@@ -94,7 +94,7 @@ public class Drivetrain extends Subsystem {
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-    public void moveFB(int distance, double power){ //positive power is move forward
+    public void moveFB(int distance, double power){ //positive power and distance is move forward
         enableAndResetEncoders();
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(distance);

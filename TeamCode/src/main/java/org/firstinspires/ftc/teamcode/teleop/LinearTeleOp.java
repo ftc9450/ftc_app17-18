@@ -74,7 +74,8 @@ public class LinearTeleOp extends LinearOpMode {
             telemetry.addData("heading", gyro.getAngle());
             telemetry.update();
             DriveSignal d;
-            DriveSignal translate=controlBoard.translate(gyro.getAngle());
+            //DriveSignal translate=controlBoard.translate(gyro.getAngle());
+            DriveSignal translate=controlBoard.translate();
             DriveSignal turn=controlBoard.turn();
             if(controlBoard.flip()){
                 drivetrain.pivot(Constants.Drivetrain.INCH*12,0.5);

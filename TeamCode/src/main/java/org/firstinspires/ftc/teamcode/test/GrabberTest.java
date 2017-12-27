@@ -19,7 +19,7 @@ public class GrabberTest extends OpMode {
     Grabber grabber;
     SubsystemManager subsystemManager=new SubsystemManager();
     public void init() {
-        grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.L), hardwareMap.servo.get(Constants.Grabber.R));
+        grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT), hardwareMap.servo.get(Constants.Grabber.RT));
         subsystemManager.add(grabber);
     }
 
