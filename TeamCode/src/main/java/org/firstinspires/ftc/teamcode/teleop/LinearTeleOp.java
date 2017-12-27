@@ -72,6 +72,8 @@ public class LinearTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             //angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             telemetry.addData("heading", gyro.getAngle());
+            telemetry.addData("X", gyro.getX());
+            telemetry.addData("Y", gyro.getY());
             telemetry.update();
             DriveSignal d;
             //DriveSignal translate=controlBoard.translate(gyro.getAngle());
