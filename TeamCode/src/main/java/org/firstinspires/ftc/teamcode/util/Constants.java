@@ -18,10 +18,13 @@ public class Constants {
     public class Elevator {
         public static final float POWER = 1.0f;
         public static final String ELEVATOR="elevator";
+        public static final int sixInches=2*1680;
         public static final double maxEncoder=10*1680;//1680 cpr for neverest 60
     }
     public class RelicArm{
         public static final int maxEncoder=30400;
+        public static final String ARM="arm";
+        public static final String HAND="hand";
     }
     public class Grabber{
         public static final String LT="topLeft";

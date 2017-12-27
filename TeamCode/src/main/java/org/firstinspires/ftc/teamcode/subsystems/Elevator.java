@@ -36,7 +36,14 @@ public class Elevator extends Subsystem{
     @Override
     public void zeroSensors() {
     }
-
+    public void moveToSixInches(){
+        if(elevatorMotor.getCurrentPosition()<Constants.Elevator.sixInches){
+            elevatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elevatorMotor.setTargetPosition(Constants.Elevator.sixInches);
+            elevatorMotor.setPower(speed);
+            while(elevatorMotor.isBusy()||elevatorMotor.getCurrentPosition()<Constants.Elevator.sixInches-10){}
+        }
+    }
     @Override
     public void loop() {
         switch (state) {

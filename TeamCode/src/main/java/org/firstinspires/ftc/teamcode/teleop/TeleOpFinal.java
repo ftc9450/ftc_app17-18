@@ -35,7 +35,7 @@ public class TeleOpFinal extends OpMode{
         subsystemManager.add(top);
         bottom=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
         subsystemManager.add(bottom);
-        relicArm=new RelicArm(hardwareMap.dcMotor.get("arm"),hardwareMap.servo.get("hand"));
+        relicArm=new RelicArm(hardwareMap.dcMotor.get(Constants.RelicArm.ARM),hardwareMap.servo.get(Constants.RelicArm.HAND));
         subsystemManager.add(relicArm);
 
     }

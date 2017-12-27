@@ -48,6 +48,7 @@ public class ControlBoard {
         return new DriveSignal(0, 0, 0, 0);
 
     }
+
     public Grabber.GrabberState grabberCommand(){
         if(driverController.x){
             return Grabber.GrabberState.CLOSED;
