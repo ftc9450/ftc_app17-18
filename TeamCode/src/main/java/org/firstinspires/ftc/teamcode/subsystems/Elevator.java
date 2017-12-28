@@ -23,7 +23,7 @@ public class Elevator extends Subsystem{
 
     public Elevator(DcMotor elevatorMotor){
         this.elevatorMotor = elevatorMotor;
-        this.elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         this.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         state = ElevatorState.OFF;

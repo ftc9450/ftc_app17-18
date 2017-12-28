@@ -32,7 +32,7 @@ public class Constants {
         public static final String RT="topRight";
         public static final String RB="bottomRight";
         public static final double openPos=0.5;
-        public static final double closePos=0.9;
+        public static final double closePos=1;
     }
     public class Rudder {
         public static final double RUDDER_START=0.3;

@@ -73,16 +73,25 @@ public class ControlBoard {
     }
     public boolean moveUpSixInches(){return driverController.dpad_up;}
     public boolean moveDownSixInches(){return driverController.dpad_down;}
-    public Grabber.GrabberState topGrabberCommand(){
+    public Grabber.GrabberState topGrabberCommand(Grabber.GrabberState curr){
         if(driverController.right_bumper){
             return Grabber.GrabberState.CLOSED;
-        }else if(driverController.left_bumper){return Grabber.GrabberState.OPEN;}
-        return null;
+        }else if(driverController.left_bumper&&curr== Grabber.GrabberState.CLOSED){
+            return Grabber.GrabberState.OPEN;
+        }else if(curr== Grabber.GrabberState.OPEN){
+            return Grabber.GrabberState.OPEN;
+        }
+        return Grabber.GrabberState.CLOSED;
     }
-    public Grabber.GrabberState bottomGrabberCommand(){
+    public Grabber.GrabberState bottomGrabberCommand(Grabber.GrabberState curr){
         if(driverController.right_trigger>0){
             return Grabber.GrabberState.CLOSED;
-        }return Grabber.GrabberState.OPEN;
+        }else if(driverController.left_trigger>0&&curr==Grabber.GrabberState.CLOSED){
+            return Grabber.GrabberState.OPEN;
+        }else if(curr== Grabber.GrabberState.OPEN){
+            return Grabber.GrabberState.OPEN;
+        }
+        return Grabber.GrabberState.CLOSED;
     }
     public Grabber.GrabberState grabberCommand(){
         if(driverController.x){
@@ -102,9 +111,9 @@ public class ControlBoard {
         }return RelicArm.HandState.CLOSED;
     }
     public Elevator.ElevatorState elevatorCommand(){
-        if(driverController.y){
+        if(driverController.left_stick_y<0){
             return Elevator.ElevatorState.UP;
-        }else if(driverController.a){
+        }else if(driverController.left_stick_y>0){
             return Elevator.ElevatorState.DOWN;
         }return Elevator.ElevatorState.OFF;
     }
