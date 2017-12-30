@@ -13,7 +13,6 @@ import org.firstinspires.ftc.teamcode.control.ControlBoard;
  * @author Grace
  */
 @TeleOp
-@Disabled
 public class DcMotorTest extends OpMode {
     DcMotor leftFront = null;
     DcMotor leftBack=null;
@@ -21,16 +20,16 @@ public class DcMotorTest extends OpMode {
     DcMotor rightBack=null;
     @Override
     public void init() {
-        leftFront=hardwareMap.dcMotor.get("leftFront");
+        leftFront=hardwareMap.dcMotor.get("frontLeft");
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront=hardwareMap.dcMotor.get("rightFront");
+        rightFront=hardwareMap.dcMotor.get("frontRight");
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack=hardwareMap.dcMotor.get("leftBack");
+        leftBack=hardwareMap.dcMotor.get("backLeft");
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBack=hardwareMap.dcMotor.get("rightBack");
+        rightBack=hardwareMap.dcMotor.get("backRight");
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
