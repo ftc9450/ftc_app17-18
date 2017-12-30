@@ -12,8 +12,9 @@ public class SubsystemManager {
         subsystems = new ArrayList<>();
     }
 
-    public void add(Subsystem s) {
+    public SubsystemManager add(Subsystem s) {
         subsystems.add(s);
+        return this;
     }
 
     public void loopSystems() {

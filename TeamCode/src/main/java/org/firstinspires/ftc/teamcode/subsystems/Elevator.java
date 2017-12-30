@@ -44,7 +44,7 @@ public class Elevator extends Subsystem{
             elevatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorMotor.setTargetPosition(Constants.Elevator.sixInches+curr);
             elevatorMotor.setPower(speed);
-            while(elevatorMotor.isBusy()){}
+            //while(elevatorMotor.isBusy()){}
         }
     }
     public void moveDownSixInches(){
@@ -53,7 +53,7 @@ public class Elevator extends Subsystem{
             elevatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             elevatorMotor.setTargetPosition(curr-Constants.Elevator.sixInches);
             elevatorMotor.setPower(-1*speed);
-            while(elevatorMotor.isBusy()){}
+            //while(elevatorMotor.isBusy()){}
         }
     }
     @Override

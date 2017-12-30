@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ReadWriteFile;
@@ -18,6 +19,7 @@ import java.io.File;
  * Created by dhruv on 12/27/17.
  */
 @TeleOp
+@Disabled
 public class FieldOrientedDrive extends LinearOpMode {
     Drivetrain drive;
     Gyroscope imu;

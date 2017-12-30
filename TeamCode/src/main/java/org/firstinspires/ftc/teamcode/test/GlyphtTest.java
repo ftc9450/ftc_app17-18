@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -15,6 +16,7 @@ import java.util.ResourceBundle;
  * Created by Grace on 12/27/2017.
  */
 @TeleOp
+@Disabled
 public class GlyphtTest extends OpMode{
     Elevator elevator;
     Grabber topGrabber;
