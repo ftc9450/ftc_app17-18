@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
  * Created by Lan Xiang on 12/23/2017.
  */
 
+@Deprecated
 public class LinearForward extends LinearOpMode {
     private Drivetrain drive;
     private BNO055IMU imu;

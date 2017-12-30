@@ -33,6 +33,19 @@ public class Grabber extends Subsystem{
     public void setState(GrabberState state){this.grabberState = state;}
     public GrabberState getState(){return this.grabberState;}
 
+    public void close() {
+        leftServo.setPosition(leftServo.getPosition()+0.05);
+        rightServo.setPosition(rightServo.getPosition()+0.05);
+    }
+
+    public void open() {
+        leftServo.setPosition(leftServo.getPosition()-0.05);
+        rightServo.setPosition(rightServo.getPosition()-0.05);
+    }
+
+    public String getPosition() {
+        return leftServo.getPosition() + " " + rightServo.getPosition();
+    }
 
     @Override
     public void stop() {
@@ -47,7 +60,7 @@ public class Grabber extends Subsystem{
 
     @Override
     public void loop() {
-        switch(grabberState){
+        /*switch(grabberState){
             case CLOSED:
                 double stor=leftServo.getPosition();
                 for(double i=stor;i<closedPosition;i+=0.05){
@@ -63,7 +76,7 @@ public class Grabber extends Subsystem{
                     rightServo.setPosition(i);
                 }
                 break;
-        }
+        }*/
     }
 
 }
