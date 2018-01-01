@@ -7,8 +7,9 @@ public class Constants {
     public class Drivetrain {
         public static final double HIGH_POWER = 0.75;
         public static final double LOW_POWER = 0.25;
-        public static final int INCH=90;
-        public static final int DEGREE=1;
+        public static final int STRAFEINCH=135;
+        public static final int INCH=90;//1120 cpr for neverest 40
+        public static final int DEGREE=18;
         public static final String LF="frontLeft";
         public static final String LB="backLeft";
         public static final String RF="frontRight";
@@ -35,9 +36,11 @@ public class Constants {
         public static final double closePos=1;
     }
     public class Rudder {
-        public static final double RUDDER_START=0.3;
-        public static final double RUDDER_IN = 0.4;
-        public static final double RUDDER_OUT = 0.96;
+        public static final double RUDDER_START=0;
+        public static final double RUDDER_IN = 0.1;
+        public static final double RUDDER_OUT = 0.6;
+        public static final String RUDDER = "rudder_servo";
+        public static final String COLOR = "sensor_color_distance";
     }
 
     public class Color {
@@ -54,11 +57,7 @@ public class Constants {
         Double f=new Double(d);
         return f.floatValue();
     }
-    public class HardwareMap {
-        public static final String DCTEST = "frontLeft";
-        public static final String RUDDER = "rudder_servo";
-        public static final String COLOR = "sensor_color_distance";
-    }
+
     public class Setup {
         public static final String VUFORIAKEY = "AYwm7lb/////AAAAGeQI9HT4B0R2unLNBq/DsId49BJr71nKGdfP8X8fnmtD0Jna47KLigPBytLYBjzOIl6uCfYWbIXHc3FqoabxIITohKJ4VvPispe5kGGFFJyQEIifEL1Bc511jOl00pyY2Tr/YOGwjGk7lSXQ0QrScHVaiwIOM3mUUlsv9Ethn1OCZB2AVhT91gnrUKryxBwfLCGjqpmYdWOVDsJTloDiowWMez0U42S9sILVevNguQXZqTr1uURaUx5Voy+2N6FVK5p4dvraac9+LD6YskUCLqWsK2XVruCpCsRWZxfrqylNyni2ll5AW3Mekw/hSSzfjx70eyKXyaLRiOj4UhHKCjeqWjFCePt0Vb59tyqd9KhS";
     }

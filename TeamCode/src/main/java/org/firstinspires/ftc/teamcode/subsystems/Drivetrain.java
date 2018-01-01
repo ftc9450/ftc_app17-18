@@ -46,13 +46,10 @@ public class Drivetrain extends Subsystem {
 
     public void setOpenLoop(DriveSignal signal) {
         controlState = DriveControlState.OPEN_LOOP;
-        rightFront.setPower(signal.rightFrontMotor * maxPower);
-        rightBack.setPower(signal.rightBackMotor * maxPower);
-        leftFront.setPower(signal.leftFrontMotor * maxPower);
-        leftBack.setPower(signal.leftBackMotor * maxPower);
+        setPower(signal);
     }
     public boolean isBusy(){
-        return isClose(leftFront) && isClose(leftBack) && isClose(rightFront) && isClose(rightBack);
+        return !(isClose(leftFront) && isClose(leftBack) && isClose(rightFront) && isClose(rightBack));
     }
     public boolean isClose(DcMotor dcMotor){
         return dcMotor.getCurrentPosition()>=dcMotor.getTargetPosition()-10&&dcMotor.getCurrentPosition()<=dcMotor.getTargetPosition()+10;
@@ -106,10 +103,10 @@ public class Drivetrain extends Subsystem {
 
     public void pivot(int distance, double power){
         enableAndResetEncoders();
-        leftFront.setTargetPosition(distance*3);
-        leftBack.setTargetPosition(distance*3);
-        rightFront.setTargetPosition(distance*-3);
-        rightBack.setTargetPosition(distance*-3);
+        leftFront.setTargetPosition(distance);
+        leftBack.setTargetPosition(distance);
+        rightFront.setTargetPosition(distance*-1);
+        rightBack.setTargetPosition(distance*-1);
         setPower(DriveSignal.pivot(Constants.doubleToFloat(power)));
         while(isBusy());
     }

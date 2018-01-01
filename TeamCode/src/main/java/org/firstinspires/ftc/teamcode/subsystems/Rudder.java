@@ -43,9 +43,8 @@ public class Rudder extends Subsystem {
         this.state = state;
     }
     @Override
-    public void stop() {
-
-    }
+    public void stop() {}
+    public RudderState getState(){return state;}
     public String toString(){
         if(state==RudderState.IN){return "in";}
         return "out";
@@ -67,7 +66,9 @@ public class Rudder extends Subsystem {
     public void zeroSensors() {
 
     }
-
+    public double rudderServoPos(){
+        return rudderServo.getPosition();
+    }
     @Override
     public void loop() {
         switch (state) {

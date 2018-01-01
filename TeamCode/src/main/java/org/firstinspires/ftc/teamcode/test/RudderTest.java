@@ -36,7 +36,8 @@ public class RudderTest extends OpMode {
             rudder.setState(Rudder.RudderState.START);
             rudder.loop();
         }
-        telemetry.addData("state",rudder);
+        telemetry.addData("rudder pos",rudder.rudderServoPos());
+        telemetry.addData("state",rudder.getState());
         telemetry.addData("color",rudder.getColor());
     }
 }

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 /**
  * Created by Grace on 12/30/2017.
  */
-
+@Autonomous
 public class AutoRed2 extends LinearOpMode{
     Vuforia vuforia;
     RelicRecoveryVuMark detectedVuMark;
@@ -53,7 +54,7 @@ public class AutoRed2 extends LinearOpMode{
         }else{
             drivetrain.moveLR(-12*Constants.Drivetrain.INCH,-1);
         }
-        drivetrain.pivot(2000,1);//Calibrate for 90 degree turn
+        drivetrain.pivot(90*Constants.Drivetrain.DEGREE,1);
         drivetrain.moveFB(3*Constants.Drivetrain.INCH,1);
     }
 }
