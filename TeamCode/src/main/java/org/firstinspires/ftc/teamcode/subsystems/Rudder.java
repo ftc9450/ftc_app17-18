@@ -58,7 +58,7 @@ public class Rudder extends Subsystem {
         int r = colorSensor.red(), g = colorSensor.green(), b = colorSensor.blue(), a = colorSensor.alpha();
         if(a < 20 || a > 200) return Constants.Color.UNDECIDED; //???? Check projected alpha values
         if(r > g*2 && r > b*2) return Constants.Color.RED;
-        if(Math.abs(b - g) < 10 && b > r*1.8) return Constants.Color.BLUE;
+        if(Math.abs(b - g) < 20 && b > r*1.6) return Constants.Color.BLUE;
         return Constants.Color.UNDECIDED;
     }
 

@@ -60,7 +60,7 @@ public class Grabber extends Subsystem{
 
     @Override
     public void loop() {
-        /*switch(grabberState){
+        switch(grabberState){
             case CLOSED:
                 double stor=leftServo.getPosition();
                 for(double i=stor;i<closedPosition;i+=0.05){
@@ -76,7 +76,7 @@ public class Grabber extends Subsystem{
                     rightServo.setPosition(i);
                 }
                 break;
-        }*/
+        }
     }
 
 }
