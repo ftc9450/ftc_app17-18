@@ -19,7 +19,7 @@ public class Operator extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        elevator = new Elevator(hardwareMap.dcMotor.get("elevator"));
+        /*elevator = new Elevator(hardwareMap.dcMotor.get("elevator"));
         grabber = new Grabber(hardwareMap.servo.get(""), hardwareMap.servo.get(""));
         arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.servo.get("hand"));
 
@@ -53,6 +53,6 @@ public class Operator extends LinearOpMode {
             } else if (gamepad2.left_bumper) {
                 arm.setHand(RelicArm.HandState.OPEN);
             }
-        }
+        }*/
     }
 }

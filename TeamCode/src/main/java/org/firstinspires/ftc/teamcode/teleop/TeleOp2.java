@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.*;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -34,6 +35,7 @@ public class TeleOp2 extends LinearOpMode{
         elevator = new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
         grabber = new Grabber[]{new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT)),
                 new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB))};
+        arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("pivot"), hardwareMap.crservo.get("pivot"), hardwareMap.servo.get("hand"));
         manager = new SubsystemManager();
         manager.add(drive);
         for (Grabber g: grabber) manager.add(g);
@@ -59,11 +61,11 @@ public class TeleOp2 extends LinearOpMode{
             y = temp*Math.sin(angle) + y*Math.cos(angle);
 
             double vals[] = {x - y + z, -x - y + z, -x - y - z, x - y - z};
-            double norm = 0;
-            for (double val:vals) norm += Math.pow(val, 2);
-            norm = Math.sqrt(norm);
+            //double norm = 0;
+            //for (double val:vals) norm += Math.pow(val, 2);
+            //norm = Math.sqrt(norm);
 
-            signal = new DriveSignal(vals[0]/norm, vals[1]/norm, vals[2]/norm, vals[3]/norm);
+            signal = new DriveSignal(vals[0], vals[1], vals[2], vals[3]);
 
             /*if (gamepad1.right_bumper) {
                 flip = true;
@@ -99,6 +101,17 @@ public class TeleOp2 extends LinearOpMode{
 
             if (gamepad2.left_bumper) grabber[1].open();
             else if (gamepad2.left_trigger > 0.1) grabber[1].close();
+
+            if (gamepad2.right_stick_y < 0) arm.setHumerus(RelicArm.HumerusState.OUT);
+            else if (gamepad2.right_stick_y > 0) arm.setHumerus(RelicArm.HumerusState.IN);
+            else arm.setHumerus(RelicArm.HumerusState.OFF);
+
+            if (gamepad2.x) arm.setCarpals(RelicArm.CarpalState.OUT);
+            else if (gamepad2.y) arm.setCarpals(RelicArm.CarpalState.IN);
+            else arm.setCarpals(RelicArm.CarpalState.OFF);
+
+            if (gamepad2.a) arm.setPollex(RelicArm.PollexState.OPEN);
+            else if (gamepad2.b) arm.setPollex(RelicArm.PollexState.CLOSED);
 
             telemetry.addData("Top", grabber[0].getPosition());
             telemetry.addData("Bottom", grabber[1].getPosition());

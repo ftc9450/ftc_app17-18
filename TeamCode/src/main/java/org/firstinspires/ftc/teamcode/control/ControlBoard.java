@@ -98,17 +98,17 @@ public class ControlBoard {
             return Grabber.GrabberState.CLOSED;
         }return Grabber.GrabberState.OPEN;
     }
-    public RelicArm.RelicArmState relicCommand(){
+    public RelicArm.HumerusState relicCommand(){
         if(driverController.b){
-            return RelicArm.RelicArmState.OUT;
+            return RelicArm.HumerusState.OUT;
         }else if(driverController.x){
-            return RelicArm.RelicArmState.IN;
-        }return RelicArm.RelicArmState.OFF;
+            return RelicArm.HumerusState.IN;
+        }return RelicArm.HumerusState.OFF;
     }
-    public RelicArm.HandState handCommand(){
+    public RelicArm.PollexState handCommand(){
         if(driverController.dpad_left) {
-            return RelicArm.HandState.OPEN;
-        }return RelicArm.HandState.CLOSED;
+            return RelicArm.PollexState.OPEN;
+        }return RelicArm.PollexState.CLOSED;
     }
     public Elevator.ElevatorState elevatorCommand(){
         if(driverController.left_stick_y<0){

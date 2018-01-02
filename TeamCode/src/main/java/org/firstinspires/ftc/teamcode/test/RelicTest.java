@@ -16,27 +16,36 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class RelicTest extends OpMode {
     private DcMotor arm;
-    private CRServo pivot;
+    private CRServo pivot1;
+    private CRServo pivot2;
     private Servo hand;
 
     @Override
     public void init() {
         arm = hardwareMap.dcMotor.get("arm");
-        pivot = hardwareMap.crservo.get("pivot");
+        pivot1 = hardwareMap.crservo.get("l_pivot");
+        pivot2 = hardwareMap.crservo.get("r_pivot");
+
         hand = hardwareMap.servo.get("hand");
 
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
-        pivot.setDirection(CRServo.Direction.FORWARD);
+        pivot1.setDirection(CRServo.Direction.FORWARD);
+        pivot2.setDirection(DcMotorSimple.Direction.REVERSE);
         hand.setDirection(Servo.Direction.FORWARD);
     }
 
     @Override
     public void loop() {
         if(gamepad1.y){
-            pivot.setPower(1);
+            pivot1.setPower(1);
+            pivot2.setPower(1);
         }else if(gamepad1.a){
-            pivot.setPower(-1);
-        }else{pivot.setPower(0);}
+            pivot1.setPower(-1);
+            pivot2.setPower(-1);
+        }else{
+            pivot1.setPower(0);
+            pivot2.setPower(0);
+        }
         if(gamepad1.x) {
             hand.setPosition(0);
         }else if(gamepad1.b){
