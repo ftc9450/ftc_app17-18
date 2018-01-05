@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 @Autonomous
 public class AutoRed2 extends LinearOpMode{
-    VuforiaLocalizer vuforia;
+    Vuforia vuforia;
     RelicRecoveryVuMark detectedVuMark;
     Drivetrain drivetrain;
     Rudder rudder;
@@ -27,26 +27,27 @@ public class AutoRed2 extends LinearOpMode{
 
     @Override
     public void runOpMode() throws InterruptedException {
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        parameters.vuforiaLicenseKey = Constants.Setup.VUFORIAKEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+//        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+//        parameters.vuforiaLicenseKey = Constants.Setup.VUFORIAKEY;
+//        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+//        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+//        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+//        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+//        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
 
         telemetry.addData("step", 1);
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("sensor_color_distance"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
-        //vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
+        vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
         grabber.setState(Grabber.GrabberState.CLOSED);grabber.loop();
         rudder.setState(Rudder.RudderState.START);rudder.loop();
         waitForStart();
-
-        relicTrackables.activate();
-        RelicRecoveryVuMark detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
+//
+//        relicTrackables.activate();
+//        RelicRecoveryVuMark detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
+        detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
 
@@ -74,7 +75,7 @@ public class AutoRed2 extends LinearOpMode{
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
         }
         */
-        if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
+        //if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
         if(color==Constants.Color.RED){
