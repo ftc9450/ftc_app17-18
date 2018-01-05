@@ -33,6 +33,7 @@ public class AutoRed1 extends LinearOpMode{
         while(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){detectedVuMark=vuforia.getVuMark();}
         telemetry.addData("vumark",detectedVuMark);telemetry.update();
 
+        waitForStart();
         drivetrain.enableAndResetEncoders();
         drivetrain.moveLR(5*Constants.Drivetrain.STRAFEINCH, 0.3); // move 3 inches right
         Thread.sleep(500);

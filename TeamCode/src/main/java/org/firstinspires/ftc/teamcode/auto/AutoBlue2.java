@@ -4,7 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.vuforia.EyewearUserCalibrator;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.sensors.Vuforia;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
@@ -15,18 +19,26 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  * Created by Grace on 12/30/2017.
  */
 @Autonomous
-public class AutoBlue2 extends LinearOpMode{
-    Vuforia vuforia;
+public class AutoBlue2 /*extends LinearOpMode*/{
+    VuforiaLocalizer vuforia;
     RelicRecoveryVuMark detectedVuMark;
     Drivetrain drivetrain;
     Rudder rudder;
     Grabber grabber;
-    @Override
-    public void runOpMode() throws InterruptedException {
+    //@Override
+    /*public void runOpMode() throws InterruptedException {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = Constants.Setup.VUFORIAKEY;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("sensor_color_distance"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
-        vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
         detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);telemetry.update();
         grabber.setState(Grabber.GrabberState.CLOSED);grabber.loop();
@@ -52,7 +64,7 @@ public class AutoBlue2 extends LinearOpMode{
         }else{
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
         }
-        */
+        *
         if(color==Constants.Color.RED){
             drivetrain.moveFB(4*Constants.Drivetrain.INCH,-1);
             Thread.sleep(1000);
@@ -75,5 +87,5 @@ public class AutoBlue2 extends LinearOpMode{
         }
         drivetrain.pivot(-90*Constants.Drivetrain.DEGREE,-1);
         drivetrain.moveFB(9*Constants.Drivetrain.INCH,1);
-    }
+    }*/
 }

@@ -3,7 +3,11 @@ package org.firstinspires.ftc.teamcode.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.sensors.Vuforia;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
@@ -15,23 +19,41 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 @Autonomous
 public class AutoRed2 extends LinearOpMode{
-    Vuforia vuforia;
+    VuforiaLocalizer vuforia;
     RelicRecoveryVuMark detectedVuMark;
     Drivetrain drivetrain;
     Rudder rudder;
     Grabber grabber;
+
     @Override
     public void runOpMode() throws InterruptedException {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = Constants.Setup.VUFORIAKEY;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+
+        telemetry.addData("step", 1);
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("sensor_color_distance"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
-        vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
-        detectedVuMark=vuforia.getVuMark();
-        telemetry.addData("vumark",detectedVuMark);telemetry.update();
+        //vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
         grabber.setState(Grabber.GrabberState.CLOSED);grabber.loop();
         rudder.setState(Rudder.RudderState.START);rudder.loop();
+        waitForStart();
+
+        relicTrackables.activate();
+        RelicRecoveryVuMark detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
+        telemetry.addData("vumark",detectedVuMark);
+        telemetry.update();
+
         drivetrain.enableAndResetEncoders();
-        telemetry.addData("status", "started"); telemetry.update();
+        telemetry.addData("status", "started");
+        telemetry.addData("step", 2);
+        telemetry.update();
         drivetrain.moveLR(5*Constants.Drivetrain.INCH, 1); // move 3 inches right
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
@@ -52,27 +74,47 @@ public class AutoRed2 extends LinearOpMode{
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
         }
         */
+        if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
+        telemetry.addData("vumark", detectedVuMark);
+        telemetry.update();
         if(color==Constants.Color.RED){
             drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
             Thread.sleep(1000);
+            // TODO: strafe before pulling in
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
             drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
-        }else {
+        } else {
             drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
             drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
         }
+
+        // if rudder is stuck
+        if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
+            drivetrain.moveLR(-2, 1);
+            rudder.setState(Rudder.RudderState.IN);
+            drivetrain.moveLR(2, 1);
+        }
+
+        telemetry.addData("step", 3);
+        telemetry.update();
         drivetrain.moveFB(30*Constants.Drivetrain.INCH,1);
         drivetrain.pivot(-90*Constants.Drivetrain.DEGREE,-1);
+        telemetry.addData("step", 4);
+        telemetry.update();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(12*Constants.Drivetrain.INCH,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(25*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(40*Constants.Drivetrain.INCH,1);
         }else{
             drivetrain.moveFB(19*Constants.Drivetrain.INCH,1);
         }
+        telemetry.addData("step", 5);
+        telemetry.update();
         drivetrain.pivot(90*Constants.Drivetrain.DEGREE,1);
         drivetrain.moveFB(9*Constants.Drivetrain.INCH,1);
+        grabber.setState(Grabber.GrabberState.OPEN); grabber.loop();
+        drivetrain.moveFB(-2*Constants.Drivetrain.INCH, 1);
     }
 }
