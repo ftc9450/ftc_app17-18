@@ -13,7 +13,6 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  * Created by Grace on 11/18/2017.
  */
 @TeleOp
-@Disabled
 public class GrabberTest extends OpMode {
     ControlBoard controlBoard;
     Grabber grabber;
