@@ -23,7 +23,9 @@ import org.firstinspires.ftc.teamcode.util.DriveSignal;
 public class TeleOp2 extends LinearOpMode{
     Drivetrain drive;
     Elevator elevator;
-    Grabber grabber[];
+    //Grabber grabber[];
+    Grabber topGrabber;
+    Grabber bottomGrabber;
     RelicArm arm;
     Gyroscope imu;
     SubsystemManager manager;
@@ -33,12 +35,15 @@ public class TeleOp2 extends LinearOpMode{
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         elevator = new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
-        grabber = new Grabber[]{new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT)),
-                new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB))};
+        /*grabber = new Grabber[]{new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT)),
+                new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB))};*/
+        topGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
+        bottomGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
         arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("pivot"), hardwareMap.crservo.get("pivot"), hardwareMap.servo.get("hand"));
         manager = new SubsystemManager();
         manager.add(drive);
-        for (Grabber g: grabber) manager.add(g);
+        manager.add(topGrabber);
+        manager.add(bottomGrabber);
 
         waitForStart();
 
@@ -88,19 +93,19 @@ public class TeleOp2 extends LinearOpMode{
             drive.setOpenLoop(signal);
 
             if (gamepad2.dpad_up) {
-                grabber[0].setState(Grabber.GrabberState.CLOSED);
+                topGrabber.setState(Grabber.GrabberState.CLOSED);
                 elevator.moveUpSixInches();
             }
             else if (gamepad2.dpad_down) {
-                grabber[0].setState(Grabber.GrabberState.CLOSED);
+                topGrabber.setState(Grabber.GrabberState.CLOSED);
                 elevator.moveDownSixInches();
             }
 
-            if (gamepad2.right_bumper) grabber[0].open();
-            else if (gamepad2.right_trigger > 0.1) grabber[0].close();
+            if (gamepad2.right_bumper) topGrabber.open();
+            else if (gamepad2.right_trigger > 0.1) topGrabber.close();
 
-            if (gamepad2.left_bumper) grabber[1].open();
-            else if (gamepad2.left_trigger > 0.1) grabber[1].close();
+            if (gamepad2.left_bumper) bottomGrabber.open();
+            else if (gamepad2.left_trigger > 0.1) bottomGrabber.close();
 
             if (gamepad2.right_stick_y < 0) arm.setHumerus(RelicArm.HumerusState.OUT);
             else if (gamepad2.right_stick_y > 0) arm.setHumerus(RelicArm.HumerusState.IN);
@@ -113,8 +118,8 @@ public class TeleOp2 extends LinearOpMode{
             if (gamepad2.a) arm.setPollex(RelicArm.PollexState.OPEN);
             else if (gamepad2.b) arm.setPollex(RelicArm.PollexState.CLOSED);
 
-            telemetry.addData("Top", grabber[0].getPosition());
-            telemetry.addData("Bottom", grabber[1].getPosition());
+            telemetry.addData("Top", topGrabber.getPosition());
+            telemetry.addData("Bottom", bottomGrabber.getPosition());
             telemetry.update();
 
             manager.loopSystems();
