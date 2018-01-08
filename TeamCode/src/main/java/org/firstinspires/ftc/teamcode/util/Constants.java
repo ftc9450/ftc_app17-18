@@ -26,7 +26,7 @@ public class Constants {
         public static final int maxEncoder=30400;
         public static final String LEFTPIVOT="l_pivot";
         public static final String RIGHTPIVOT="r_pivot";
-        public static final String ARM="arm";
+        public static final String ARM="relic";
         public static final String HAND="hand";
     }
     public class Grabber{
