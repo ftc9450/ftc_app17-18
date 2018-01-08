@@ -48,7 +48,7 @@ public class RelicArm extends Subsystem {
         this.pollex.setDirection(Servo.Direction.FORWARD);
         this.pollexState = PollexState.OPEN;
     }
-
+    public String toString(){return String.valueOf(humerus.getCurrentPosition());}
     public void setHumerus(HumerusState state) {
         this.humerusState = state;
     }
@@ -75,14 +75,16 @@ public class RelicArm extends Subsystem {
     public void loop() {
         switch (humerusState) {
             case OUT:
-                humerus.setPower(1);
+                if(humerus.getCurrentPosition()<Constants.RelicArm.maxEncoder) {
+                    humerus.setPower(speed);
+                }else{stop();}
                 break;
             case IN:
-                humerus.setPower(-1);
+                if(humerus.getCurrentPosition()>0) {
+                    humerus.setPower(-1 * speed);
+                }else{stop();}
                 break;
             case OFF:
-                humerus.setPower(0);
-                break;
             default:
                 stop();
         }

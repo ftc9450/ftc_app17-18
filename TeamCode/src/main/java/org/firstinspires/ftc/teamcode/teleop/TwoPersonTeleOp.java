@@ -22,7 +22,7 @@ public class TwoPersonTeleOp extends OpMode{
     ControlBoard controlBoard1;
     ControlBoard controlBoard2;
     Drivetrain drivetrain;
-    //RelicArm relicArm;
+    RelicArm relicArm;
     Elevator elevator;
     Grabber topGrabber;
     Grabber bottomGrabber;
@@ -37,8 +37,8 @@ public class TwoPersonTeleOp extends OpMode{
         subsystemManager.add(topGrabber);
         bottomGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
         subsystemManager.add(bottomGrabber);
-        //relicArm=new RelicArm(hardwareMap.dcMotor.get(Constants.RelicArm.ARM),hardwareMap.servo.get(Constants.RelicArm.HAND));
-        //subsystemManager.add(relicArm);
+        relicArm=new RelicArm(hardwareMap.dcMotor.get(Constants.RelicArm.ARM),hardwareMap.crservo.get(Constants.RelicArm.LEFTPIVOT), hardwareMap.crservo.get(Constants.RelicArm.RIGHTPIVOT),hardwareMap.servo.get(Constants.RelicArm.HAND));
+        subsystemManager.add(relicArm);
         elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
         subsystemManager.add(elevator);
     }
@@ -68,6 +68,11 @@ public class TwoPersonTeleOp extends OpMode{
         }
         d.scale(controlBoard1.reduceDriveSpeed());
         drivetrain.setOpenLoop(d);
+        relicArm.setHumerus(controlBoard2.relicCommand());
+        relicArm.setPollex(controlBoard2.handCommand());
+        relicArm.setCarpals(controlBoard2.pivotCommand());
+        telemetry.addData("glypht position: ",elevator);
+        telemetry.addData("relic arm position: ",relicArm);
         subsystemManager.loopSystems();
     }
 }

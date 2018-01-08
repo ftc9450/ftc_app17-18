@@ -38,6 +38,7 @@ public class Elevator extends Subsystem{
     @Override
     public void zeroSensors() {
     }
+    public String toString(){return String.valueOf(elevatorMotor.getCurrentPosition());}
     public void moveUpSixInches(){
         int curr=elevatorMotor.getCurrentPosition();
         if(curr<=Constants.Elevator.maxEncoder-Constants.Elevator.sixInches){
@@ -59,19 +60,19 @@ public class Elevator extends Subsystem{
     @Override
     public void loop() {
         switch (state) {
-        case UP:
-            if(elevatorMotor.getCurrentPosition()<Constants.Elevator.maxEncoder) {
-                elevatorMotor.setPower(speed);
-            }else{stop();}
-            break;
-        case DOWN:
-            if(elevatorMotor.getCurrentPosition()>0) {
-                elevatorMotor.setPower(-1 * speed);
-            }else{stop();}
-            break;
-        case OFF:
-        default:
-            stop();
+            case UP:
+                if(elevatorMotor.getCurrentPosition()<Constants.Elevator.maxEncoder) {
+                    elevatorMotor.setPower(speed);
+                }else{stop();}
+                break;
+            case DOWN:
+                if(elevatorMotor.getCurrentPosition()>0) {
+                    elevatorMotor.setPower(-1 * speed);
+                }else{stop();}
+                break;
+            case OFF:
+            default:
+                stop();
         }
     }
 }
