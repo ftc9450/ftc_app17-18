@@ -26,7 +26,7 @@ public class Vuforia {
     public Vuforia(int CamMonitorViewId){
         parameters=new VuforiaLocalizer.Parameters(CamMonitorViewId);
         parameters.vuforiaLicenseKey= Constants.Setup.VUFORIAKEY;
-        parameters.cameraDirection= VuforiaLocalizer.CameraDirection.BACK;
+        parameters.cameraDirection= VuforiaLocalizer.CameraDirection.FRONT;
         vuforia= ClassFactory.createVuforiaLocalizer(parameters);
         relicTrackables =vuforia.loadTrackablesFromAsset("RelicVuMark");
         relicVuMarks= relicTrackables.get(0);

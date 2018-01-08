@@ -30,7 +30,7 @@ public class Rudder extends Subsystem {
      */
     public Rudder(Servo rudderServo, ColorSensor colorSensor) {
         this.rudderServo = rudderServo;
-        this.rudderServo.setDirection(Servo.Direction.REVERSE);
+        this.rudderServo.setDirection(Servo.Direction.FORWARD);
         this.colorSensor = colorSensor;
         this.setState(RudderState.IN);
     }

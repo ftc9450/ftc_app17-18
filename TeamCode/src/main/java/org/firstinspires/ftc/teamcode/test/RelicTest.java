@@ -22,7 +22,7 @@ public class RelicTest extends OpMode {
 
     @Override
     public void init() {
-        arm = hardwareMap.dcMotor.get("arm");
+        arm = hardwareMap.dcMotor.get("relic");
         pivot1 = hardwareMap.crservo.get("l_pivot");
         pivot2 = hardwareMap.crservo.get("r_pivot");
 
