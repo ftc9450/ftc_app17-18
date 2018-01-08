@@ -15,10 +15,12 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 @TeleOp
 @Disabled
 public class GrabberTest extends OpMode {
-    ControlBoard controlBoard=new ControlBoard(gamepad1);
+    ControlBoard controlBoard;
     Grabber grabber;
-    SubsystemManager subsystemManager=new SubsystemManager();
+    SubsystemManager subsystemManager;
     public void init() {
+        controlBoard = new ControlBoard(gamepad1);
+        subsystemManager = new SubsystemManager();
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT), hardwareMap.servo.get(Constants.Grabber.RT));
         subsystemManager.add(grabber);
     }
