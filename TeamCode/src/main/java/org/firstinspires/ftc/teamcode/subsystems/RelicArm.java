@@ -80,7 +80,7 @@ public class RelicArm extends Subsystem {
                 }else{stop();}
                 break;
             case IN:
-                if(humerus.getCurrentPosition()>0) {
+                if(1==1 || humerus.getCurrentPosition()>0) {
                     humerus.setPower(-1 * speed);
                 }else{stop();}
                 break;
@@ -91,11 +91,11 @@ public class RelicArm extends Subsystem {
         switch (carpalState) {
             case OUT:
                 carpals[0].setPower(1);
-                carpals[1].setPower(-1);
+                carpals[1].setPower(1);
                 break;
             case IN:
                 carpals[0].setPower(-1);
-                carpals[1].setPower(1);
+                carpals[1].setPower(-1);
                 break;
             case OFF:
                 carpals[0].setPower(0);
