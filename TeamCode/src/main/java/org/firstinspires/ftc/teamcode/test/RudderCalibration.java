@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.Rudder;
+import org.firstinspires.ftc.teamcode.util.Constants;
 
 /**
  * Created by dhruv on 12/31/17.
@@ -15,7 +16,7 @@ public class RudderCalibration extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        rudder = new Rudder(hardwareMap.servo.get("rudder_servo"),hardwareMap.colorSensor.get("sensor_color_distance"));
+        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDER),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         waitForStart();
 
         while (opModeIsActive()) {

@@ -76,22 +76,18 @@ public class ControlBoard {
     public Grabber.GrabberState topGrabberCommand(Grabber.GrabberState curr){
         if(driverController.right_bumper){
             return Grabber.GrabberState.CLOSED;
-        }else if(driverController.left_bumper&&curr== Grabber.GrabberState.CLOSED){
-            return Grabber.GrabberState.OPEN;
-        }else if(curr== Grabber.GrabberState.OPEN){
+        }else if(driverController.left_bumper){
             return Grabber.GrabberState.OPEN;
         }
-        return Grabber.GrabberState.CLOSED;
+        return Grabber.GrabberState.OFF;
     }
     public Grabber.GrabberState bottomGrabberCommand(Grabber.GrabberState curr){
         if(driverController.right_trigger>0){
             return Grabber.GrabberState.CLOSED;
-        }else if(driverController.left_trigger>0&&curr==Grabber.GrabberState.CLOSED){
-            return Grabber.GrabberState.OPEN;
-        }else if(curr== Grabber.GrabberState.OPEN){
+        }else if(driverController.left_trigger>0){
             return Grabber.GrabberState.OPEN;
         }
-        return Grabber.GrabberState.CLOSED;
+        return Grabber.GrabberState.OFF;
     }
     public Grabber.GrabberState grabberCommand(){
         if(driverController.x){

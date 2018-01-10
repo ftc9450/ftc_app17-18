@@ -44,8 +44,6 @@ public class TeleOp2 extends LinearOpMode{
         arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("l_pivot"), hardwareMap.crservo.get("r_pivot"), hardwareMap.servo.get("hand"));
         manager = new SubsystemManager();
         manager.add(drive);
-        manager.add(topGrabber);
-        manager.add(bottomGrabber);
 
         waitForStart();
 

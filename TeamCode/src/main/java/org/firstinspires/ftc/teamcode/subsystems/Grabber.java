@@ -17,7 +17,7 @@ public class Grabber extends Subsystem{
     private double closedPosition = Constants.Grabber.closePos;
 
     public enum GrabberState{
-        OPEN,CLOSED
+        OPEN,CLOSED,OFF
     }
 
     private GrabberState grabberState;
@@ -34,15 +34,22 @@ public class Grabber extends Subsystem{
     public GrabberState getState(){return this.grabberState;}
 
     public void close() {
-        leftServo.setPosition(leftServo.getPosition()+0.05);
-        rightServo.setPosition(rightServo.getPosition()+0.05);
+        double stor=leftServo.getPosition();
+        leftServo.setPosition(stor+0.05);
+        rightServo.setPosition(stor+0.05);
     }
 
     public void open() {
-        leftServo.setPosition(leftServo.getPosition()-0.05);
-        rightServo.setPosition(rightServo.getPosition()-0.05);
+        double stor=leftServo.getPosition();
+        if(stor>openPosition) {
+            leftServo.setPosition(stor - 0.05);
+            rightServo.setPosition(stor - 0.05);
+        }
     }
-
+    public void autoClose(){
+        leftServo.setPosition(closedPosition);
+        rightServo.setPosition(closedPosition);
+    }
     public String getPosition() {
         return leftServo.getPosition() + " " + rightServo.getPosition();
     }
@@ -62,20 +69,13 @@ public class Grabber extends Subsystem{
     public void loop() {
         switch(grabberState){
             case CLOSED:
-                double stor=leftServo.getPosition();
-                for(double i=stor;i<closedPosition;i+=0.05){
-                    leftServo.setPosition(i);
-                    rightServo.setPosition(i);
-                }
+                close();
                 break;
             case OPEN:
-            default:
-                double stor1=leftServo.getPosition();
-                for(double i=stor1;i>openPosition;i-=0.05){
-                    leftServo.setPosition(i);
-                    rightServo.setPosition(i);
-                }
+                open();
                 break;
+            case OFF:
+            default:
         }
     }
 

@@ -66,7 +66,7 @@ public class Elevator extends Subsystem{
                 }else{stop();}
                 break;
             case DOWN:
-                if(true||elevatorMotor.getCurrentPosition()>0) {
+                if(elevatorMotor.getCurrentPosition()>=0) {
                     elevatorMotor.setPower(-1 * speed);
                 }else{stop();}
                 break;

@@ -20,7 +20,7 @@ public class Constants {
         public static final float POWER = 1.0f;
         public static final String ELEVATOR="glypht";
         public static final int sixInches=2*1680;
-        public static final double maxEncoder=10*1680;//1680 cpr for neverest 60
+        public static final double maxEncoder=24000;//1680 cpr for neverest 60
     }
     public class RelicArm{
         public static final int maxEncoder=30400;
@@ -42,7 +42,7 @@ public class Constants {
         public static final double RUDDER_IN = 0.2;
         public static final double RUDDER_OUT = 0.5;
         public static final String RUDDER = "rudder_servo";
-        public static final String COLOR = "sensor_color_distance";
+        public static final String COLOR = "color";
     }
 
     public class Color {

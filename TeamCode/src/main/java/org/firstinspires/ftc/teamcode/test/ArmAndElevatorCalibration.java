@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.robotcore.external.Const;
+import org.firstinspires.ftc.teamcode.util.Constants;
+
 /**
  * Created by Grace on 12/25/2017.
  */
@@ -16,8 +19,8 @@ public class ArmAndElevatorCalibration extends OpMode{
     double armPower=1;
     double elevatorPower=1;
     public void init() {
-        arm=hardwareMap.dcMotor.get("arm");
-        elevator=hardwareMap.dcMotor.get("elevator");
+        arm=hardwareMap.dcMotor.get(Constants.RelicArm.ARM);
+        elevator=hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR);
     }
 
     @Override
