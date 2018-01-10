@@ -24,7 +24,11 @@ public class RudderCalibration extends LinearOpMode {
                 rudder.setState(Rudder.RudderState.OUT);
             } else if (gamepad1.b) {
                 rudder.setState(Rudder.RudderState.IN);
+            } else if (gamepad1.y){
+                rudder.setState(Rudder.RudderState.START);
             }
+            rudder.loop();
+            telemetry.addData("pos",rudder);
         }
     }
 }

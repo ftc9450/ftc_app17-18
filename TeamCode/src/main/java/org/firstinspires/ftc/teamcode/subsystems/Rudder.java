@@ -46,8 +46,7 @@ public class Rudder extends Subsystem {
     public void stop() {}
     public RudderState getState(){return state;}
     public String toString(){
-        if(state==RudderState.IN){return "in";}
-        return "out";
+        return String.valueOf(rudderServo.getPosition());
     }
     /**
      * Check color of jewel

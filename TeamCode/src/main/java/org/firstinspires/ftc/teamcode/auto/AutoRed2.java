@@ -39,64 +39,66 @@ public class AutoRed2 extends LinearOpMode{
         grabber.autoClose();
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         rudder.setState(Rudder.RudderState.START);rudder.loop();
+        drivetrain.enableAndResetEncoders();
         detectedVuMark=vuforia.getVuMark();
+        if(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){
+            drivetrain.moveLR(Constants.Drivetrain.STRAFEINCH,0.3);
+            detectedVuMark=vuforia.getVuMark();
+            drivetrain.moveLR(-1*Constants.Drivetrain.STRAFEINCH,-0.3);
+        }
 
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
-
-        drivetrain.enableAndResetEncoders();
         telemetry.addData("status", "started");
         telemetry.update();
-        drivetrain.moveLR(5*Constants.Drivetrain.INCH, 1); // move 3 inches right
-        //rudder.setState(Rudder.RudderState.OUT);rudder.loop();
+       // drivetrain.moveLR(5*Constants.Drivetrain.INCH, 0.3); // move 3 inches right
+        rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         // knock off blue
         int color=rudder.getColor();
-        //Test at USRA-The thresholds don't work in my basement -Grace
-        if(color==Constants.Color.BLUE){
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
-            Thread.sleep(1000);
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
-        }else if(color==Constants.Color.RED){
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
-            Thread.sleep(1000);
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
-        }else{
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-        }
+//        //Test at USRA-The thresholds don't work in my basement -Grace
+//        if(color==Constants.Color.BLUE){
+//            drivetrain.moveFB(4*Constants.Drivetrain.INCH,0.3);
+//            Thread.sleep(1000);
+//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
+//            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-0.3);
+//        }else if(color==Constants.Color.RED){
+//            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-0.3);
+//            Thread.sleep(1000);
+//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
+//            drivetrain.moveFB(4*Constants.Drivetrain.INCH,0.3);
+//        }else{
+//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
+//        }
 
         //if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
-        telemetry.addData("vumark", detectedVuMark);
-        telemetry.update();
         Thread.sleep(1000);
         if(color==Constants.Color.RED){
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
+            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-0.3);
             Thread.sleep(500);
             // TODO: strafe before pulling in
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(4*Constants.Drivetrain.INCH,0.3);
         } else {
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(4*Constants.Drivetrain.INCH,0.3);
             Thread.sleep(500);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
+            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-0.3);
         }
 
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
-            drivetrain.moveLR(-2, 1);
+            drivetrain.moveLR(-2, -1);
             rudder.setState(Rudder.RudderState.IN);
             drivetrain.moveLR(2, 1);
         }
 
         telemetry.update();
-        drivetrain.moveFB(10*Constants.Drivetrain.INCH,1);
+        drivetrain.moveFB(10*Constants.Drivetrain.INCH,0.3);
         if (detectedVuMark == RelicRecoveryVuMark.UNKNOWN) detectedVuMark = vuforia.getVuMark();
         drivetrain.moveFB(16*Constants.Drivetrain.INCH, 1);
         drivetrain.pivot(-90*Constants.Drivetrain.DEGREE,-1);
-        drivetrain.moveFB(-5, 1);
+        drivetrain.moveFB(5, 1);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(12*Constants.Drivetrain.INCH,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
@@ -108,6 +110,6 @@ public class AutoRed2 extends LinearOpMode{
         drivetrain.pivot(90*Constants.Drivetrain.DEGREE,1);
         drivetrain.moveFB(9*Constants.Drivetrain.INCH,1);
         grabber.setState(Grabber.GrabberState.OPEN); grabber.loop();
-        drivetrain.moveFB(-2*Constants.Drivetrain.INCH, 1);
+        drivetrain.moveFB(-2*Constants.Drivetrain.INCH, -1);
     }
 }

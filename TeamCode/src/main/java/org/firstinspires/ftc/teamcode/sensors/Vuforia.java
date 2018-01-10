@@ -34,9 +34,9 @@ public class Vuforia {
     }
     public RelicRecoveryVuMark getVuMark(){
         RelicRecoveryVuMark detectedVuMark=RelicRecoveryVuMark.UNKNOWN;
-        for(int i=0;i<10000;i++) {
+        for(int i=0;i<2000;i++) {
             detectedVuMark=RelicRecoveryVuMark.from(relicVuMarks);
-            if(!detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){i=1000;}
+            if(!detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){i=2000;}
         }
         return detectedVuMark;
     }
