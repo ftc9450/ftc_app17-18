@@ -80,15 +80,12 @@ public class RelicArm extends Subsystem {
                 }else{stop();}
                 break;
             case IN:
-<<<<<<< HEAD
-                if(1==1 || humerus.getCurrentPosition()>0) {
-=======
+                //if(1==1 || humerus.getCurrentPosition()>0) {
                 if(true||humerus.getCurrentPosition()>0) {
->>>>>>> 0a2888577293174c03490fa435a4ecb630cb9251
                     humerus.setPower(-1 * speed);
                 }else{stop();}
                 break;
-            case OFF:
+            //case OFF:
             default:
                 stop();
         }

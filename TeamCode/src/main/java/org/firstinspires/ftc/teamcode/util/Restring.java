@@ -28,7 +28,7 @@ public class Restring extends OpMode {
         else if (gamepad1.b) glypht.setPower(-0.25);
         else glypht.setPower(0);
 
-        if (gamepad1.x) glypht.setPower(0.25);
+        if (gamepad1.x) relic.setPower(0.25);
         else if (gamepad1.y) relic.setPower(-0.25);
         else relic.setPower(0);
     }
