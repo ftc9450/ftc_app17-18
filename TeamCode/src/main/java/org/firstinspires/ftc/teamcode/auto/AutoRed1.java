@@ -22,17 +22,16 @@ public class AutoRed1 extends LinearOpMode{
     Grabber grabber;
     @Override
     public void runOpMode() throws InterruptedException {
+        waitForStart();
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDER), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
-        rudder.setState(Rudder.RudderState.START);rudder.loop();
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
-        grabber.setState(Grabber.GrabberState.CLOSED);grabber.loop();
         //get vumark
         vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
+        grabber.autoClose();
+        rudder.setState(Rudder.RudderState.START);rudder.loop();
         detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);telemetry.update();
-
-        waitForStart();
         drivetrain.enableAndResetEncoders();
         drivetrain.moveLR(5*Constants.Drivetrain.STRAFEINCH, 0.3); // move 3 inches right
         Thread.sleep(500);

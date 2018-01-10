@@ -31,26 +31,14 @@ public class AutoRed2 extends LinearOpMode{
 
     @Override
     public void runOpMode() throws InterruptedException {
-//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-//        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-//        parameters.vuforiaLicenseKey = Constants.Setup.VUFORIAKEY;
-//        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-//        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-//        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-//        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-//        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
-
+        waitForStart();
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("color"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
         vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
-        grabber.setState(Grabber.GrabberState.CLOSED);grabber.loop();
+        grabber.autoClose();
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
-        //rudder.setState(Rudder.RudderState.START);rudder.loop();
-        waitForStart();
-//
-//        relicTrackables.activate();
-//        RelicRecoveryVuMark detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
+        rudder.setState(Rudder.RudderState.START);rudder.loop();
         detectedVuMark=vuforia.getVuMark();
 
         telemetry.addData("vumark",detectedVuMark);
@@ -82,16 +70,17 @@ public class AutoRed2 extends LinearOpMode{
         //if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
+        Thread.sleep(1000);
         if(color==Constants.Color.RED){
             drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
-            Thread.sleep(1000);
+            Thread.sleep(500);
             // TODO: strafe before pulling in
-            //rudder.setState(Rudder.RudderState.IN);rudder.loop();
+            rudder.setState(Rudder.RudderState.IN);rudder.loop();
             drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
         } else {
             drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
-            Thread.sleep(1000);
-            //rudder.setState(Rudder.RudderState.IN);rudder.loop();
+            Thread.sleep(500);
+            rudder.setState(Rudder.RudderState.IN);rudder.loop();
             drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
         }
 
