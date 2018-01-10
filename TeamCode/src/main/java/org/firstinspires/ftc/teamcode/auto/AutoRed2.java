@@ -53,7 +53,7 @@ public class AutoRed2 extends LinearOpMode{
         // knock off blue
         int color=rudder.getColor();
         //Test at USRA-The thresholds don't work in my basement -Grace
-        /*if(color==Constants.Color.BLUE){
+        if(color==Constants.Color.BLUE){
             drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
@@ -66,7 +66,7 @@ public class AutoRed2 extends LinearOpMode{
         }else{
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
         }
-        */
+
         //if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
@@ -85,11 +85,11 @@ public class AutoRed2 extends LinearOpMode{
         }
 
         // if rudder is stuck
-        /*if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
+        if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
             drivetrain.moveLR(-2, 1);
             rudder.setState(Rudder.RudderState.IN);
             drivetrain.moveLR(2, 1);
-        }*/
+        }
 
         telemetry.update();
         drivetrain.moveFB(10*Constants.Drivetrain.INCH,1);
