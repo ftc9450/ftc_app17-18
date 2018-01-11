@@ -28,7 +28,7 @@ public class RudderCalibration extends LinearOpMode {
                 rudder.setState(Rudder.RudderState.START);
             }
             rudder.loop();
-            telemetry.addData("pos",rudder);
+            telemetry.addData("pos",rudder);telemetry.update();
         }
     }
 }
