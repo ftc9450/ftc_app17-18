@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 import org.firstinspires.ftc.teamcode.subsystems.RelicArm;
+import org.firstinspires.ftc.teamcode.subsystems.Rudder;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.DriveSignal;
@@ -26,6 +27,7 @@ public class TwoPersonTeleOp extends OpMode{
     Elevator elevator;
     Grabber topGrabber;
     Grabber bottomGrabber;
+    Rudder rudder;
     SubsystemManager subsystemManager;
     public void init() {
         subsystemManager=new SubsystemManager();
@@ -33,6 +35,8 @@ public class TwoPersonTeleOp extends OpMode{
         controlBoard2=new ControlBoard(gamepad2);
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         drivetrain.disconnectEncoders();
+        rudder=new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("color"));
+        subsystemManager.add(rudder);
         topGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
         subsystemManager.add(topGrabber);
         bottomGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
@@ -68,6 +72,7 @@ public class TwoPersonTeleOp extends OpMode{
         }
         d.scale(controlBoard1.reduceDriveSpeed());
         drivetrain.setOpenLoop(d);
+        rudder.setState(Rudder.RudderState.IN);
         relicArm.setHumerus(controlBoard2.relicCommand());
         relicArm.setPollex(controlBoard2.handCommand());
         relicArm.setCarpals(controlBoard2.pivotCommand());
