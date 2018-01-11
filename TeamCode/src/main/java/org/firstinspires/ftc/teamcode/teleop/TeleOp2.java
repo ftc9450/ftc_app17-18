@@ -101,11 +101,11 @@ public class TeleOp2 extends LinearOpMode{
                 elevator.moveDownSixInches();
             }
 
-            if (gamepad2.right_bumper) topGrabber.open();
-            else if (gamepad2.right_trigger > 0.1) topGrabber.close();
+            if (gamepad2.right_bumper) topGrabber.close();
+            else if (gamepad2.right_trigger > 0.1) topGrabber.open();
 
-            if (gamepad2.left_bumper) bottomGrabber.open();
-            else if (gamepad2.left_trigger > 0.1) bottomGrabber.close();
+            if (gamepad2.left_bumper) bottomGrabber.close();
+            else if (gamepad2.left_trigger > 0.1) bottomGrabber.open();
 
             if (gamepad2.right_stick_y < 0) arm.setHumerus(RelicArm.HumerusState.OUT);
             else if (gamepad2.right_stick_y > 0) arm.setHumerus(RelicArm.HumerusState.IN);

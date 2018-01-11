@@ -31,9 +31,14 @@ public class AutoRed1 extends LinearOpMode{
         grabber.autoClose();
         rudder.setState(Rudder.RudderState.START);rudder.loop();
         detectedVuMark=vuforia.getVuMark();
+        if(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){
+            drivetrain.moveLR(Constants.Drivetrain.STRAFEINCH,0.3);
+            detectedVuMark=vuforia.getVuMark();
+            drivetrain.moveLR(-1*Constants.Drivetrain.STRAFEINCH,-0.3);
+        }
         telemetry.addData("vumark",detectedVuMark);telemetry.update();
         drivetrain.enableAndResetEncoders();
-        drivetrain.moveLR(5*Constants.Drivetrain.STRAFEINCH, 0.3); // move 3 inches right
+       // drivetrain.moveLR(5*Constants.Drivetrain.STRAFEINCH, 0.3); // move 3 inches right
         Thread.sleep(500);
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
@@ -68,18 +73,21 @@ public class AutoRed1 extends LinearOpMode{
         }
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
-            drivetrain.moveLR(-2, 1);
+            drivetrain.moveLR(-10, 1);
             rudder.setState(Rudder.RudderState.IN);
-            drivetrain.moveLR(2, 1);
+            drivetrain.moveLR(10, 1);
         }
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(25*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(28*Constants.Drivetrain.INCH,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(48*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(40*Constants.Drivetrain.INCH,1);
         }else{
-            drivetrain.moveFB(38*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(34*Constants.Drivetrain.INCH,1);
         }
         drivetrain.pivot(90*Constants.Drivetrain.DEGREE,1);
         drivetrain.moveFB(5*Constants.Drivetrain.INCH,1);
+        grabber.setState(Grabber.GrabberState.OPEN); grabber.loop();
+        drivetrain.moveFB(-10*Constants.Drivetrain.INCH, -1);
+        drivetrain.moveFB(10*Constants.Drivetrain.INCH,1);
     }
 }

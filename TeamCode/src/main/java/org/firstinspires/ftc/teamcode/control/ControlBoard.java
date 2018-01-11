@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.RelicArm;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
+import org.firstinspires.ftc.teamcode.subsystems.Rudder;
 import org.firstinspires.ftc.teamcode.util.*;
 
 /**
@@ -110,10 +111,11 @@ public class ControlBoard {
         if(driverController.y){return RelicArm.CarpalState.IN;}
         return RelicArm.CarpalState.OFF;
     }
+    public Rudder.RudderState 
     public Elevator.ElevatorState elevatorCommand(){
-        if(driverController.left_stick_y<0){
+        if(driverController.left_stick_y<-20){
             return Elevator.ElevatorState.UP;
-        }else if(driverController.left_stick_y>0){
+        }else if(driverController.left_stick_y>20){
             return Elevator.ElevatorState.DOWN;
         }return Elevator.ElevatorState.OFF;
     }

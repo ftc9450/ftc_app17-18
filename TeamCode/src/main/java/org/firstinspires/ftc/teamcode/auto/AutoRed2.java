@@ -88,28 +88,28 @@ public class AutoRed2 extends LinearOpMode{
 
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
-            drivetrain.moveLR(-2, -1);
+            drivetrain.moveLR(-10, -1);
             rudder.setState(Rudder.RudderState.IN);
-            drivetrain.moveLR(2, 1);
+            drivetrain.moveLR(10, 1);
         }
 
         telemetry.update();
         drivetrain.moveFB(10*Constants.Drivetrain.INCH,0.3);
         if (detectedVuMark == RelicRecoveryVuMark.UNKNOWN) detectedVuMark = vuforia.getVuMark();
-        drivetrain.moveFB(16*Constants.Drivetrain.INCH, 1);
+        drivetrain.moveFB(14*Constants.Drivetrain.INCH, 1);
         drivetrain.pivot(-90*Constants.Drivetrain.DEGREE,-1);
-        drivetrain.moveFB(5, 1);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(12*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(10*Constants.Drivetrain.INCH,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(30*Constants.Drivetrain.INCH,1);
-        }else{
             drivetrain.moveFB(22*Constants.Drivetrain.INCH,1);
+        }else{
+            drivetrain.moveFB(16*Constants.Drivetrain.INCH,1);
         }
         telemetry.update();
         drivetrain.pivot(90*Constants.Drivetrain.DEGREE,1);
         drivetrain.moveFB(9*Constants.Drivetrain.INCH,1);
         grabber.setState(Grabber.GrabberState.OPEN); grabber.loop();
-        drivetrain.moveFB(-2*Constants.Drivetrain.INCH, -1);
+        drivetrain.moveFB(-10*Constants.Drivetrain.INCH, -1);
+        drivetrain.moveFB(10*Constants.Drivetrain.INCH,1);
     }
 }

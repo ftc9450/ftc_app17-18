@@ -27,8 +27,8 @@ public class Grabber extends Subsystem{
         this.rightServo = right;
         leftServo.setDirection(Servo.Direction.REVERSE);
         rightServo.setDirection(Servo.Direction.FORWARD);
-        leftServo.setPosition(openPosition);
-        rightServo.setPosition(openPosition);
+        leftServo.setPosition(closedPosition);
+        rightServo.setPosition(closedPosition);
     }
     public void setState(GrabberState state){this.grabberState = state;}
     public GrabberState getState(){return this.grabberState;}
