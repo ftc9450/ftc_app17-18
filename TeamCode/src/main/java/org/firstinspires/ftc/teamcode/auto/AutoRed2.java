@@ -108,8 +108,8 @@ public class AutoRed2 extends LinearOpMode{
         telemetry.update();
         drivetrain.pivot(90,1);
         drivetrain.moveFB(9,1);
-        grabber.setState(Grabber.GrabberState.OPEN); grabber.loop();
+        grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
-        drivetrain.moveFB(10,1);
+        drivetrain.moveFB(10,0.5);
     }
 }
