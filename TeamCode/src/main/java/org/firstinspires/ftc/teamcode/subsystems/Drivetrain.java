@@ -93,6 +93,7 @@ public class Drivetrain extends Subsystem {
     }
     public void moveFB(int distance, double power){ //positive power and distance is move forward
         enableAndResetEncoders();
+        distance*=Constants.Drivetrain.INCH;
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(distance);
         rightFront.setTargetPosition(distance);
@@ -103,6 +104,7 @@ public class Drivetrain extends Subsystem {
 
     public void pivot(int distance, double power){
         enableAndResetEncoders();
+        distance*=Constants.Drivetrain.DEGREE;
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(distance);
         rightFront.setTargetPosition(distance*-1);
@@ -113,6 +115,7 @@ public class Drivetrain extends Subsystem {
 
     public void moveLR(int distance, double power){//positive power and distance is move to right
         enableAndResetEncoders();
+        distance*=Constants.Drivetrain.STRAFEINCH;
         leftFront.setTargetPosition(distance);
         leftBack.setTargetPosition(-1*distance);
         rightFront.setTargetPosition(-1*distance);

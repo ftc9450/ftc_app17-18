@@ -37,7 +37,7 @@ public class AutoBlue1 extends LinearOpMode{
         telemetry.update();
 
         drivetrain.enableAndResetEncoders();
-        drivetrain.moveLR(5 * Constants.Drivetrain.STRAFEINCH, 0.3); // move 3 inches right
+        drivetrain.moveLR(5, 0.3);
         Thread.sleep(500);
         rudder.setState(Rudder.RudderState.OUT);
         rudder.loop();
@@ -46,47 +46,47 @@ public class AutoBlue1 extends LinearOpMode{
         int color = rudder.getColor();
         //Test at USRA-The thresholds don't work in my basement -Grace
         /*if(color==Constants.Color.RED){
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(4,1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
+            drivetrain.moveFB(-4,-1);
         }else if(color==Constants.Color.BLUE){
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
+            drivetrain.moveFB(-4,-1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(4,1);
         }else{
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
         }
         */
         if (color == Constants.Color.RED) {
             //TODO:Strafe before pulling in
-            drivetrain.moveFB(4 * Constants.Drivetrain.INCH, 1);
+            drivetrain.moveFB(4, 1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);
             rudder.loop();
-            drivetrain.moveFB(-4 * Constants.Drivetrain.INCH, -1);
+            drivetrain.moveFB(-4, -1);
         } else {
-            drivetrain.moveFB(-4 * Constants.Drivetrain.INCH, -1);
+            drivetrain.moveFB(-4, -1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);
             rudder.loop();
-            drivetrain.moveFB(4 * Constants.Drivetrain.INCH, 1);
+            drivetrain.moveFB(4, 1);
         }
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
-            drivetrain.moveLR(-2, 1);
+            drivetrain.moveLR(-2, -0.3);
             rudder.setState(Rudder.RudderState.IN);
-            drivetrain.moveLR(2, 1);
+            drivetrain.moveLR(2, 0.3);
         }
         if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(-25 * Constants.Drivetrain.INCH, -1);
+            drivetrain.moveFB(-25, -1);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
-            drivetrain.moveFB(-48 * Constants.Drivetrain.INCH, -1);
+            drivetrain.moveFB(-48 , -1);
         } else {
-            drivetrain.moveFB(-38 * Constants.Drivetrain.INCH, -1);
+            drivetrain.moveFB(-38, -1);
         }
-        drivetrain.pivot(90 * Constants.Drivetrain.DEGREE, 1);
-        drivetrain.moveFB(5 * Constants.Drivetrain.INCH, 1);
+        drivetrain.pivot(90, 1);
+        drivetrain.moveFB(5, 1);
     }
 }

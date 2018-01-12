@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -12,6 +13,8 @@ import org.firstinspires.ftc.teamcode.util.*;
  * @author Grace
  */
 @Autonomous
+@Disabled
+@Deprecated
 public class StateBaseAutoRed extends LinearOpMode{
     Drivetrain drivetrain;
     Rudder rudder;

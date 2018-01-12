@@ -54,6 +54,14 @@ public class Grabber extends Subsystem{
             rightServo.setPosition(stor + 0.05);
         }
     }
+    public void autoOpen(){
+        double stor=leftServo.getPosition();
+        while(stor>closedPosition) {
+            stor=leftServo.getPosition();
+            leftServo.setPosition(stor - 0.05);
+            rightServo.setPosition(stor - 0.05);
+        }
+    }
     public String getPosition() {
         return leftServo.getPosition() + " " + rightServo.getPosition();
     }

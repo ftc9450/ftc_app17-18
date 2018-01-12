@@ -38,7 +38,7 @@ public class Constants {
         public static final double closePos=1;
     }
     public class Rudder {
-        public static final double RUDDER_START=0.2;
+        public static final double RUDDER_START=0.4;
         public static final double RUDDER_IN = 0.4;
         public static final double RUDDER_OUT = 1;
         public static final String RUDDER = "rudder_servo";

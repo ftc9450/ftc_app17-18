@@ -37,47 +37,52 @@ public class AutoBlue2 extends LinearOpMode{
         grabber.autoClose();
         rudder.setState(Rudder.RudderState.START);rudder.loop();
         drivetrain.enableAndResetEncoders();
-        drivetrain.moveLR(5*Constants.Drivetrain.INCH, 1); // move 3 inches right
+        drivetrain.moveLR(5, 1); // move 3 inches right
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         // knock off blue
         int color=rudder.getColor();
         //Test at USRA-The thresholds don't work in my basement -Grace
         /*if(color==Constants.Color.RED){
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(4,1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
+            drivetrain.moveFB(-4,-1);
         }else if(color==Constants.Color.BLUE){
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,-1);
+            drivetrain.moveFB(-4,-1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(4,1);
         }else{
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
         }
         */
         if(color==Constants.Color.RED){
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,-1);
+            drivetrain.moveFB(4,-1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(-4,1);
         }else {
-            drivetrain.moveFB(-4*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(-4,1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(4*Constants.Drivetrain.INCH,-1);
+            drivetrain.moveFB(4,-1);
         }
-        drivetrain.moveFB(-30*Constants.Drivetrain.INCH,-1);
-        drivetrain.pivot(-90*Constants.Drivetrain.DEGREE,-1);
+        if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
+            drivetrain.moveLR(-2, -0.3);
+            rudder.setState(Rudder.RudderState.IN);
+            drivetrain.moveLR(2, 0.3);
+        }
+        drivetrain.moveFB(-3,-1);
+        drivetrain.pivot(-90,-1);
         if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(12*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(12,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(25*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(25,1);
         }else{
-            drivetrain.moveFB(19*Constants.Drivetrain.INCH,1);
+            drivetrain.moveFB(19,1);
         }
-        drivetrain.pivot(-90*Constants.Drivetrain.DEGREE,-1);
-        drivetrain.moveFB(9*Constants.Drivetrain.INCH,1);
+        drivetrain.pivot(-90,-1);
+        drivetrain.moveFB(9,1);
     }
 }

@@ -74,7 +74,7 @@ public class ControlBoard {
     }
     public boolean moveUpSixInches(){return driverController.dpad_up;}
     public boolean moveDownSixInches(){return driverController.dpad_down;}
-    public Grabber.GrabberState topGrabberCommand(Grabber.GrabberState curr){
+    public Grabber.GrabberState topGrabberCommand(){
         if(driverController.right_bumper){
             return Grabber.GrabberState.CLOSED;
         }else if(driverController.left_bumper){
@@ -82,7 +82,7 @@ public class ControlBoard {
         }
         return Grabber.GrabberState.OFF;
     }
-    public Grabber.GrabberState bottomGrabberCommand(Grabber.GrabberState curr){
+    public Grabber.GrabberState bottomGrabberCommand(){
         if(driverController.right_trigger>0){
             return Grabber.GrabberState.CLOSED;
         }else if(driverController.left_trigger>0){

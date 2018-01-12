@@ -52,10 +52,8 @@ public class TwoPersonTeleOp extends OpMode{
         if(controlBoard2.moveDownSixInches()){elevator.moveDownSixInches();}
         if(controlBoard2.moveUpSixInches()){elevator.moveUpSixInches();}
         elevator.setState(controlBoard2.elevatorCommand());
-        Grabber.GrabberState currentTop=topGrabber.getState();
-        Grabber.GrabberState currentBottom=bottomGrabber.getState();
-        topGrabber.setState(controlBoard2.topGrabberCommand(currentTop));
-        bottomGrabber.setState(controlBoard2.bottomGrabberCommand(currentBottom));
+        topGrabber.setState(controlBoard2.topGrabberCommand());
+        bottomGrabber.setState(controlBoard2.bottomGrabberCommand());
         DriveSignal d;
         /*DriveSignal translate=controlBoard1.translate();
         DriveSignal turn=controlBoard1.turn();
