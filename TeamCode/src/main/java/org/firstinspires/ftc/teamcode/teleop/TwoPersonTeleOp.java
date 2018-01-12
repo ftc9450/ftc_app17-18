@@ -53,7 +53,7 @@ public class TwoPersonTeleOp extends OpMode{
         topGrabber.setState(controlBoard2.topGrabberCommand(currentTop));
         bottomGrabber.setState(controlBoard2.bottomGrabberCommand(currentBottom));
         DriveSignal d;
-        DriveSignal translate=controlBoard1.translate();
+        /*DriveSignal translate=controlBoard1.translate();
         DriveSignal turn=controlBoard1.turn();
         if(controlBoard1.flip()){
             drivetrain.pivot(Constants.Drivetrain.INCH*12,0.5);
@@ -66,7 +66,12 @@ public class TwoPersonTeleOp extends OpMode{
         }else{
             d=DriveSignal.BRAKE;
         }
-        d.scale(controlBoard1.reduceDriveSpeed());
+        d.scale(controlBoard1.reduceDriveSpeed());*/
+        double x = gamepad1.left_stick_x + (gamepad1.dpad_left?-0.5:0) + (gamepad1.dpad_right?0.5:0);
+        double y = gamepad1.left_stick_y + (gamepad1.dpad_down?0.5:0) + (gamepad1.dpad_up?-0.5:0);
+        double z = gamepad1.right_stick_x + gamepad1.right_trigger/2 - gamepad1.left_trigger/2;
+
+        d = new DriveSignal(x - y + z, -x - y + z, -x - y - z, x - y - z);
         drivetrain.setOpenLoop(d);
         relicArm.setHumerus(controlBoard2.relicCommand());
         relicArm.setPollex(controlBoard2.handCommand());

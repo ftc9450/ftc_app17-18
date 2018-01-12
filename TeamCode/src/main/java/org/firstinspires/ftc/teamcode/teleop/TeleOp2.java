@@ -44,6 +44,7 @@ public class TeleOp2 extends LinearOpMode{
         arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("l_pivot"), hardwareMap.crservo.get("r_pivot"), hardwareMap.servo.get("hand"));
         manager = new SubsystemManager();
         manager.add(drive);
+        manager.add(arm);
 
         waitForStart();
 
@@ -95,10 +96,12 @@ public class TeleOp2 extends LinearOpMode{
             if (gamepad2.dpad_up) {
                 topGrabber.setState(Grabber.GrabberState.CLOSED);
                 elevator.moveUpSixInches();
+                elevator.setState(Elevator.ElevatorState.UP);
             }
             else if (gamepad2.dpad_down) {
                 topGrabber.setState(Grabber.GrabberState.CLOSED);
                 elevator.moveDownSixInches();
+                elevator.setState(Elevator.ElevatorState.DOWN);
             }
 
             if (gamepad2.right_bumper) topGrabber.close();

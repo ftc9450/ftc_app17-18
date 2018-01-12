@@ -111,7 +111,7 @@ public class ControlBoard {
         if(driverController.y){return RelicArm.CarpalState.IN;}
         return RelicArm.CarpalState.OFF;
     }
-    public Rudder.RudderState 
+    //public Rudder.RudderState
     public Elevator.ElevatorState elevatorCommand(){
         if(driverController.left_stick_y<-20){
             return Elevator.ElevatorState.UP;

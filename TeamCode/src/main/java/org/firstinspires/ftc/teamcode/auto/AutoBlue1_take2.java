@@ -33,7 +33,7 @@ public class AutoBlue1_take2 extends LinearOpMode{
         vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
-        telvemetry.update();
+        telemetry.update();
 
         drivetrain.enableAndResetEncoders();
       //  drivetrain.moveLR(5 * Constants.Drivetrain.STRAFEINCH, 0.3); // move 3 inches right
