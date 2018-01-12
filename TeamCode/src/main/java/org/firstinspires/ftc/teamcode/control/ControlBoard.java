@@ -112,10 +112,11 @@ public class ControlBoard {
         return RelicArm.CarpalState.OFF;
     }
     //public Rudder.RudderState
+    public boolean resetArm(){return driverController.right_stick_button||driverController.left_stick_button;}
     public Elevator.ElevatorState elevatorCommand(){
-        if(driverController.left_stick_y<-20){
+        if(driverController.left_stick_y<0){
             return Elevator.ElevatorState.UP;
-        }else if(driverController.left_stick_y>20){
+        }else if(driverController.left_stick_y>0){
             return Elevator.ElevatorState.DOWN;
         }return Elevator.ElevatorState.OFF;
     }

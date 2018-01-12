@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 import org.firstinspires.ftc.teamcode.subsystems.RelicArm;
+import org.firstinspires.ftc.teamcode.subsystems.Rudder;
 import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.DriveSignal;
@@ -28,6 +29,7 @@ public class TeleOp2 extends LinearOpMode{
     Grabber bottomGrabber;
     RelicArm arm;
     Gyroscope imu;
+    Rudder rudder;
     SubsystemManager manager;
 
     @Override
@@ -35,6 +37,8 @@ public class TeleOp2 extends LinearOpMode{
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         elevator = new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
+        rudder=new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("color"));
+
         /*grabber = new Grabber[]{new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT)),
                 new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB))};*/
         topGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
@@ -45,6 +49,7 @@ public class TeleOp2 extends LinearOpMode{
         manager = new SubsystemManager();
         manager.add(drive);
         manager.add(arm);
+        manager.add(rudder);
 
         waitForStart();
 
@@ -120,7 +125,7 @@ public class TeleOp2 extends LinearOpMode{
 
             if (gamepad2.a) arm.setPollex(RelicArm.PollexState.OPEN);
             else if (gamepad2.b) arm.setPollex(RelicArm.PollexState.CLOSED);
-
+            rudder.setState(Rudder.RudderState.IN);
             telemetry.addData("Top", topGrabber.getPosition());
             telemetry.addData("Bottom", bottomGrabber.getPosition());
             telemetry.update();
