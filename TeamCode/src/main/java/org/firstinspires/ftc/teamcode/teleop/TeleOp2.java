@@ -29,6 +29,7 @@ public class TeleOp2 extends LinearOpMode{
     Grabber bottomGrabber;
     RelicArm arm;
     Gyroscope imu;
+    Gyroscope imu2;
     Rudder rudder;
     SubsystemManager manager;
 
@@ -56,7 +57,8 @@ public class TeleOp2 extends LinearOpMode{
         DriveSignal signal;
 
         boolean flip = false;
-        double flipAngle = 0;
+        boolean right = false;
+        boolean left = false;
 
         while (opModeIsActive()) {
             if (gamepad1.y) imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
@@ -71,30 +73,43 @@ public class TeleOp2 extends LinearOpMode{
             x = x*Math.cos(angle) - y*Math.sin(angle);
             y = temp*Math.sin(angle) + y*Math.cos(angle);
 
-            double vals[] = {x - y + z, -x - y + z, -x - y - z, x - y - z};
-            //double norm = 0;
-            //for (double val:vals) norm += Math.pow(val, 2);
-            //norm = Math.sqrt(norm);
-
-            signal = new DriveSignal(vals[0], vals[1], vals[2], vals[3]);
-
-            /*if (gamepad1.right_bumper) {
+            if (gamepad1.left_bumper) {
+                flip = false;
+                left = false;
+                right = false;
+            }
+            else if (gamepad1.right_bumper) {
                 flip = true;
-                flipAngle = imu.getAngle();
-                if (flipAngle < 0) flipAngle += 360;
+                right = false;
+                left = false;
+                imu2 = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu2"));
+            }
+            else if (gamepad1.x) {
+                left = true;
+                right = false;
+                flip = false;
+                imu2 = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu2"));
+            }
+            else if (gamepad2.y) {
+                right = true;
+                left = false;
+                flip = false;
+                imu2 = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu2"));
             }
 
-            if (gamepad1.left_bumper) flip = false;
+            if (flip && imu2.getAngle() > 0) {
+                z = 1;
+            } else if (right && imu2.getAngle() > 90) {
+                z = 1;
+            } else if (left && imu2.getAngle() < -90) {
+                z = -1;
+            } else {
+                flip = false;
+                left = false;
+                right = false;
+            }
 
-            if (flip) {
-                double current = (imu.getAngle()+360 - flipAngle)%360;
-                //if (current < 0) current += 360;
-                if (current < 180) {
-                    signal = new DriveSignal(1, 1, -1, -1);
-                } else {
-                    flip = false;
-                }
-            }*/
+            signal = new DriveSignal(x - y + z, -x - y + z, -x - y - z, x - y - z);
 
             drive.setOpenLoop(signal);
 
