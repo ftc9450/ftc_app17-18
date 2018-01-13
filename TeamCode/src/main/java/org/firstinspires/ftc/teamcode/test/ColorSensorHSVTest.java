@@ -31,6 +31,17 @@ public class ColorSensorHSVTest extends OpMode {
         telemetry.addData("hue",colors[0]);
         telemetry.addData("saturation",colors[1]);
         telemetry.addData("value",colors[2]);
+        if (colors[1] > 50 && colors[2] > 45) {
+            if (180 < colors[0] && colors[0] < 260) {
+                telemetry.addData("jewel", "BLUE");
+            } else if ((300 < colors[0] && colors[0] < 359) || colors[0] < 30) {
+                telemetry.addData("jewel", "RED");
+            } else {
+                telemetry.addData("jewel", "???");
+            }
+        } else {
+            telemetry.addData("jewel", "???");
+        }
         telemetry.update();
 
     }

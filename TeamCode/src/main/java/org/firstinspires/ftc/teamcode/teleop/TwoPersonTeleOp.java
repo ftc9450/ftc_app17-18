@@ -71,8 +71,8 @@ public class TwoPersonTeleOp extends OpMode{
             d=DriveSignal.BRAKE;
         }
         d.scale(controlBoard1.reduceDriveSpeed());*/
-        x = (x+gamepad1.left_stick_x + (gamepad1.dpad_left?-0.5:0) + (gamepad1.dpad_right?0.5:0))/2;
-        y = (y+gamepad1.left_stick_y + (gamepad1.dpad_down?0.5:0) + (gamepad1.dpad_up?-0.5:0))/2;
+        x = gamepad1.left_stick_x + (gamepad1.dpad_left?-0.5:0) + (gamepad1.dpad_right?0.5:0);
+        y = gamepad1.left_stick_y + (gamepad1.dpad_down?0.5:0) + (gamepad1.dpad_up?-0.5:0);
         z = gamepad1.right_stick_x + gamepad1.right_trigger/2 - gamepad1.left_trigger/2;
 
         d = new DriveSignal(x - y + z, -x - y + z, -x - y - z, x - y - z);
