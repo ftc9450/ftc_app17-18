@@ -61,11 +61,13 @@ public class Elevator extends Subsystem{
     public void loop() {
         switch (state) {
             case UP:
+                elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 if(elevatorMotor.getCurrentPosition()<Constants.Elevator.maxEncoder) {
                     elevatorMotor.setPower(speed);
                 }else{stop();}
                 break;
             case DOWN:
+                elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 if(elevatorMotor.getCurrentPosition()>=0) {
                     elevatorMotor.setPower(-1 * speed);
                 }else{stop();}

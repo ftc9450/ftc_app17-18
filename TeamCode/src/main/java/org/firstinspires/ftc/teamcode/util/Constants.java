@@ -20,7 +20,7 @@ public class Constants {
         public static final float POWER = 1.0f;
         public static final String ELEVATOR="glypht";
         public static final int sixInches=4*1680;
-        public static final double maxEncoder=24000;//1680 cpr for neverest 60
+        public static final double maxEncoder=26000;//1680 cpr for neverest 60
     }
     public class RelicArm{
         public static final int maxEncoder=30400;
