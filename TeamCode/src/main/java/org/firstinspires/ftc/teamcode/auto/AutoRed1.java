@@ -61,15 +61,15 @@ public class AutoRed1 extends LinearOpMode{
         */
         //TODO:Strafe before pulling in
         if(color==Constants.Color.RED){
-            drivetrain.moveFB(-4,-1);
+            drivetrain.moveFB(-2,-1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(4,1);
+            drivetrain.moveFB(2,1);
         }else {
-            drivetrain.moveFB(4,1);
+            drivetrain.moveFB(2,1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-4,-1);
+            drivetrain.moveFB(-2,-1);
         }
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
@@ -78,16 +78,18 @@ public class AutoRed1 extends LinearOpMode{
             drivetrain.moveLR(2, 0.3);
         }
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(28,1);
+            drivetrain.moveFB(18,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(40,1);
+            drivetrain.moveFB(39,1);
         }else{
-            drivetrain.moveFB(34,1);
+            drivetrain.moveFB(35,1);
         }
         drivetrain.pivot(90,1);
-        drivetrain.moveFB(5,1);
+        drivetrain.moveFB(13,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
-        drivetrain.moveFB(10,0.5);
+        grabber.autoClose();
+        drivetrain.moveFB(13,0.5);
+        drivetrain.moveFB(-5, .5);
     }
 }
