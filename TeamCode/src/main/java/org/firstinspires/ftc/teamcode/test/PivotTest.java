@@ -24,6 +24,7 @@ import java.util.Locale;
  */
 
 @Disabled
+@Deprecated
 public class PivotTest extends OpMode {
     private Drivetrain drive;
     private BNO055IMU imu;

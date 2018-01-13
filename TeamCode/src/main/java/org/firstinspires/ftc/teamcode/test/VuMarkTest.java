@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -24,6 +25,8 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 
 @TeleOp
+@Disabled
+@Deprecated
 public class VuMarkTest extends LinearOpMode {
 
     public static final String TAG = "Vuforia VuMark Sample";

@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 @TeleOp
 @Disabled
+@Deprecated
 public class ElevatorClassTest extends OpMode {
     Elevator elevator;
     ControlBoard controlBoard;

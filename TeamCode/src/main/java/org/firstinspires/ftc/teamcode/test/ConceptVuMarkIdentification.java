@@ -67,6 +67,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  */
 
 @Autonomous(name="Concept: VuMark Id", group ="Concept")
+@Deprecated
 public class ConceptVuMarkIdentification extends LinearOpMode {
 
     public static final String TAG = "Vuforia VuMark Sample";
