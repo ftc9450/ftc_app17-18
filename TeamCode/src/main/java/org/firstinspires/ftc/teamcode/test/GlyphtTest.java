@@ -35,7 +35,7 @@ public class GlyphtTest extends OpMode{
 
     @Override
     public void loop() {
-        if(controlBoard.moveDownSixInches()){elevator.moveDownSixInches();}
+      /*  if(controlBoard.moveDownSixInches()){elevator.moveDownSixInches();}
         if(controlBoard.moveUpSixInches()){elevator.moveUpSixInches();}
         elevator.setState(controlBoard.elevatorCommand());
         Grabber.GrabberState top=controlBoard.topGrabberCommand(null);
@@ -51,6 +51,6 @@ public class GlyphtTest extends OpMode{
             bottomGrabber.setState(bottomGrabber.getState());
         }
         subsystemManager.loopSystems();
-
+*/
     }
 }
