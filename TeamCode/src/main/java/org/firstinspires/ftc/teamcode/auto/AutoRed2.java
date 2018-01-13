@@ -42,52 +42,26 @@ public class AutoRed2 extends LinearOpMode{
         rudder.setState(Rudder.RudderState.START);rudder.loop();
         drivetrain.enableAndResetEncoders();
         detectedVuMark=vuforia.getVuMark();
-        /*if(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){
-            drivetrain.moveLR(Constants.Drivetrain.STRAFEINCH,0.3);
-            detectedVuMark=vuforia.getVuMark();
-            drivetrain.moveLR(-1,-0.3);
-        }*/
-
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
         telemetry.addData("status", "started");
         telemetry.update();
-       // drivetrain.moveLR(5, 0.3); // move 3 inches right
-   //     rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
-        // knock off blue
         int color=rudder.getColor();
-//        //Test at USRA-The thresholds don't work in my basement -Grace
-//        if(color==Constants.Color.BLUE){
-//            drivetrain.moveFB(4,0.3);
-//            Thread.sleep(1000);
-//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-//            drivetrain.moveFB(-4,-0.3);
-//        }else if(color==Constants.Color.RED){
-//            drivetrain.moveFB(-4,-0.3);
-//            Thread.sleep(1000);
-//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-//            drivetrain.moveFB(4,0.3);
-//        }else{
-//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-//        }
-
-        //if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
-        Thread.sleep(1000);
-        if(color==Constants.Color.RED){
-            drivetrain.moveFB(-4,-0.3);
-            Thread.sleep(500);
-            // TODO: strafe before pulling in
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
+        if(color==Constants.Color.BLUE){
             drivetrain.moveFB(4,0.3);
-        } else {
-            drivetrain.moveFB(4,0.3);
-            Thread.sleep(500);
+            Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
             drivetrain.moveFB(-4,-0.3);
+        }else if(color==Constants.Color.RED){
+            drivetrain.moveFB(-4,-0.3);
+            Thread.sleep(1000);
+            rudder.setState(Rudder.RudderState.IN);rudder.loop();
+            drivetrain.moveFB(4,0.3);
+        }else{
+            rudder.setState(Rudder.RudderState.IN);rudder.loop();
         }
 
-        // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
             drivetrain.moveLR(-2, -0.3);
             rudder.setState(Rudder.RudderState.IN);

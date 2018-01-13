@@ -53,7 +53,7 @@ public class AutoRed2L extends LinearOpMode{
         drivetrain.enableAndResetEncoders();
         telemetry.addData("status", "started");
         telemetry.update();
-        drivetrain.moveLR(5*Constants.Drivetrain.INCH, 1); // move 3 inches right
+        drivetrain.moveLR(5*Constants.Drivetrain.INCH, 1); // move 3 inches left
         //rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         // knock off blue

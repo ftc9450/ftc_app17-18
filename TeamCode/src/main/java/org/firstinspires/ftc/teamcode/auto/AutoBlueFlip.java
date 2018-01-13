@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  * Created by Grace on 12/30/2017.
  */
 @Autonomous
+@Deprecated
 public class AutoBlueFlip extends LinearOpMode{
     Vuforia vuforia;
     RelicRecoveryVuMark detectedVuMark;
@@ -47,7 +48,7 @@ public class AutoBlueFlip extends LinearOpMode{
         telemetry.update();
         telemetry.addData("status", "started");
         telemetry.update();
-       // drivetrain.moveLR(5, 0.3); // move 3 inches right
+       // drivetrain.moveLR(5, 0.3); // move 3 inches left
    //     rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         // knock off blue

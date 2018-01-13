@@ -37,15 +37,12 @@ public class AutoBlue1 extends LinearOpMode{
         telemetry.update();
 
         drivetrain.enableAndResetEncoders();
-        //drivetrain.moveLR(2, 0.2);
         Thread.sleep(500);
         rudder.setState(Rudder.RudderState.OUT);
         rudder.loop();
         Thread.sleep(1000);
-        // knock off blue
         int color = rudder.getColor();
-        //Test at USRA-The thresholds don't work in my basement -Grace
-        /*if(color==Constants.Color.RED){
+        if(color==Constants.Color.RED){
             drivetrain.moveFB(4,1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
@@ -57,21 +54,6 @@ public class AutoBlue1 extends LinearOpMode{
             drivetrain.moveFB(4,1);
         }else{
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-        }
-        */
-        if (color == Constants.Color.RED) {
-            //TODO:Strafe before pulling in
-            drivetrain.moveFB(4, 1);
-            Thread.sleep(1000);
-            rudder.setState(Rudder.RudderState.IN);
-            rudder.loop();
-            drivetrain.moveFB(-4, -1);
-        } else {
-            drivetrain.moveFB(-4, -1);
-            Thread.sleep(1000);
-            rudder.setState(Rudder.RudderState.IN);
-            rudder.loop();
-            drivetrain.moveFB(4, 1);
         }
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
