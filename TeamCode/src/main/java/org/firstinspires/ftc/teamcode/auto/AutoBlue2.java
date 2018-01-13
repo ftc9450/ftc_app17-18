@@ -25,19 +25,20 @@ public class AutoBlue2 extends LinearOpMode{
     Drivetrain drivetrain;
     Rudder rudder;
     Grabber grabber;
+    int left = 19;
     //@Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
         vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-        rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("sensor_color_distance"));
+        rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("color"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
         detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);telemetry.update();
         grabber.autoClose();
         rudder.setState(Rudder.RudderState.START);rudder.loop();
         drivetrain.enableAndResetEncoders();
-        drivetrain.moveLR(5, 1); // move 3 inches right
+        //drivetrain.moveLR(5, 1); // move 3 inches right
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         // knock off blue
@@ -73,19 +74,21 @@ public class AutoBlue2 extends LinearOpMode{
             rudder.setState(Rudder.RudderState.IN);
             drivetrain.moveLR(2, 0.3);
         }
-        drivetrain.moveFB(-3,-1);
+        drivetrain.moveFB(-7,-1);
         drivetrain.pivot(-90,-1);
         if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(12,1);
+            drivetrain.moveFB(left,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(25,1);
+            drivetrain.moveFB(left+14,1);
         }else{
-            drivetrain.moveFB(19,1);
+            drivetrain.moveFB(left+7,1);
         }
         drivetrain.pivot(-90,-1);
         drivetrain.moveFB(9,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
+        grabber.autoClose();
         drivetrain.moveFB(10,0.5);
+        drivetrain.moveFB(-5, .5);
     }
 }
