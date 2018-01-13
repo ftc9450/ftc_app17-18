@@ -53,7 +53,7 @@ public class AutoRed2 extends LinearOpMode{
         telemetry.addData("status", "started");
         telemetry.update();
        // drivetrain.moveLR(5, 0.3); // move 3 inches right
-   //     rudder.setState(Rudder.RudderState.OUT);rudder.loop();
+        rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         // knock off blue
         int color=rudder.getColor();

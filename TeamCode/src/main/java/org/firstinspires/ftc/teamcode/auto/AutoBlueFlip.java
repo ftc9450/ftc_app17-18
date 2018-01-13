@@ -48,7 +48,7 @@ public class AutoBlueFlip extends LinearOpMode{
         telemetry.addData("status", "started");
         telemetry.update();
        // drivetrain.moveLR(5, 0.3); // move 3 inches right
-   //     rudder.setState(Rudder.RudderState.OUT);rudder.loop();
+        rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         // knock off blue
         int color=rudder.getColor();
@@ -90,10 +90,11 @@ public class AutoBlueFlip extends LinearOpMode{
         }
 
         telemetry.update();
-        drivetrain.moveFB(7,1);
-        if (detectedVuMark == RelicRecoveryVuMark.UNKNOWN) detectedVuMark = vuforia.getVuMark();
-        drivetrain.moveFB(right, 1);
+        drivetrain.moveFB(-7,-1);
         drivetrain.pivot(-90,-1);
+ /*       if (detectedVuMark == RelicRecoveryVuMark.UNKNOWN) detectedVuMark = vuforia.getVuMark();
+        drivetrain.moveFB(right, 1);
+        drivetrain.pivot(-90,-1); */
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(right,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
