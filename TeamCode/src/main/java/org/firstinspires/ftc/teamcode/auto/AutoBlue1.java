@@ -37,7 +37,7 @@ public class AutoBlue1 extends LinearOpMode{
         telemetry.update();
 
         drivetrain.enableAndResetEncoders();
-        drivetrain.moveLR(5, 0.3);
+        //drivetrain.moveLR(2, 0.2);
         Thread.sleep(500);
         rudder.setState(Rudder.RudderState.OUT);
         rudder.loop();
@@ -80,16 +80,18 @@ public class AutoBlue1 extends LinearOpMode{
             drivetrain.moveLR(2, 0.3);
         }
         if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(-25, -1);
-        } else if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
-            drivetrain.moveFB(-48 , -1);
+            drivetrain.moveFB(-26, -1);
+        } else if (1==1 || detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
+            drivetrain.moveFB(-40 , -1);
         } else {
-            drivetrain.moveFB(-38, -1);
+            drivetrain.moveFB(-33, -1);
         }
         drivetrain.pivot(90, 1);
-        drivetrain.moveFB(5, 1);
+        drivetrain.moveFB(11,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
-        drivetrain.moveFB(10,0.5);
+        grabber.autoClose();
+        drivetrain.moveFB(13,0.5);
+        drivetrain.moveFB(-5, .5);
     }
 }
