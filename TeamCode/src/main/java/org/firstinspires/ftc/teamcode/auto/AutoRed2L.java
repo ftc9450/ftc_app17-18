@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
  * Created by Grace on 12/30/2017.
  */
 @Autonomous
+@Deprecated
 public class AutoRed2L extends LinearOpMode{
     Vuforia vuforia;
     RelicRecoveryVuMark detectedVuMark;

@@ -41,11 +41,11 @@ public class AutoRed2 extends LinearOpMode{
         rudder.setState(Rudder.RudderState.START);rudder.loop();
         drivetrain.enableAndResetEncoders();
         detectedVuMark=vuforia.getVuMark();
-        if(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){
+        /*if(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){
             drivetrain.moveLR(Constants.Drivetrain.STRAFEINCH,0.3);
             detectedVuMark=vuforia.getVuMark();
             drivetrain.moveLR(-1,-0.3);
-        }
+        }*/
 
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
