@@ -24,10 +24,11 @@ public class GrabberTest extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.a){
-            grabber.autoClose();
+            grabber.setState(Grabber.GrabberState.CLOSED);
         }
         if(gamepad1.b){
-            grabber.autoOpen();
+            grabber.setState(Grabber.GrabberState.OPEN);
         }
+        grabber.loop();
     }
 }

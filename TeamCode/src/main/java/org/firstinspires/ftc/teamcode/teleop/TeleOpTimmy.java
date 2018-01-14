@@ -22,7 +22,7 @@ import java.io.File;
  * @author Grace
  */
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class TeleOp extends LinearOpMode {
+public class TeleOpTimmy extends LinearOpMode {
     Drivetrain drive;
     Elevator elevator;
     //Grabber grabber[];
@@ -53,7 +53,8 @@ public class TeleOp extends LinearOpMode {
         manager.add(elevator);
         manager.add(arm);
         manager.add(rudder);
-
+        manager.add(topGrabber);
+        manager.add(bottomGrabber);
         ControlBoard driver = new ControlBoard(gamepad1);
         ControlBoard operator = new ControlBoard(gamepad2);
 
@@ -129,8 +130,10 @@ public class TeleOp extends LinearOpMode {
             arm.setCarpals(operator.pivotCommand());
             //telemetry.addData("glypht position: ",elevator);
             //telemetry.addData("relic arm position: ",arm);
+            telemetry.addData("elevator",elevator);
             telemetry.addData("top grabber", topGrabber.getState());
             telemetry.addData("bottom grabber", bottomGrabber.getState());
+            telemetry.update();
             /*if (gamepad2.dpad_up) {
                 topGrabber.setState(Grabber.GrabberState.CLOSED);
                 elevator.moveUpSixInches();

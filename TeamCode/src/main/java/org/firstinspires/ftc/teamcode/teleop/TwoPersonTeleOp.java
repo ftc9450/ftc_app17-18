@@ -50,8 +50,8 @@ public class TwoPersonTeleOp extends OpMode{
 
     public void loop() {
 
-        if(controlBoard2.moveDownSixInches()){elevator.moveDownSixInches();}
-        if(controlBoard2.moveUpSixInches()){elevator.moveUpSixInches();}
+        //if(controlBoard2.moveDownSixInches()){elevator.moveDownSixInches();}
+        //if(controlBoard2.moveUpSixInches()){elevator.moveUpSixInches();}
         elevator.setState(controlBoard2.elevatorCommand());
         topGrabber.setState(controlBoard2.topGrabberCommand());
         bottomGrabber.setState(controlBoard2.bottomGrabberCommand());

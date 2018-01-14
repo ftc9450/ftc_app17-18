@@ -81,7 +81,7 @@ public class AutoRed2 extends LinearOpMode{
         }
         telemetry.update();
         drivetrain.pivot(90,1);
-        drivetrain.moveFB(8,1);
+        drivetrain.moveFB(12,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
         drivetrain.moveFB(9,0.5);
