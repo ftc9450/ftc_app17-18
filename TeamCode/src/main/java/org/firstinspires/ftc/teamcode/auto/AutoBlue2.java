@@ -23,7 +23,7 @@ public class AutoBlue2 extends LinearOpMode{
     Rudder rudder;
     Grabber grabber;
     Gyroscope imu;
-    int left = 19;
+    int left = 9;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -32,14 +32,14 @@ public class AutoBlue2 extends LinearOpMode{
         rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("color"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
         vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
-        grabber.autoClose();
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         rudder.setState(Rudder.RudderState.START);rudder.loop();
+        grabber.autoClose();
         drivetrain.enableAndResetEncoders();
         detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
-        telemetry.addData("status", "started");
+        rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         telemetry.update();
         Thread.sleep(1000);
         int color=rudder.getColor();
@@ -65,7 +65,7 @@ public class AutoBlue2 extends LinearOpMode{
         telemetry.update();
         drivetrain.moveFB(-7,-1);
         if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = vuforia.getVuMark();
-        drivetrain.moveFB(-1* left, 11);
+        drivetrain.moveFB(-1* 19, -1);
         drivetrain.pivot(-90,-1);
         if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
             drivetrain.moveFB(left,1);

@@ -26,7 +26,12 @@ public class GrabberTest extends OpMode {
 
     @Override
     public void loop() {
-        grabber.setState(controlBoard.grabberCommand());
+        if(gamepad1.a){
+            grabber.autoClose();
+        }
+        if(gamepad1.b){
+            grabber.autoOpen();
+        }
         subsystemManager.loopSystems();
     }
 }

@@ -28,7 +28,7 @@ public class AutoRed2 extends LinearOpMode{
     Rudder rudder;
     Grabber grabber;
     Gyroscope imu;
-    int right = 19;
+    int right = 9;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -37,15 +37,14 @@ public class AutoRed2 extends LinearOpMode{
         rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("color"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
         vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
-        grabber.autoClose();
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         rudder.setState(Rudder.RudderState.START);rudder.loop();
+        grabber.autoClose();
         drivetrain.enableAndResetEncoders();
         detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
-        telemetry.addData("status", "started");
-        telemetry.update();
+        rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         int color=rudder.getColor();
         if(color==Constants.Color.BLUE){
@@ -71,7 +70,7 @@ public class AutoRed2 extends LinearOpMode{
         telemetry.update();
         drivetrain.moveFB(7,1);
         if (detectedVuMark == RelicRecoveryVuMark.UNKNOWN) detectedVuMark = vuforia.getVuMark();
-        drivetrain.moveFB(right, 1);
+        drivetrain.moveFB(19, 1);
         drivetrain.pivot(-90,-1);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(right,1);
@@ -82,11 +81,11 @@ public class AutoRed2 extends LinearOpMode{
         }
         telemetry.update();
         drivetrain.pivot(90,1);
-        drivetrain.moveFB(9,1);
+        drivetrain.moveFB(8,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
         grabber.autoClose();
-        drivetrain.moveFB(10,0.5);
+        drivetrain.moveFB(9,0.5);
         drivetrain.moveFB(-5, .5);
     }
 }

@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.util.Constants;
+
 /**
  * Created by Grace on 12/26/2017.
  */
@@ -11,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class ServoCalibration extends OpMode{
     Servo servo;
     public void init() {
-        servo=hardwareMap.servo.get("rudder_servo");
+        servo=hardwareMap.servo.get(Constants.Grabber.RT);
     }
 
     @Override
