@@ -79,8 +79,7 @@ public class AutoBlue2 extends LinearOpMode{
         drivetrain.moveFB(9,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
-        grabber.autoClose();
         drivetrain.moveFB(10,0.5);
-        drivetrain.moveFB(-5, .5);
+        drivetrain.moveFB(-3, .5);
     }
 }

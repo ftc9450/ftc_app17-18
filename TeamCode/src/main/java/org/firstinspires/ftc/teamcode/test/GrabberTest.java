@@ -16,12 +16,9 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 public class GrabberTest extends OpMode {
     ControlBoard controlBoard;
     Grabber grabber;
-    SubsystemManager subsystemManager;
     public void init() {
         controlBoard = new ControlBoard(gamepad1);
-        subsystemManager = new SubsystemManager();
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT), hardwareMap.servo.get(Constants.Grabber.RT));
-        subsystemManager.add(grabber);
     }
 
     @Override
@@ -32,6 +29,5 @@ public class GrabberTest extends OpMode {
         if(gamepad1.b){
             grabber.autoOpen();
         }
-        subsystemManager.loopSystems();
     }
 }
