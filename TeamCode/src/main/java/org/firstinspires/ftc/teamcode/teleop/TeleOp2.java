@@ -67,7 +67,7 @@ public class TeleOp2 extends LinearOpMode{
             double x = gamepad1.left_stick_x + (gamepad1.dpad_left?-0.5:0) + (gamepad1.dpad_right?0.5:0);
             double y = gamepad1.left_stick_y + (gamepad1.dpad_down?0.5:0) + (gamepad1.dpad_up?-0.5:0);
             double z = gamepad1.right_stick_x + gamepad1.right_trigger/2 - gamepad1.left_trigger/2;
-            double angle = Math.PI * imu.getAngle()/180.0;
+            /*double angle = Math.PI * imu.getAngle()/180.0;
 
             double temp = x;
 
@@ -108,7 +108,7 @@ public class TeleOp2 extends LinearOpMode{
                 flip = false;
                 left = false;
                 right = false;
-            }
+            }*/
 
             signal = new DriveSignal(x - y + z, -x - y + z, -x - y - z, x - y - z);
 
@@ -131,9 +131,9 @@ public class TeleOp2 extends LinearOpMode{
             }
 
             if (gamepad2.right_bumper) topGrabber.close();
-            else if (gamepad2.right_trigger > 0.1) topGrabber.open();
+            else if (gamepad2.left_bumper) topGrabber.open();
 
-            if (gamepad2.left_bumper) bottomGrabber.close();
+            if (gamepad2.right_trigger > 0.1) bottomGrabber.close();
             else if (gamepad2.left_trigger > 0.1) bottomGrabber.open();
 
             if (gamepad2.right_stick_y < 0) arm.setHumerus(RelicArm.HumerusState.OUT);
