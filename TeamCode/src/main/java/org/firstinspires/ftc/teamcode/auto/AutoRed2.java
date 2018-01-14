@@ -37,9 +37,9 @@ public class AutoRed2 extends LinearOpMode{
         rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("color"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
         vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
-        grabber.autoClose();
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         rudder.setState(Rudder.RudderState.START);rudder.loop();
+        grabber.autoClose();
         drivetrain.enableAndResetEncoders();
         detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);
@@ -81,11 +81,11 @@ public class AutoRed2 extends LinearOpMode{
         }
         telemetry.update();
         drivetrain.pivot(90,1);
-        drivetrain.moveFB(9,1);
+        drivetrain.moveFB(8,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
         grabber.autoClose();
-        drivetrain.moveFB(10,0.5);
+        drivetrain.moveFB(9,0.5);
         drivetrain.moveFB(-5, .5);
     }
 }

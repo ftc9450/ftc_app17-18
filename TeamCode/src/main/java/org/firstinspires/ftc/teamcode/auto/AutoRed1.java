@@ -64,11 +64,11 @@ public class AutoRed1 extends LinearOpMode{
             drivetrain.moveLR(2, 0.3);
         }
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(27,1);
+            drivetrain.moveFB(30,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(41,1);
+            drivetrain.moveFB(42,1);
         }else{
-            drivetrain.moveFB(34,1);
+            drivetrain.moveFB(35,1);
         }
         drivetrain.pivot(90,1);
         drivetrain.moveFB(9,1);
