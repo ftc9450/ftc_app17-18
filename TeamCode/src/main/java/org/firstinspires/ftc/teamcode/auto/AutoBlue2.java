@@ -23,7 +23,7 @@ public class AutoBlue2 extends LinearOpMode{
     Rudder rudder;
     Grabber grabber;
     Gyroscope imu;
-    int left = 19;
+    int left = 9;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -39,7 +39,7 @@ public class AutoBlue2 extends LinearOpMode{
         detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
-        telemetry.addData("status", "started");
+        rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         telemetry.update();
         Thread.sleep(1000);
         int color=rudder.getColor();
@@ -65,7 +65,7 @@ public class AutoBlue2 extends LinearOpMode{
         telemetry.update();
         drivetrain.moveFB(-7,-1);
         if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = vuforia.getVuMark();
-        drivetrain.moveFB(-1* left, 11);
+        drivetrain.moveFB(-1* 19, -1);
         drivetrain.pivot(-90,-1);
         if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
             drivetrain.moveFB(left,1);
