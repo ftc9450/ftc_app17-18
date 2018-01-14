@@ -114,14 +114,14 @@ public class TeleOp2 extends LinearOpMode{
 
             drive.setOpenLoop(signal);
 
-            if (gamepad2.dpad_up) {
-                topGrabber.setState(Grabber.GrabberState.CLOSED);
-                elevator.moveUpSixInches();
-            }
-            else if (gamepad2.dpad_down) {
-                topGrabber.setState(Grabber.GrabberState.CLOSED);
-                elevator.moveDownSixInches();
-            }
+//            if (gamepad2.dpad_up) {
+//                topGrabber.setState(Grabber.GrabberState.CLOSED);
+//                elevator.moveUpSixInches();
+//            }
+//            else if (gamepad2.dpad_down) {
+//                topGrabber.setState(Grabber.GrabberState.CLOSED);
+//                elevator.moveDownSixInches();
+//            }
             if(gamepad2.left_stick_y<0){
                 elevator.setState(Elevator.ElevatorState.UP);
             }else if(gamepad2.left_stick_y>0){
