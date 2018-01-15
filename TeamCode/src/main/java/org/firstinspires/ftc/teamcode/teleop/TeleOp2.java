@@ -46,7 +46,7 @@ public class TeleOp2 extends LinearOpMode{
         bottomGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
         bottomGrabber.setState(Grabber.GrabberState.OPEN);
         topGrabber.setState(Grabber.GrabberState.OPEN);
-        arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("l_pivot"), hardwareMap.crservo.get("r_pivot"), hardwareMap.servo.get("hand"));
+        arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("pivot"), hardwareMap.servo.get("hand"));
         manager = new SubsystemManager();
         manager.add(drive);
         manager.add(elevator);
@@ -140,12 +140,26 @@ public class TeleOp2 extends LinearOpMode{
             else if (gamepad2.right_stick_y > 0) arm.setHumerus(RelicArm.HumerusState.IN);
             else arm.setHumerus(RelicArm.HumerusState.OFF);
 
-            if (gamepad2.x) arm.setCarpals(RelicArm.CarpalState.OUT);
+            /*if (gamepad2.x) arm.setCarpals(RelicArm.CarpalState.OUT);
             else if (gamepad2.y) arm.setCarpals(RelicArm.CarpalState.IN);
-            else arm.setCarpals(RelicArm.CarpalState.OFF);
+            else arm.setCarpals(RelicArm.CarpalState.OFF);*/
+            if (gamepad2.a) {
+                if (arm.getPollexState() == RelicArm.PollexState.OPEN) {
+                    arm.setPollex(RelicArm.PollexState.CLOSED);
+                } else {
+                    arm.setPollex(RelicArm.PollexState.OPEN);
+                }
+            }
+            if (gamepad2.b) {
+                arm.setCarpals(RelicArm.CarpalState.IN);
+            } else if (gamepad2.y) {
+                arm.setCarpals(RelicArm.CarpalState.OUT);
+            } else {
+                arm.setCarpals(RelicArm.CarpalState.OFF);
+            }
 
-            if (gamepad2.a) arm.setPollex(RelicArm.PollexState.OPEN);
-            else if (gamepad2.b) arm.setPollex(RelicArm.PollexState.CLOSED);
+            //if (gamepad2.a) arm.setPollex(RelicArm.PollexState.OPEN);
+            //else if (gamepad2.b) arm.setPollex(RelicArm.PollexState.CLOSED);
             rudder.setState(Rudder.RudderState.IN);
             telemetry.addData("Top", topGrabber.getPosition());
             telemetry.addData("Bottom", bottomGrabber.getPosition());
