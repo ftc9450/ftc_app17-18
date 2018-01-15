@@ -23,14 +23,14 @@ public class RelicTest extends OpMode {
     @Override
     public void init() {
         arm = hardwareMap.dcMotor.get("relic");
-        pivot1 = hardwareMap.crservo.get("l_pivot");
-        pivot2 = hardwareMap.crservo.get("r_pivot");
+        pivot1 = hardwareMap.crservo.get("pivot");
+        //pivot2 = hardwareMap.crservo.get("r_pivot");
 
         hand = hardwareMap.servo.get("hand");
 
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         pivot1.setDirection(CRServo.Direction.FORWARD);
-        pivot2.setDirection(DcMotorSimple.Direction.REVERSE);
+        //pivot2.setDirection(DcMotorSimple.Direction.REVERSE);
         hand.setDirection(Servo.Direction.FORWARD);
     }
 
@@ -38,13 +38,13 @@ public class RelicTest extends OpMode {
     public void loop() {
         if(gamepad1.y){
             pivot1.setPower(1);
-            pivot2.setPower(1);
+            //pivot2.setPower(1);
         }else if(gamepad1.a){
             pivot1.setPower(-1);
-            pivot2.setPower(-1);
+            //pivot2.setPower(-1);
         }else{
             pivot1.setPower(0);
-            pivot2.setPower(0);
+            //pivot2.setPower(0);
         }
         if(gamepad1.x) {
             hand.setPosition(0);

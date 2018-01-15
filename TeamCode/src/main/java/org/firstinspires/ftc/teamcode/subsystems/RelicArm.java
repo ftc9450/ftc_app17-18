@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 
 public class RelicArm extends Subsystem {
     private DcMotor humerus;
-    private CRServo[] carpals;
+    private CRServo carpal;
     private Servo pollex;
 
     private double speed = Constants.Elevator.POWER;
@@ -32,16 +32,15 @@ public class RelicArm extends Subsystem {
     private CarpalState carpalState;
     private PollexState pollexState;
 
-    public RelicArm(DcMotor relicArmMotor, CRServo LCarpal, CRServo RCarpal, Servo pollex) {
+    public RelicArm(DcMotor relicArmMotor, CRServo LCarpal, Servo pollex) {
         this.humerus = relicArmMotor;
         this.humerus.setDirection(DcMotorSimple.Direction.REVERSE);
         this.humerus.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.humerus.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.humerusState = HumerusState.OFF;
 
-        this.carpals = new CRServo[]{LCarpal, RCarpal};
-        this.carpals[0].setDirection(DcMotorSimple.Direction.FORWARD);
-        this.carpals[1].setDirection(DcMotorSimple.Direction.REVERSE);
+        this.carpal = LCarpal;
+        this.carpal.setDirection(DcMotorSimple.Direction.FORWARD);
         carpalState = CarpalState.OFF;
 
         this.pollex = pollex;
@@ -59,11 +58,13 @@ public class RelicArm extends Subsystem {
         this.pollexState = state;
     }
 
+    public CarpalState getCarpalState() {return this.carpalState;}
+    public PollexState getPollexState() {return this.pollexState;}
+
     @Override
     public void stop() {
         humerus.setPower(0);
-        carpals[0].setPower(0);
-        carpals[1].setPower(0);
+        carpal.setPower(0);
         pollex.setPosition(pollex.getPosition());
     }
 
@@ -91,16 +92,13 @@ public class RelicArm extends Subsystem {
         }
         switch (carpalState) {
             case OUT:
-                carpals[0].setPower(1);
-                carpals[1].setPower(1);
+                carpal.setPower(1);
                 break;
             case IN:
-                carpals[0].setPower(-1);
-                carpals[1].setPower(-1);
+                carpal.setPower(-1);
                 break;
             case OFF:
-                carpals[0].setPower(0);
-                carpals[0].setPower(0);
+                carpal.setPower(0);
                 break;
             default:
                 stop();
