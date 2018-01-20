@@ -47,7 +47,7 @@ public class TeleOpTimmy extends LinearOpMode {
         bottomGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
         bottomGrabber.setState(Grabber.GrabberState.OPEN);
         topGrabber.setState(Grabber.GrabberState.OPEN);
-        arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("l_pivot"), hardwareMap.crservo.get("r_pivot"), hardwareMap.servo.get("hand"));
+        //arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("l_pivot"), hardwareMap.crservo.get("r_pivot"), hardwareMap.servo.get("hand"));
         manager = new SubsystemManager();
         manager.add(drive);
         manager.add(elevator);

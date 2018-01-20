@@ -23,7 +23,7 @@ public class AutoBlue2 extends LinearOpMode{
     Rudder rudder;
     Grabber grabber;
     Gyroscope imu;
-    int left = 9;
+    int left = 10;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -79,7 +79,7 @@ public class AutoBlue2 extends LinearOpMode{
         drivetrain.moveFB(9,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
-        drivetrain.moveFB(10,0.5);
+        drivetrain.moveFB(11,0.5);
         drivetrain.moveFB(-3, .5);
     }
 }
