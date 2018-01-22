@@ -3,6 +3,8 @@ package org.firstinspires.ftc.team9450.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.team9450.util.Constants;
+
 /**
  * Created by prave on 1/20/2018.
  */
@@ -10,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class Intake extends Subsystem{
     private DcMotor intakeLeft;
     private DcMotor intakeRight;
+    private double power= Constants.Intake.power;
     public enum IntakeState{
         IN,OUT,OFF
     }
@@ -42,12 +45,12 @@ public class Intake extends Subsystem{
     public void loop() {
         switch (state){
             case IN:
-                intakeLeft.setPower(-1);
-                intakeRight.setPower(-1);
+                intakeLeft.setPower(power*-1);
+                intakeRight.setPower(power*-1);
                 break;
             case OUT:
-                intakeLeft.setPower(1);
-                intakeRight.setPower(1);
+                intakeLeft.setPower(power);
+                intakeRight.setPower(power);
                 break;
             case OFF:
             default:
