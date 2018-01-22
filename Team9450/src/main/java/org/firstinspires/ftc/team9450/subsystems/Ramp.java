@@ -17,6 +17,7 @@ public class Ramp extends Subsystem {
 
     public Ramp(Servo ramp) {
         this.servo = ramp;
+        servo.setDirection(Servo.Direction.REVERSE);
         this.setState(RampState.OUT);
     }
 
