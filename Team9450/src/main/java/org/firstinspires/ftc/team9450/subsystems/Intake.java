@@ -19,9 +19,9 @@ public class Intake extends Subsystem{
         intakeRight = iR;
 
         intakeLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.setState(IntakeState.OFF);
     }
