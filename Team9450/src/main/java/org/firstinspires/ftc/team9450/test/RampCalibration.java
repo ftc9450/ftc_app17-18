@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.team9450.util.Constants;
+
 /**
  * Created by Grace on 1/20/2018.
  */
@@ -11,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RampCalibration extends OpMode{
     Servo ramp;
     public void init() {
-        ramp=hardwareMap.servo.get("ramp");
+        ramp=hardwareMap.servo.get(Constants.Ramp.RAMP);
     }
 
     @Override
