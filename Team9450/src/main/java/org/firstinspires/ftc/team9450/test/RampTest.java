@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team9450.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by dhruv on 1/20/18.
  */
 @TeleOp
+@Disabled
 public class RampTest extends OpMode{
     Servo servo;
 
