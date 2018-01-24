@@ -4,11 +4,16 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.sun.tools.javac.code.Attribute;
 
 import org.firstinspires.ftc.team9450.sensors.Gyroscope;
 import org.firstinspires.ftc.team9450.subsystems.Drivetrain;
 import org.firstinspires.ftc.team9450.subsystems.Intake;
 import org.firstinspires.ftc.team9450.subsystems.Ramp;
+import org.firstinspires.ftc.team9450.subsystems.RampLifter;
+import org.firstinspires.ftc.team9450.subsystems.Rudder;
+import org.firstinspires.ftc.team9450.subsystems.SubsystemManager;
+import org.firstinspires.ftc.team9450.util.Constants;
 import org.firstinspires.ftc.team9450.util.Vector2D;
 
 /**
@@ -16,16 +21,21 @@ import org.firstinspires.ftc.team9450.util.Vector2D;
  */
 
 @TeleOp
-public class IntakeDrive extends OpMode {
+public class FieldOrientedIntakeDrive extends OpMode {
     private Intake intake;
     private Drivetrain drive;
     private Ramp ramp;
+    private Rudder rudder;
+    private RampLifter rampLifter;
     private Gyroscope imu;
+    SubsystemManager subsystemManager=new SubsystemManager();
     @Override
     public void init() {
-        intake = new Intake(hardwareMap.dcMotor.get("intake_left"), hardwareMap.dcMotor.get("intake_right"));
-        drive = new Drivetrain(hardwareMap.dcMotor.get("left_front"), hardwareMap.dcMotor.get("left_back"), hardwareMap.dcMotor.get("right_front"), hardwareMap.dcMotor.get("right_back"));
-        ramp = new Ramp(hardwareMap.servo.get("ramp_servo"));
+        intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
+        subsystemManager.add(intake);
+        drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
+        ramp = new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
+        subsystemManager.add(ramp);
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
     }
 
@@ -53,7 +63,6 @@ public class IntakeDrive extends OpMode {
         if (gamepad1.a) ramp.setState(Ramp.RampState.IN);
         else if (gamepad1.b) ramp.setState(Ramp.RampState.OUT);
 
-        intake.loop();
-        ramp.loop();
+        subsystemManager.loopSystems();
     }
 }

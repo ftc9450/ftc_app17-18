@@ -42,7 +42,7 @@ public class TwoPersonTeleOp extends OpMode{
         subsystemManager.add(topGrabber);
         bottomGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
         subsystemManager.add(bottomGrabber);
-        relicArm=new RelicArm(hardwareMap.dcMotor.get(Constants.RelicArm.ARM),hardwareMap.crservo.get(Constants.RelicArm.LEFTPIVOT), hardwareMap.crservo.get(Constants.RelicArm.RIGHTPIVOT),hardwareMap.servo.get(Constants.RelicArm.HAND));
+        //relicArm=new RelicArm(hardwareMap.dcMotor.get(Constants.RelicArm.ARM),hardwareMap.crservo.get(Constants.RelicArm.LEFTPIVOT), hardwareMap.crservo.get(Constants.RelicArm.RIGHTPIVOT),hardwareMap.servo.get(Constants.RelicArm.HAND));
         subsystemManager.add(relicArm);
         elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
         subsystemManager.add(elevator);

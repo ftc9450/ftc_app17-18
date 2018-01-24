@@ -31,7 +31,8 @@ public class Intake extends Subsystem{
 
     @Override
     public void stop() {
-
+        intakeLeft.setPower(0);
+        intakeRight.setPower(0);
     }
     public void setState(IntakeState state){
         this.state = state;
@@ -54,7 +55,7 @@ public class Intake extends Subsystem{
                 break;
             case OFF:
             default:
-                break;
+                stop();
         }
     }
 }
