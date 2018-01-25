@@ -33,8 +33,9 @@ public class Constants {
         public static final int maxPos=1000;
         public static final int minPos=0;
     }
-    public class Ramp{
-        public static final String RAMP="ramp_servo";
+    public class Ramp {
+        public static final String RAMP = "ramp";
+        public static final String LIFT = "lift";
         public static final double IN=0.2;
         public static final double OUT=0.7;
     }

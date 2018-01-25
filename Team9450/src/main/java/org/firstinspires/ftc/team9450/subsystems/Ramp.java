@@ -16,25 +16,27 @@ public class Ramp extends Subsystem {
     public enum RampState {
         IN, OUT
     }
-    public enum RampLifterState{
+    public enum LiftState{
         UP, DOWN, OFF
     }
 
-    private RampState state;
-    private RampLifterState liftState;
+    private RampState rampState;
+    private LiftState liftState;
 
     public void setRampState(RampState state){
-        this.state = state;
+        this.rampState = state;
     }
-    public void setRampLifterState(RampLifterState state){
+
+    public void setLiftState(LiftState state){
         this.liftState = state;
     }
+
     public Ramp(Servo ramp, DcMotor motor) {
         this.servo = ramp;
         servo.setDirection(Servo.Direction.REVERSE);
-        this.setState(RampState.OUT);
+        this.setRampState(RampState.OUT);
         rampMotor = motor;
-        this.setRampLifterState(RampLifterState.DOWN);
+        this.setLiftState(LiftState.DOWN);
     }
 
     @Override
@@ -43,13 +45,9 @@ public class Ramp extends Subsystem {
         rampMotor.setPower(0);
     }
 
-    public void setState(RampState state) {
-        this.state = state;
-    }
-
     @Override
     public void loop() {
-        switch (state) {
+        switch (rampState) {
             case IN:
                 servo.setPosition(0.4);
                 break;

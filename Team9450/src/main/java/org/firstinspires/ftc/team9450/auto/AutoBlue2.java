@@ -29,7 +29,7 @@ public class AutoBlue2 extends LinearOpMode {
         waitForStart();
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDER), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
-        ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
+        //ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
         vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
         rudder.setState(Rudder.RudderState.START);rudder.loop();
         intake=new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
@@ -115,8 +115,8 @@ public class AutoBlue2 extends LinearOpMode {
     public void dropGlyphs()throws InterruptedException{
         drivetrain.pivot(-45,1);
         drivetrain.moveFB(-12,-1);
-        ramp.setState(Ramp.RampState.OUT);ramp.loop();Thread.sleep(500);
-        ramp.setState(Ramp.RampState.IN);ramp.loop();Thread.sleep(500);
+        //ramp.setState(Ramp.RampState.OUT);ramp.loop();Thread.sleep(500);
+        //ramp.setState(Ramp.RampState.IN);ramp.loop();Thread.sleep(500);
         drivetrain.moveFB(12,1);
         drivetrain.pivot(-45,-1);
     }
