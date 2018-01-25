@@ -33,6 +33,6 @@ public class BotOrientedDriveTest extends OpMode {
         telemetry.addData("xpos",x);telemetry.addData("ypos", y);
         DriveSignal driveSignal=DriveSignal.translate(Math.atan2(y,x),Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
         drive.setOpenLoop(driveSignal);
-        subsystemManager.loopSystems();
+        subsystemManager.loop();
     }
 }

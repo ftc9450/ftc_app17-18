@@ -3,6 +3,8 @@ package org.firstinspires.ftc.team9450.test;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.sun.tools.javac.code.Attribute;
 
 import org.firstinspires.ftc.team9450.sensors.Gyroscope;
 import org.firstinspires.ftc.team9450.subsystems.Drivetrain;
@@ -19,13 +21,21 @@ import org.firstinspires.ftc.team9450.util.Vector2D;
  */
 
 @TeleOp
-public class FieldOrientedDriveTest extends OpMode {
+public class IntakeDrive extends OpMode {
+    private Intake intake;
     private Drivetrain drive;
+    private Ramp ramp;
+    private Rudder rudder;
+    private RampLifter rampLifter;
     private Gyroscope imu;
+    SubsystemManager manager = new SubsystemManager();
     @Override
     public void init() {
-
+        intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
+        manager.add(intake);
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
+        ramp = new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
+        manager.add(ramp);
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
     }
 
@@ -45,5 +55,14 @@ public class FieldOrientedDriveTest extends OpMode {
         }
 
         drive.setPower(new double[]{v.x + v.y + z, -v.x + v.y + z, -v.x + v.y - z, v.x + v.y - z});
+
+        if (gamepad1.left_bumper) intake.setState(Intake.IntakeState.OFF);
+        else if (gamepad1.right_bumper) intake.setState(Intake.IntakeState.IN);
+        else if (gamepad1.right_trigger > 0.1) intake.setState(Intake.IntakeState.OUT);
+
+        if (gamepad1.a) ramp.setState(Ramp.RampState.IN);
+        else if (gamepad1.b) ramp.setState(Ramp.RampState.OUT);
+
+        manager.loop();
     }
 }

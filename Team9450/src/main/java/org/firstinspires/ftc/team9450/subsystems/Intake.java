@@ -37,6 +37,10 @@ public class Intake extends Subsystem{
     public void setState(IntakeState state){
         this.state = state;
     }
+    public void setPower(double p) {
+        intakeLeft.setPower(p);
+        intakeRight.setPower(p);
+    }
     //@Override
     public void zeroSensors() {
 

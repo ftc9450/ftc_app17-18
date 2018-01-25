@@ -41,6 +41,6 @@ public class BotOrientedIntakeDrive extends OpMode {
         if(gamepad1.a){intake.setState(Intake.IntakeState.IN);}
         else if(gamepad1.b){intake.setState(Intake.IntakeState.OUT);}
         else{intake.setState(Intake.IntakeState.OFF);}
-        subsystemManager.loopSystems();
+        subsystemManager.loop();
     }
 }

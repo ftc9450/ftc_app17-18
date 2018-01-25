@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by dhruv on 1/22/18.
  */
 
-public class SubsystemManager{
+public class SubsystemManager extends Subsystem {
     private ArrayList<Subsystem> systems;
 
     public SubsystemManager() {
@@ -18,11 +18,11 @@ public class SubsystemManager{
         return this;
     }
 
-    public void stopSystems() {
+    public void stop() {
         for (Subsystem s: systems) s.stop();
     }
 
-    public void loopSystems() {
+    public void loop() {
         for (Subsystem s: systems) s.loop();
     }
 }
