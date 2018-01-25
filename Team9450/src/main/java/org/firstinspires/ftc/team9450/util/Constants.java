@@ -56,8 +56,8 @@ public class Constants {
         return f.floatValue();
     }
     public class Rudder{
-        public static final String SERVO="rudder";
-        public static final String SENSOR="colorsensor";
+        public static final String RUDDER="rudder";
+        public static final String COLOR="color";
         public static final double RUDDER_IN=0.4;
         public static final double RUDDER_OUT=1;
         public static final double RUDDER_START=0.4;
