@@ -32,7 +32,6 @@ public class Constants {
         public static final double power=0.75;
     }
     public class RampLifter{
-        public static final String RAMPLIFTER="rampdc";
         public static final double power=1;
         public static final double INPOS=0;
         public static final double OUTPOS=0.5;
@@ -64,7 +63,7 @@ public class Constants {
         return f.floatValue();
     }
     public class Rudder{
-        public static final String RUDDERTOP="rudder";
+        public static final String RUDDERTOP="ruddertop";
         public static final String RUDDERBOTTOM="rudderbottom";
         public static final String COLOR="color";
         public static final double RUDDER_IN=0.25;
