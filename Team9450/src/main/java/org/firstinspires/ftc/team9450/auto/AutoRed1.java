@@ -40,36 +40,24 @@ public class AutoRed1 extends LinearOpMode {
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
 
-        int color=rudder.getColor();
-        if(color== Constants.Color.BLUE){
-            drivetrain.moveFB(4,1);
-            Thread.sleep(1000);
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-4,-1);
-        }else if(color==Constants.Color.RED){
-            drivetrain.moveFB(-4,-1);
-            Thread.sleep(1000);
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(4,1);
-        }else{
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-        }
+        rudder.knockBlue();
+
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
-            drivetrain.moveLR(-2, 0.3);
+            drivetrain.moveLR(-2, -0.3);
             rudder.setState(Rudder.RudderState.IN);
             drivetrain.moveLR(2, 0.3);
         }
 
-        drivetrain.moveFB(7,1);
+        drivetrain.moveFB(-7,-1);
         if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = vuforia.getVuMark();
 
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(center-7,1);
+            drivetrain.moveFB(7-center,-1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(center+7,1);
+            drivetrain.moveFB(-7-center,-1);
         }else{
-            drivetrain.moveFB(center,1);
+            drivetrain.moveFB(-1*center,-1);
         }
         dropGlyphs();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
@@ -90,27 +78,27 @@ public class AutoRed1 extends LinearOpMode {
         }
         drivetrain.moveFB(-3, .5);
     }
-    public void goToPitLeft(int distance){
-        intake.setState(Intake.IntakeState.IN);intake.loop();
-        drivetrain.moveFB(glyphPit, 1);
-        drivetrain.moveFB(-1*glyphPit,1);
-        intake.setState(Intake.IntakeState.OFF);
-        drivetrain.pivot(-90,-1);
-        drivetrain.moveFB(distance,1);
-    }
     public void goToPitRight(int distance){
         intake.setState(Intake.IntakeState.IN);intake.loop();
         drivetrain.moveFB(glyphPit, 1);
         drivetrain.moveFB(-1*glyphPit,1);
-        intake.setState(Intake.IntakeState.OFF);
-        drivetrain.pivot(-90,-1);
-        drivetrain.moveFB(-1*distance,-1);
+        intake.setState(Intake.IntakeState.OFF);intake.loop();
+        drivetrain.pivot(90,1);
+        drivetrain.moveFB(distance*-1,-1);
+    }
+    public void goToPitLeft(int distance){
+        intake.setState(Intake.IntakeState.IN);intake.loop();
+        drivetrain.moveFB(glyphPit, 1);
+        drivetrain.moveFB(-1*glyphPit,1);
+        intake.setState(Intake.IntakeState.OFF);intake.loop();
+        drivetrain.pivot(90,1);
+        drivetrain.moveFB(distance,1);
     }
     public void dropGlyphs()throws InterruptedException{
         drivetrain.pivot(-45,1);
         drivetrain.moveFB(-12,-1);
-        //ramp.setState(Ramp.RampState.OUT);ramp.loop();Thread.sleep(500);
-        //ramp.setState(Ramp.RampState.IN);ramp.loop();Thread.sleep(500);
+        ramp.setRampState(Ramp.RampState.OUT);ramp.loop();Thread.sleep(500);
+        ramp.setRampState(Ramp.RampState.IN);ramp.loop();Thread.sleep(500);
         drivetrain.moveFB(12,1);
         drivetrain.pivot(-45,-1);
     }

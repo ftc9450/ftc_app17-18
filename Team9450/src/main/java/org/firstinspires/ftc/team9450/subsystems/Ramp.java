@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team9450.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.team9450.util.Constants;
@@ -14,7 +15,7 @@ public class Ramp extends Subsystem {
     DcMotor rampMotor;
     private double speed= Constants.RampLifter.power;
     public enum RampState {
-        IN, OUT
+        IN, LEVEL, OUT
     }
     public enum LiftState{
         UP, DOWN, OFF
@@ -33,10 +34,13 @@ public class Ramp extends Subsystem {
 
     public Ramp(Servo ramp, DcMotor motor) {
         this.servo = ramp;
-        servo.setDirection(Servo.Direction.REVERSE);
+        servo.setDirection(Servo.Direction.FORWARD);
         this.setRampState(RampState.OUT);
         rampMotor = motor;
-        this.setLiftState(LiftState.DOWN);
+        rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rampMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rampMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.setLiftState(LiftState.OFF);
     }
 
     @Override
@@ -49,10 +53,12 @@ public class Ramp extends Subsystem {
     public void loop() {
         switch (rampState) {
             case IN:
-                servo.setPosition(0.4);
+                servo.setPosition(Constants.RampLifter.INPOS);
                 break;
+            case LEVEL:
+                servo.setPosition(Constants.RampLifter.LEVELPOS);
             case OUT:
-                servo.setPosition(0.9);
+                servo.setPosition(Constants.RampLifter.OUTPOS);
                 break;
             default:
                 stop();
@@ -64,7 +70,7 @@ public class Ramp extends Subsystem {
                 }else{stop();}
                 break;
             case DOWN:
-                if(rampMotor.getCurrentPosition()>=0) {
+                if(rampMotor.getCurrentPosition()>=Constants.RampLifter.minPos) {
                     rampMotor.setPower(-1 * speed);
                 }else{stop();}
                 break;

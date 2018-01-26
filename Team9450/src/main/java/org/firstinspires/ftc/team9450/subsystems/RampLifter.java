@@ -7,7 +7,7 @@ import org.firstinspires.ftc.team9450.util.Constants;
 /**
  * Created by Grace on 1/22/2018.
  */
-
+@Deprecated
 public class RampLifter extends Subsystem{
     DcMotor rampMotor;
     private double speed= Constants.RampLifter.power;

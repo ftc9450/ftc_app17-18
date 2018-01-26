@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.team9450.util.Constants;
@@ -19,6 +20,7 @@ public class Rudder extends Subsystem {
     private Servo topServo;
     private CRServo bottomServo;
     private ColorSensor colorSensor;
+    private int twitchTime=600;
 
     public enum RudderState {
         OUT, IN,START
@@ -33,6 +35,7 @@ public class Rudder extends Subsystem {
         this.topServo = top;
         this.bottomServo=bottom;
         this.topServo.setDirection(Servo.Direction.FORWARD);
+        this.bottomServo.setDirection(CRServo.Direction.FORWARD);
         this.colorSensor = colorSensor;
         this.setState(RudderState.IN);
     }
@@ -60,7 +63,7 @@ public class Rudder extends Subsystem {
         if (colors[1] > 0.1 && colors[2] <2) {
             if (180 < colors[0] && colors[0] < 260) {
                 return Constants.Color.BLUE;
-            } else if ((300 < colors[0] && colors[0] < 359) || colors[0] < 30) {
+            } else if ((300 < colors[0] && colors[0] < 359) || colors[0] < 50) {
                 return Constants.Color.RED;
             }
         }
@@ -70,45 +73,47 @@ public class Rudder extends Subsystem {
         topServo.setPosition(Constants.Rudder.RUDDER_OUT);
         Thread.sleep(500);
         int color=getColor();
-        if(color==Constants.Color.RED){
+        if(color==Constants.Color.BLUE){
             bottomServo.setPower(1);
-            Thread.sleep(250);
+            Thread.sleep(twitchTime);
             bottomServo.setPower(0);
-            Thread.sleep(250);
+            topServo.setPosition(Constants.Rudder.RUDDER_IN);
+            Thread.sleep(500);
+        }else if(color==Constants.Color.RED){
             bottomServo.setPower(-1);
-            Thread.sleep(250);
-        }else if(color==Constants.Color.BLUE){
-            bottomServo.setPower(-1);
-            Thread.sleep(250);
+            Thread.sleep(twitchTime);
             bottomServo.setPower(0);
-            Thread.sleep(250);
+            topServo.setPosition(Constants.Rudder.RUDDER_IN);
+            Thread.sleep(500);
             bottomServo.setPower(1);
-            Thread.sleep(250);
+            Thread.sleep(twitchTime);
+        }else{
+            topServo.setPosition(Constants.Rudder.RUDDER_IN);
+            Thread.sleep(500);
         }
-        bottomServo.setPower(0);
-        topServo.setPosition(Constants.Rudder.RUDDER_IN);Thread.sleep(1000);
     }
     public void knockBlue() throws InterruptedException {
         topServo.setPosition(Constants.Rudder.RUDDER_OUT);
         Thread.sleep(500);
         int color=getColor();
-        if(color==Constants.Color.BLUE){
+        if(color==Constants.Color.RED){
             bottomServo.setPower(1);
-            Thread.sleep(250);
+            Thread.sleep(twitchTime);
             bottomServo.setPower(0);
-            Thread.sleep(250);
+            topServo.setPosition(Constants.Rudder.RUDDER_IN);
+            Thread.sleep(500);
+        }else if(color==Constants.Color.BLUE){
             bottomServo.setPower(-1);
-            Thread.sleep(250);
-        }else if(color==Constants.Color.RED){
-            bottomServo.setPower(-1);
-            Thread.sleep(250);
+            Thread.sleep(twitchTime);
             bottomServo.setPower(0);
-            Thread.sleep(250);
+            topServo.setPosition(Constants.Rudder.RUDDER_IN);
+            Thread.sleep(500);
             bottomServo.setPower(1);
-            Thread.sleep(250);
+            Thread.sleep(twitchTime);
+        }else{
+            topServo.setPosition(Constants.Rudder.RUDDER_IN);
+            Thread.sleep(500);
         }
-        bottomServo.setPower(0);
-        topServo.setPosition(Constants.Rudder.RUDDER_IN);Thread.sleep(1000);
     }
     public void zeroSensors() {
 

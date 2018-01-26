@@ -27,14 +27,17 @@ public class Constants {
         public static final double power=1;
     }
     public class Intake{
-        public static final String LEFT="left";
-        public static final String RIGHT="right";
+        public static final String LEFT="intake_left";
+        public static final String RIGHT="intake_right";
         public static final double power=0.75;
     }
     public class RampLifter{
         public static final String RAMPLIFTER="rampdc";
         public static final double power=1;
-        public static final int maxPos=1000;
+        public static final double INPOS=0;
+        public static final double OUTPOS=0.5;
+        public static final double LEVELPOS=0.1;
+        public static final int maxPos=5500;
         public static final int minPos=0;
     }
     public class Ramp {
@@ -64,8 +67,8 @@ public class Constants {
         public static final String RUDDERTOP="rudder";
         public static final String RUDDERBOTTOM="rudderbottom";
         public static final String COLOR="color";
-        public static final double RUDDER_IN=0.2;
-        public static final double RUDDER_OUT=1;
+        public static final double RUDDER_IN=0.25;
+        public static final double RUDDER_OUT=0.8;
         public static final double RUDDER_START=0.2;
     }
 }
