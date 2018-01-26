@@ -18,6 +18,10 @@ public class Constants {
     }
     public class RelicArm {
         public static final String RELICARM="relicArm";
+        public static final String WRIST="pivot";
+        public static final String THUMB="hand";
+        public static final double HANDCLOSE=1;
+        public static final double HANDOPEN=0;
         public static final int maxPos = 30400;
         public static final int minPos = 0;
         public static final double power=1;
@@ -57,10 +61,11 @@ public class Constants {
         return f.floatValue();
     }
     public class Rudder{
-        public static final String RUDDER="rudder";
+        public static final String RUDDERTOP="rudder";
+        public static final String RUDDERBOTTOM="rudderbottom";
         public static final String COLOR="color";
-        public static final double RUDDER_IN=0.4;
+        public static final double RUDDER_IN=0.2;
         public static final double RUDDER_OUT=1;
-        public static final double RUDDER_START=0.4;
+        public static final double RUDDER_START=0.2;
     }
 }
