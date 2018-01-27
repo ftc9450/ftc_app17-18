@@ -40,7 +40,7 @@ public class AutoRed1 extends LinearOpMode {
         rudder.setRudderState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
 
-        //rudder.knockBlue();
+        rudder.knockBlue();
 
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
@@ -49,7 +49,7 @@ public class AutoRed1 extends LinearOpMode {
             drivetrain.moveLR(2, 0.3);
         }
 
-        drivetrain.moveFB(-7,-1);
+        //drivetrain.moveFB(-7,-1);
         if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = vuforia.getVuMark();
 
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){

@@ -66,8 +66,8 @@ public class Constants {
         public static final double LATERALFORWARD=0.3;
         public static final double LATERALNEUTRAL=0.5;
         public static final double LATERALBACKWARD=0.7;
-        public static final String RUDDERTOP="ruddertop";
-        public static final String RUDDERBOTTOM="rudderbottom";
+        public static final String RUDDERTOP="rudder_out";
+        public static final String RUDDERBOTTOM="rudder_lat";
         public static final String COLOR="color";
         public static final double RUDDER_IN=0.25;
         public static final double RUDDER_OUT=0.8;
