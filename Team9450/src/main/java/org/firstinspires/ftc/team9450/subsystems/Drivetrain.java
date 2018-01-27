@@ -67,13 +67,13 @@ public class Drivetrain extends Subsystem {
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-    public void moveFB(int distance, double power){ //positive power and distance is move forward
+    public void moveFB(double distance, double power){ //positive power and distance is move forward
         enableAndResetEncoders();
-        distance*= Constants.Drivetrain.INCH;
-        leftFront.setTargetPosition(distance);
-        leftBack.setTargetPosition(distance);
-        rightFront.setTargetPosition(distance);
-        rightBack.setTargetPosition(distance);
+        int sig = (int) distance * Constants.Drivetrain.INCH;
+        leftFront.setTargetPosition(sig);
+        leftBack.setTargetPosition(sig);
+        rightFront.setTargetPosition(sig);
+        rightBack.setTargetPosition(sig);
         setPower(new DriveSignal(power, power, power,power));
         try{while(isBusy());}catch (Exception e){}
     }
@@ -105,6 +105,9 @@ public class Drivetrain extends Subsystem {
         leftBack.setPower(0);
         rightFront.setPower(0);
         rightBack.setPower(0);
+    }
+    public double[] getPosition() {
+        return new double[]{leftFront.getCurrentPosition(), leftBack.getCurrentPosition(), rightFront.getCurrentPosition(), rightBack.getCurrentPosition()};
     }
 
     @Override
