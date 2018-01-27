@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.team9450.auto;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.team9450.sensors.Gyroscope;
 import org.firstinspires.ftc.team9450.sensors.Vuforia;
 import org.firstinspires.ftc.team9450.subsystems.Drivetrain;
 import org.firstinspires.ftc.team9450.subsystems.Intake;
@@ -21,59 +23,72 @@ public class AutoRed2 extends LinearOpMode {
     Drivetrain drivetrain;
     Rudder rudder;
     Ramp ramp;
+    Gyroscope imu;
     Intake intake;
     int center=19;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
-        drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
+        drivetrain = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
+        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         //ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
-        vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
-        rudder.setRudderState(Rudder.RudderState.START);rudder.loop();
-        intake=new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
-        detectedVuMark=vuforia.getVuMark();
-        telemetry.addData("vumark",detectedVuMark);telemetry.update();
+        vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        rudder.setRudderState(Rudder.RudderState.START);
+        rudder.loop();
+        intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
+        detectedVuMark = vuforia.getVuMark();
+        telemetry.addData("vumark", detectedVuMark);
+        telemetry.update();
         drivetrain.enableAndResetEncoders();
         Thread.sleep(500);
-        rudder.setRudderState(Rudder.RudderState.OUT);rudder.loop();
+        rudder.setRudderState(Rudder.RudderState.OUT);
+        rudder.loop();
         Thread.sleep(1000);
 
-        int color=rudder.getColor();
-        if(color== Constants.Color.BLUE){
-            drivetrain.moveFB(4,1);
-            Thread.sleep(1000);
-            rudder.setRudderState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-4,-1);
-        }else if(color==Constants.Color.RED){
-            drivetrain.moveFB(-4,-1);
-            Thread.sleep(1000);
-            rudder.setRudderState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(4,1);
-        }else{
-            rudder.setRudderState(Rudder.RudderState.IN);rudder.loop();
+        int color = rudder.getColor();
+        if (color == Constants.Color.BLUE) {
+            rudder.setLateralState(Rudder.LateralState.FORWARDS);
+            rudder.loop();
+            Thread.sleep(500);
+        } else if (color == Constants.Color.RED) {
+            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
+            rudder.loop();
+            Thread.sleep(500);
         }
+        rudder.setRudderState(Rudder.RudderState.IN);
+        rudder.setLateralState(Rudder.LateralState.NEUTRAL);
+        rudder.loop();
+        Thread.sleep(500);
         // if rudder is stuck
-        if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
+        if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN + 0.1) {
             drivetrain.moveLR(-2, 0.3);
             rudder.setRudderState(Rudder.RudderState.IN);
             drivetrain.moveLR(2, 0.3);
         }
 
-        drivetrain.moveFB(7,1);
-        if (detectedVuMark == RelicRecoveryVuMark.UNKNOWN) detectedVuMark = vuforia.getVuMark();
-
-        drivetrain.moveFB(19, 1);
-        drivetrain.pivot(-90,-1);
-
-        if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(center-7,1);
-        }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(center+7,1);
-        }else{
-            drivetrain.moveFB(center,1);
+        drivetrain.moveFB(26, 1);
+        while (imu.getAngle() < Math.PI / 2) {
+            drivetrain.setPower(new double[]{-0.5, -0.5, 0.5, 0.5});
         }
+
+        if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
+            drivetrain.moveFB(center + 7, 1);
+        } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
+            drivetrain.moveFB(center - 7, 1);
+        } else {
+            drivetrain.moveFB(center, 1);
+        }
+        while (imu.getAngle() > Math.PI / 4) {
+            drivetrain.setPower(new double[]{0.5, 0.5, -0.5, -0.5});
+        }
+        //do some kind of intake deploying
+        //drive forward if necessary
+        intake.setState(Intake.IntakeState.OUT);
+        intake.loop();
+        Thread.sleep(1000);
+        /*
         dropGlyphs();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             goToPitLeft(7,0);
@@ -92,6 +107,7 @@ public class AutoRed2 extends LinearOpMode {
             dropGlyphs();
         }
         drivetrain.moveFB(-3, .5);
+        */
     }
     public void goToPitLeft(int distance, int distanceToLeft){
         drivetrain.pivot(90,1);
