@@ -64,13 +64,7 @@ public class AutoRed1 extends LinearOpMode {
         if(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){
             detectedVuMark=vuforia.getVuMark();
         }
-        while(imu.getAngle()!=0){
-            if(imu.getAngle()>0){
-                drivetrain.setPower(new double[]{-0.5,-0.5,0.5,0.5});
-            }else if(imu.getAngle()<0){
-                drivetrain.setPower(new double[]{0.5,0.5,-0.5,-0.5});
-            }
-        }
+        drivetrain.pivotTo(0,imu);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(center-7,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
@@ -78,9 +72,7 @@ public class AutoRed1 extends LinearOpMode {
         }else{
             drivetrain.moveFB(center,1);
         }
-        while(imu.getAngle()<Math.PI/4){
-            drivetrain.setPower(new double[]{0.5,0.5,-0.5,-0.5});
-        }
+        drivetrain.pivotTo(Math.PI/4,imu);
         //do some kind of intake deploying
         //drive forward if necessary
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);

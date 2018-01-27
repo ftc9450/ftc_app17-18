@@ -64,9 +64,7 @@ public class AutoBlue1 extends LinearOpMode {
         }else{
             drivetrain.moveFB(center,-1);
         }
-        while(imu.getAngle()>-Math.PI/4){
-            drivetrain.setPower(new double[]{-0.5,-0.5,0.5,0.5});
-        }
+        drivetrain.pivotTo(Math.PI/4,imu);
         //do some kind of intake deploying
         //drive forward if necessary
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);

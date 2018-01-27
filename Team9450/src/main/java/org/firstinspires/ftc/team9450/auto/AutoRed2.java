@@ -69,9 +69,7 @@ public class AutoRed2 extends LinearOpMode {
         }
 
         drivetrain.moveFB(26, 1);
-        while (imu.getAngle() < Math.PI / 2) {
-            drivetrain.setPower(new double[]{-0.5, -0.5, 0.5, 0.5});
-        }
+        drivetrain.pivotTo(Math.PI/2,imu);
 
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
             drivetrain.moveFB(center + 7, 1);
@@ -80,9 +78,7 @@ public class AutoRed2 extends LinearOpMode {
         } else {
             drivetrain.moveFB(center, 1);
         }
-        while (imu.getAngle() > Math.PI / 4) {
-            drivetrain.setPower(new double[]{0.5, 0.5, -0.5, -0.5});
-        }
+        drivetrain.pivotTo(3.0*Math.PI/4,imu);
         //do some kind of intake deploying
         //drive forward if necessary
         intake.setState(Intake.IntakeState.OUT);
