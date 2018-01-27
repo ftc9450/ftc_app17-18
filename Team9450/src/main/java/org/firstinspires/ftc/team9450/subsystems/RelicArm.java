@@ -12,60 +12,57 @@ import org.firstinspires.ftc.team9450.util.Constants;
  */
 
 public class RelicArm extends Subsystem {
-    private DcMotor humerus;
-    private CRServo carpal;
-    private Servo pollex;
+    private DcMotor arm;
+    private CRServo pivot;
+    private Servo hand;
 
     private double speed = Constants.RelicArm.power;
 
-    public enum HumerusState {
+    public enum ArmState {
         OUT, IN, OFF
     }
-    public enum CarpalState {
+    public enum PivotState {
         OUT, IN, OFF
     }
-    public enum PollexState {
+    public enum HandState {
         OPEN, CLOSED
     }
 
-    private HumerusState humerusState;
-    private CarpalState carpalState;
-    private PollexState pollexState;
+    private ArmState armState;
+    private PivotState pivotState;
+    private HandState handState;
 
     public RelicArm(DcMotor relicArmMotor, CRServo LCarpal, Servo pollex) {
-        this.humerus = relicArmMotor;
-        this.humerus.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.humerus.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.humerus.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.humerusState = HumerusState.OFF;
+        this.arm = relicArmMotor;
+        this.arm.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        this.armState = ArmState.OFF;
 
-        this.carpal = LCarpal;
-        this.carpal.setDirection(DcMotorSimple.Direction.FORWARD);
-        carpalState = CarpalState.OFF;
+        this.pivot = LCarpal;
+        this.pivot.setDirection(DcMotorSimple.Direction.FORWARD);
+        pivotState = PivotState.OFF;
 
-        this.pollex = pollex;
-        this.pollex.setDirection(Servo.Direction.FORWARD);
-        this.pollexState = PollexState.OPEN;
+        this.hand = pollex;
+        this.hand.setDirection(Servo.Direction.FORWARD);
+        this.handState = HandState.OPEN;
     }
-    public String toString(){return String.valueOf(humerus.getCurrentPosition());}
-    public void setHumerus(HumerusState state) {
-        this.humerusState = state;
+    public String toString(){return String.valueOf(arm.getCurrentPosition());}
+    public void setArm(ArmState state) {
+        this.armState = state;
     }
-    public void setCarpals(CarpalState state) {
-        this.carpalState = state;
+    public void setPivot(PivotState state) {
+        this.pivotState = state;
     }
-    public void setPollex(PollexState state) {
-        this.pollexState = state;
+    public void setHand(HandState state) {
+        this.handState = state;
     }
-
-    public CarpalState getCarpalState() {return this.carpalState;}
-    public PollexState getPollexState() {return this.pollexState;}
 
     @Override
     public void stop() {
-        humerus.setPower(0);
-        carpal.setPower(0);
-        pollex.setPosition(pollex.getPosition());
+        arm.setPower(0);
+        pivot.setPower(0);
+        hand.setPosition(hand.getPosition());
     }
 
     public void zeroSensors() {
@@ -73,40 +70,40 @@ public class RelicArm extends Subsystem {
 
     @Override
     public void loop() {
-        switch (humerusState) {
+        switch (armState) {
             case OUT:
-                if(humerus.getCurrentPosition()<Constants.RelicArm.maxPos) {
-                    humerus.setPower(speed);
+                if(arm.getCurrentPosition()<Constants.RelicArm.maxPos) {
+                    arm.setPower(speed);
                 }else{stop();}
                 break;
             case IN:
-                if(humerus.getCurrentPosition()>=0) {
-                    humerus.setPower(-1 * speed);
+                if(arm.getCurrentPosition()>=0) {
+                    arm.setPower(-1 * speed);
                 }else{stop();}
                 break;
             //case OFF:
             default:
                 stop();
         }
-        switch (carpalState) {
+        switch (pivotState) {
             case OUT:
-                carpal.setPower(1);
+                pivot.setPower(1);
                 break;
             case IN:
-                carpal.setPower(-1);
+                pivot.setPower(-1);
                 break;
             case OFF:
-                carpal.setPower(0);
+                pivot.setPower(0);
                 break;
             default:
                 stop();
         }
-        switch (pollexState) {
+        switch (handState) {
             case OPEN:
-                pollex.setPosition(0);
+                hand.setPosition(0);
                 break;
             case CLOSED:
-                pollex.setPosition(1);
+                hand.setPosition(1);
                 break;
             default:
                 stop();
