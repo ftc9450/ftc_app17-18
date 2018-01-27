@@ -75,7 +75,7 @@ public class Rudder extends Subsystem {
         return Constants.Color.UNDECIDED;
     }
 
-
+/*
     public void knockRed() throws InterruptedException {
         topServo.setPosition(Constants.Rudder.RUDDER_OUT);
         Thread.sleep(500);
@@ -121,7 +121,7 @@ public class Rudder extends Subsystem {
             topServo.setPosition(Constants.Rudder.RUDDER_IN);
             Thread.sleep(500);
         }
-    }
+    } */
     public void zeroSensors() {
 
     }
