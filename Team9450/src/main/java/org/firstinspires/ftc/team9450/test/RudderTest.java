@@ -17,7 +17,7 @@ public class RudderTest extends OpMode{
     CRServo bottomServo;
     @Override
     public void init() {
-        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.crservo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
+        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         bottomServo=hardwareMap.crservo.get(Constants.Rudder.RUDDERBOTTOM);
     }
 

@@ -44,12 +44,9 @@ public class AutoRed2 extends LinearOpMode{
         detectedVuMark=vuforia.getVuMark();
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
-<<<<<<< HEAD
         telemetry.addData("status", "started");
         telemetry.update();
        // drivetrain.moveLR(5, 0.3); // move 3 inches right
-=======
->>>>>>> 1efb0b7494655d62efb2a48f56b5deb4fb3850ac
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         int color=rudder.getColor();

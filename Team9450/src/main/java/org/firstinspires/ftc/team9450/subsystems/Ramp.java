@@ -57,6 +57,7 @@ public class Ramp extends Subsystem {
                 break;
             case LEVEL:
                 servo.setPosition(Constants.RampLifter.LEVELPOS);
+                break;
             case OUT:
                 servo.setPosition(Constants.RampLifter.OUTPOS);
                 break;

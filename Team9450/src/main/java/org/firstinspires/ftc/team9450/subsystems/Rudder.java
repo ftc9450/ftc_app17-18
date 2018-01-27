@@ -2,9 +2,7 @@ package org.firstinspires.ftc.team9450.subsystems;
 
 import android.graphics.Color;
 
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.team9450.util.Constants;
@@ -16,9 +14,10 @@ import org.firstinspires.ftc.team9450.util.Constants;
 
 public class Rudder extends Subsystem {
 
-    private RudderState state;
+    private RudderState rudderState;
+    private LateralState lateralState;
     private Servo servo;
-    private CRServo lateral;
+    private Servo lateral;
     private ColorSensor color;
     private int twitchTime=600;
 
@@ -26,31 +25,35 @@ public class Rudder extends Subsystem {
     public enum RudderState {
         OUT, IN,START
     }
-
+    public enum LateralState{
+        FORWARDS,BACKWARDS,NEUTRAL
+    }
     /**
      * Rudder initialization
      * @param top   servo attached to top
      * @param colorSensor   color sensor for checking color of jewel
      */
-    public Rudder(Servo top, CRServo bottom, ColorSensor colorSensor) {
+    public Rudder(Servo top, Servo bottom, ColorSensor colorSensor) {
         this.servo = top;
         this.lateral = bottom;
         this.servo.setDirection(Servo.Direction.FORWARD);
-        this.lateral.setDirection(CRServo.Direction.FORWARD);
+        this.lateral.setDirection(Servo.Direction.FORWARD);
         this.color = colorSensor;
-        this.setState(RudderState.IN);
+        this.setRudderState(RudderState.IN);
+        this.setLateralState(LateralState.NEUTRAL);
     }
 
     /**
-     * Changes state
-     * @param state new state
+     * Changes rudderState
+     * @param state new rudderState
      */
-    public void setState(RudderState state) {
-        this.state = state;
+    public void setRudderState(RudderState state) {
+        this.rudderState = state;
     }
     @Override
     public void stop() {}
-    public RudderState getState(){return state;}
+    public RudderState getRudderState(){return rudderState;}
+    public void setLateralState(LateralState state){this.lateralState=state;}
     public String toString(){
         return String.valueOf(servo.getPosition());
     }
@@ -72,9 +75,6 @@ public class Rudder extends Subsystem {
         return Constants.Color.UNDECIDED;
     }
 
-    public void setPower(double power) {
-        lateral.setPower(power);
-    }
 
     /*public void knockRed() throws InterruptedException {
         topServo.setPosition(Constants.Rudder.RUDDER_OUT);
@@ -130,7 +130,7 @@ public class Rudder extends Subsystem {
     }
     @Override
     public void loop() {
-        switch (state) {
+        switch (rudderState) {
             case IN:
                 servo.setPosition(Constants.Rudder.RUDDER_IN);
                 break;
@@ -140,6 +140,17 @@ public class Rudder extends Subsystem {
             case START:
                 servo.setPosition(Constants.Rudder.RUDDER_START);
                 break;
+        }
+        switch (lateralState){
+            case FORWARDS:
+                lateral.setPosition(Constants.Rudder.LATERALFORWARD);
+                break;
+            case BACKWARDS:
+                lateral.setPosition(Constants.Rudder.LATERALBACKWARD);
+                break;
+            case NEUTRAL:
+            default:
+                lateral.setPosition(Constants.Rudder.LATERALNEUTRAL);
         }
     }
 }

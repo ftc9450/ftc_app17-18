@@ -33,7 +33,7 @@ public class ConceptAutonomous extends LinearOpMode {
         //initialize subsystems
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         intake = new Intake(hardwareMap.dcMotor.get("intake_left"), hardwareMap.dcMotor.get("intake_right"));
-        rudder = new Rudder(hardwareMap.servo.get("rudder"), hardwareMap.crservo.get(""), hardwareMap.colorSensor.get("color"));
+        rudder = new Rudder(hardwareMap.servo.get("rudder"), hardwareMap.servo.get(""), hardwareMap.colorSensor.get("color"));
         vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
         manager.add(drive).add(intake).add(rudder);
         waitForStart();
@@ -47,7 +47,7 @@ public class ConceptAutonomous extends LinearOpMode {
         RelicRecoveryVuMark vumark = vuforia.getVuMark();
 
         //drop down rudder
-        rudder.setState(Rudder.RudderState.OUT);
+        rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
         int color = Constants.Color.UNDECIDED;
         switch (color) {
@@ -57,7 +57,7 @@ public class ConceptAutonomous extends LinearOpMode {
                 break;
             default:
         }
-        rudder.setState(Rudder.RudderState.IN);
+        rudder.setRudderState(Rudder.RudderState.IN);
         //move to position
         drive.moveFB(36.5, 1);
         drive.disconnectEncoders();

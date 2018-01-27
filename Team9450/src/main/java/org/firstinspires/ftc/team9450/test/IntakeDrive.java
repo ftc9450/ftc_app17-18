@@ -56,10 +56,9 @@ public class IntakeDrive extends OpMode {
 
         drive.setPower(new double[]{v.x + v.y + z, -v.x + v.y + z, -v.x + v.y - z, v.x + v.y - z});
 
-        if (gamepad1.left_bumper) intake.setState(Intake.IntakeState.OFF);
-        else if (gamepad1.right_bumper) intake.setState(Intake.IntakeState.IN);
+        if (gamepad1.right_bumper) intake.setState(Intake.IntakeState.IN);
         else if (gamepad1.right_trigger > 0.1) intake.setState(Intake.IntakeState.OUT);
-
+        else intake.setState(Intake.IntakeState.OFF);
         if (gamepad1.a) ramp.setRampState(Ramp.RampState.IN);
         else if (gamepad1.b) ramp.setRampState(Ramp.RampState.OUT);
 

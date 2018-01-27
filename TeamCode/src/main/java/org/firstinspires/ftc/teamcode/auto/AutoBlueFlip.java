@@ -48,13 +48,11 @@ public class AutoBlueFlip extends LinearOpMode{
         telemetry.update();
         telemetry.addData("status", "started");
         telemetry.update();
-<<<<<<< HEAD
        // drivetrain.moveLR(5, 0.3); // move 3 inches right
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
-=======
+
        // drivetrain.moveLR(5, 0.3); // move 3 inches left
    //     rudder.setState(Rudder.RudderState.OUT);rudder.loop();
->>>>>>> 1efb0b7494655d62efb2a48f56b5deb4fb3850ac
         Thread.sleep(1000);
         // knock off blue
         int color=rudder.getColor();
