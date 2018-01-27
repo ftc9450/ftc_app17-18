@@ -13,8 +13,8 @@ import org.firstinspires.ftc.team9450.util.Constants;
 
 public class RelicArm extends Subsystem {
     private DcMotor arm;
-    private CRServo pivot;
-    private Servo hand;
+    private Servo pivot;
+    private CRServo hand;
 
     private double speed = Constants.RelicArm.power;
 
@@ -25,14 +25,14 @@ public class RelicArm extends Subsystem {
         OUT, IN, OFF
     }
     public enum HandState {
-        OPEN, CLOSED
+        OPEN, CLOSE,OFF
     }
 
     private ArmState armState;
     private PivotState pivotState;
     private HandState handState;
 
-    public RelicArm(DcMotor relicArmMotor, CRServo LCarpal, Servo pollex) {
+    public RelicArm(DcMotor relicArmMotor, Servo LCarpal, CRServo pollex) {
         this.arm = relicArmMotor;
         this.arm.setDirection(DcMotorSimple.Direction.REVERSE);
         this.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -40,11 +40,11 @@ public class RelicArm extends Subsystem {
         this.armState = ArmState.OFF;
 
         this.pivot = LCarpal;
-        this.pivot.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.pivot.setDirection(Servo.Direction.FORWARD);
         pivotState = PivotState.OFF;
 
         this.hand = pollex;
-        this.hand.setDirection(Servo.Direction.FORWARD);
+        this.hand.setDirection(CRServo.Direction.FORWARD);
         this.handState = HandState.OPEN;
     }
     public String toString(){return String.valueOf(arm.getCurrentPosition());}
@@ -61,8 +61,8 @@ public class RelicArm extends Subsystem {
     @Override
     public void stop() {
         arm.setPower(0);
-        pivot.setPower(0);
-        hand.setPosition(hand.getPosition());
+        hand.setPower(0);
+        pivot.setPosition(pivot.getPosition());
     }
 
     public void zeroSensors() {
@@ -87,24 +87,25 @@ public class RelicArm extends Subsystem {
         }
         switch (pivotState) {
             case OUT:
-                pivot.setPower(1);
+                pivot.setPosition(1);
                 break;
             case IN:
-                pivot.setPower(-1);
+                pivot.setPosition(0);
                 break;
             case OFF:
-                pivot.setPower(0);
+                pivot.setPosition(pivot.getPosition());
                 break;
             default:
                 stop();
         }
         switch (handState) {
             case OPEN:
-                hand.setPosition(0);
+                hand.setPower(1);
                 break;
-            case CLOSED:
-                hand.setPosition(1);
+            case CLOSE:
+                hand.setPower(-1);
                 break;
+            case OFF:
             default:
                 stop();
         }

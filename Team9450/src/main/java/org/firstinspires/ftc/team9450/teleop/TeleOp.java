@@ -32,7 +32,7 @@ public class TeleOp extends OpMode {
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         intake = new Intake(hardwareMap.dcMotor.get("intake_left"), hardwareMap.dcMotor.get("intake_right"));
         ramp = new Ramp(hardwareMap.servo.get("ramp"), hardwareMap.dcMotor.get("ramp_lifter"));
-        arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.crservo.get("pivot"), hardwareMap.servo.get("hand"));
+        arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.servo.get("pivot"), hardwareMap.crservo.get("hand"));
         manager = new SubsystemManager();
         manager.add(drive).add(intake).add(ramp).add(arm);
     }
@@ -70,7 +70,9 @@ public class TeleOp extends OpMode {
         if (gamepad2.a) {
             arm.setHand(RelicArm.HandState.OPEN);
         } else if (gamepad2.b) {
-            arm.setHand(RelicArm.HandState.CLOSED);
+            arm.setHand(RelicArm.HandState.CLOSE);
+        }else{
+            arm.setHand(RelicArm.HandState.OFF);
         }
 
         manager.loop();
