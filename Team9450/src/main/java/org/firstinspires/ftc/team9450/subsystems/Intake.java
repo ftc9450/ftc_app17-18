@@ -28,18 +28,25 @@ public class Intake extends Subsystem{
 
         this.setState(IntakeState.OFF);
     }
+    public Intake(DcMotor i){
+        intakeLeft=i;
+        intakeRight=null;
+    }
 
     @Override
     public void stop() {
-        intakeLeft.setPower(0);
-        intakeRight.setPower(0);
+        setPower(0);
     }
     public void setState(IntakeState state){
         this.state = state;
     }
     public void setPower(double p) {
-        intakeLeft.setPower(p);
-        intakeRight.setPower(p);
+        if(intakeRight.equals(null)){
+            intakeLeft.setPower(p);
+        }else {
+            intakeLeft.setPower(p);
+            intakeRight.setPower(p);
+        }
     }
     //@Override
     public void zeroSensors() {
@@ -50,12 +57,10 @@ public class Intake extends Subsystem{
     public void loop() {
         switch (state){
             case IN:
-                intakeLeft.setPower(power*-1);
-                intakeRight.setPower(power*-1);
+                setPower(-1*power);
                 break;
             case OUT:
-                intakeLeft.setPower(power);
-                intakeRight.setPower(power);
+                setPower(power);
                 break;
             case OFF:
             default:
