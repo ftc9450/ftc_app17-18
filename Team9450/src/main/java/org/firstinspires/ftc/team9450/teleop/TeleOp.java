@@ -8,7 +8,6 @@ import org.firstinspires.ftc.team9450.subsystems.Drivetrain;
 import org.firstinspires.ftc.team9450.subsystems.Intake;
 import org.firstinspires.ftc.team9450.subsystems.Ramp;
 import org.firstinspires.ftc.team9450.subsystems.RelicArm;
-import org.firstinspires.ftc.team9450.subsystems.Subsystem;
 import org.firstinspires.ftc.team9450.subsystems.SubsystemManager;
 import org.firstinspires.ftc.team9450.util.Constants;
 import org.firstinspires.ftc.team9450.util.DriveSignal;
@@ -60,19 +59,19 @@ public class TeleOp extends OpMode {
         }
 
         if (gamepad2.right_bumper) {
-            arm.setPivot(RelicArm.PivotState.OUT);
+            arm.setStandardpivot(RelicArm.PivotState.OUT);
         } else if (gamepad2.left_bumper) {
-            arm.setPivot(RelicArm.PivotState.IN);
+            arm.setStandardpivot(RelicArm.PivotState.IN);
         } else {
-            arm.setPivot(RelicArm.PivotState.OFF);
+            arm.setStandardpivot(RelicArm.PivotState.OFF);
         }
 
         if (gamepad2.a) {
-            arm.setHand(RelicArm.HandState.OPEN);
+            arm.setCrhand(RelicArm.HandState.OPEN);
         } else if (gamepad2.b) {
-            arm.setHand(RelicArm.HandState.CLOSE);
+            arm.setCrhand(RelicArm.HandState.CLOSE);
         }else{
-            arm.setHand(RelicArm.HandState.OFF);
+            arm.setCrhand(RelicArm.HandState.OFF);
         }
 
         manager.loop();
