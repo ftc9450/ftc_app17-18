@@ -25,7 +25,7 @@ public class AutoRed1 extends LinearOpMode {
     Gyroscope imu;
     //Ramp ramp;
     Intake intake;
-    int center=35;
+    int center=28;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -42,6 +42,9 @@ public class AutoRed1 extends LinearOpMode {
         drivetrain.enableAndResetEncoders();
         rudder.setRudderState(Rudder.RudderState.OUT);rudder.setLateralState(Rudder.LateralState.NEUTRAL);rudder.loop();
         Thread.sleep(500);
+        rudder.setRudderState(Rudder.RudderState.OUT);rudder.loop();
+        Thread.sleep(1000);
+
 
         int color=rudder.getColor();
         if(color== Constants.Color.BLUE){
@@ -51,21 +54,32 @@ public class AutoRed1 extends LinearOpMode {
         }
         rudder.setRudderState(Rudder.RudderState.IN);rudder.setLateralState(Rudder.LateralState.NEUTRAL);rudder.loop();Thread.sleep(500);
         // if rudder is stuck
+
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
             drivetrain.moveLR(-2, 0.3);
             rudder.setRudderState(Rudder.RudderState.IN);
             drivetrain.moveLR(2, 0.3);
         }
-
-        if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(center-7,-1);
-        }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(center+7,-1);
-        }else{
-            drivetrain.moveFB(center,-1);
+        drivetrain.moveFB(7,1);
+        if(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){
+            detectedVuMark=vuforia.getVuMark();
         }
-        while(imu.getAngle()>-Math.PI/4){
-            drivetrain.setPower(new double[]{-0.5,-0.5,0.5,0.5});
+        while(imu.getAngle()!=0){
+            if(imu.getAngle()>0){
+                drivetrain.setPower(new double[]{-0.5,-0.5,0.5,0.5});
+            }else if(imu.getAngle()<0){
+                drivetrain.setPower(new double[]{0.5,0.5,-0.5,-0.5});
+            }
+        }
+        if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
+            drivetrain.moveFB(center-7,1);
+        }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
+            drivetrain.moveFB(center+7,1);
+        }else{
+            drivetrain.moveFB(center,1);
+        }
+        while(imu.getAngle()<Math.PI/4){
+            drivetrain.setPower(new double[]{0.5,0.5,-0.5,-0.5});
         }
         //do some kind of intake deploying
         //drive forward if necessary
