@@ -37,7 +37,7 @@ public class AutoBlue1_take2 extends LinearOpMode{
         telemetry.update();
 
         drivetrain.enableAndResetEncoders();
-      //  drivetrain.moveLR(5 * Constants.Drivetrain.STRAFEINCH, 0.3); // move 3 inches right
+      //  drivetrain.moveLR(5 * Constants.Drivetrain.STRAFEINCH, 0.3); // move 3 inches left
         Thread.sleep(500);
         rudder.setState(Rudder.RudderState.OUT);
         rudder.loop();

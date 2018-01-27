@@ -38,14 +38,13 @@ public class AutoRed1 extends LinearOpMode{
         }*/
         telemetry.addData("vumark",detectedVuMark);telemetry.update();
         drivetrain.enableAndResetEncoders();
-       // drivetrain.moveLR(5, 0.3); // move 3 inches right
+       // drivetrain.moveLR(5, 0.3); // move 3 inches left
         Thread.sleep(500);
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
         // knock off blue
         int color=rudder.getColor();
-        //Test at USRA-The thresholds don't work in my basement -Grace
-        /*if(color==Constants.Color.BLUE){
+        if(color==Constants.Color.BLUE){
             drivetrain.moveFB(4,1);
             Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
@@ -57,19 +56,6 @@ public class AutoRed1 extends LinearOpMode{
             drivetrain.moveFB(4,1);
         }else{
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
-        }
-        */
-        //TODO:Strafe before pulling in
-        if(color==Constants.Color.RED){
-            drivetrain.moveFB(-2,-1);
-            Thread.sleep(1000);
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(2,1);
-        }else {
-            drivetrain.moveFB(2,1);
-            Thread.sleep(1000);
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-            drivetrain.moveFB(-2,-1);
         }
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
@@ -85,11 +71,11 @@ public class AutoRed1 extends LinearOpMode{
             drivetrain.moveFB(35,1);
         }
         drivetrain.pivot(90,1);
-        drivetrain.moveFB(11,1);
+        drivetrain.moveFB(9,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
         grabber.autoClose();
-        drivetrain.moveFB(13,0.5);
+        drivetrain.moveFB(9,0.5);
         drivetrain.moveFB(-5, .5);
     }
 }

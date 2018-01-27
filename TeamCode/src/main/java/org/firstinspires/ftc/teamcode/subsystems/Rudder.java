@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 
+import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.teamcode.util.*;
 
 /**
@@ -53,11 +54,15 @@ public class Rudder extends Subsystem {
      * @return RED if red jewel detected, BLUE if blue jewel detected, UNDECIDED if not sure
      */
     public int getColor() {
-        if(colorSensor instanceof SwitchableLight) ((SwitchableLight) colorSensor).enableLight(true);
-        int r = colorSensor.red(), g = colorSensor.green(), b = colorSensor.blue(), a = colorSensor.alpha();
-        if(a < 20 || a > 200) return Constants.Color.UNDECIDED; //???? Check projected alpha values
-        if(r > g*2 && r > b*2) return Constants.Color.RED;
-        if(Math.abs(b - g) < 20 && b > r*1.6) return Constants.Color.BLUE;
+        float[] colors= new float[3];
+        Color.RGBToHSV(colorSensor.red(),colorSensor.green(),colorSensor.blue(),colors);
+        if (colors[1] > 0.1 && colors[2] <2) {
+            if (180 < colors[0] && colors[0] < 260) {
+                return Constants.Color.BLUE;
+            } else if ((300 < colors[0] && colors[0] < 359) || colors[0] < 30) {
+                return Constants.Color.RED;
+            }
+        }
         return Constants.Color.UNDECIDED;
     }
 

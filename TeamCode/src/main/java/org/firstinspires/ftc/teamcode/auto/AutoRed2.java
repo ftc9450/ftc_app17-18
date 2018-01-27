@@ -28,7 +28,7 @@ public class AutoRed2 extends LinearOpMode{
     Rudder rudder;
     Grabber grabber;
     Gyroscope imu;
-    int right = 19;
+    int right = 9;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -37,57 +37,36 @@ public class AutoRed2 extends LinearOpMode{
         rudder = new Rudder(hardwareMap.servo.get("rudder_servo"), hardwareMap.colorSensor.get("color"));
         grabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LT),hardwareMap.servo.get(Constants.Grabber.RT));
         vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
-        grabber.autoClose();
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         rudder.setState(Rudder.RudderState.START);rudder.loop();
+        grabber.autoClose();
         drivetrain.enableAndResetEncoders();
         detectedVuMark=vuforia.getVuMark();
-        /*if(detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)){
-            drivetrain.moveLR(Constants.Drivetrain.STRAFEINCH,0.3);
-            detectedVuMark=vuforia.getVuMark();
-            drivetrain.moveLR(-1,-0.3);
-        }*/
-
         telemetry.addData("vumark",detectedVuMark);
         telemetry.update();
+<<<<<<< HEAD
         telemetry.addData("status", "started");
         telemetry.update();
        // drivetrain.moveLR(5, 0.3); // move 3 inches right
+=======
+>>>>>>> 1efb0b7494655d62efb2a48f56b5deb4fb3850ac
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
-        // knock off blue
         int color=rudder.getColor();
-//        //Test at USRA-The thresholds don't work in my basement -Grace
-//        if(color==Constants.Color.BLUE){
-//            drivetrain.moveFB(4,0.3);
-//            Thread.sleep(1000);
-//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-//            drivetrain.moveFB(-4,-0.3);
-//        }else if(color==Constants.Color.RED){
-//            drivetrain.moveFB(-4,-0.3);
-//            Thread.sleep(1000);
-//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-//            drivetrain.moveFB(4,0.3);
-//        }else{
-//            rudder.setState(Rudder.RudderState.IN);rudder.loop();
-//        }
-
-        //if (detectedVuMark.equals(RelicRecoveryVuMark.UNKNOWN)) detectedVuMark = RelicRecoveryVuMark.from(relicTemplate);
-        Thread.sleep(1000);
-        if(color==Constants.Color.RED){
-            drivetrain.moveFB(-4,-0.3);
-            Thread.sleep(500);
-            // TODO: strafe before pulling in
-            rudder.setState(Rudder.RudderState.IN);rudder.loop();
+        if(color==Constants.Color.BLUE){
             drivetrain.moveFB(4,0.3);
-        } else {
-            drivetrain.moveFB(4,0.3);
-            Thread.sleep(500);
+            Thread.sleep(1000);
             rudder.setState(Rudder.RudderState.IN);rudder.loop();
             drivetrain.moveFB(-4,-0.3);
+        }else if(color==Constants.Color.RED){
+            drivetrain.moveFB(-4,-0.3);
+            Thread.sleep(1000);
+            rudder.setState(Rudder.RudderState.IN);rudder.loop();
+            drivetrain.moveFB(4,0.3);
+        }else{
+            rudder.setState(Rudder.RudderState.IN);rudder.loop();
         }
 
-        // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {
             drivetrain.moveLR(-2, -0.3);
             rudder.setState(Rudder.RudderState.IN);
@@ -97,7 +76,7 @@ public class AutoRed2 extends LinearOpMode{
         telemetry.update();
         drivetrain.moveFB(7,1);
         if (detectedVuMark == RelicRecoveryVuMark.UNKNOWN) detectedVuMark = vuforia.getVuMark();
-        drivetrain.moveFB(right, 1);
+        drivetrain.moveFB(19, 1);
         drivetrain.pivot(-90,-1);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(right,1);
@@ -108,11 +87,11 @@ public class AutoRed2 extends LinearOpMode{
         }
         telemetry.update();
         drivetrain.pivot(90,1);
-        drivetrain.moveFB(9,1);
+        drivetrain.moveFB(8,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
         grabber.autoClose();
-        drivetrain.moveFB(10,0.5);
+        drivetrain.moveFB(9,0.5);
         drivetrain.moveFB(-5, .5);
     }
 }

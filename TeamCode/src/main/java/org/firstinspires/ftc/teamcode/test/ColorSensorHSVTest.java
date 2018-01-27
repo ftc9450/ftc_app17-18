@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
+import org.firstinspires.ftc.robotcore.external.Const;
+import org.firstinspires.ftc.teamcode.util.Constants;
+
 /**
  * Created by Grace on 1/6/2018.
  */
@@ -18,7 +21,7 @@ public class ColorSensorHSVTest extends OpMode {
 
     @Override
     public void init() {
-        colorSensor=hardwareMap.colorSensor.get("sensor_color_distance");
+        colorSensor=hardwareMap.colorSensor.get(Constants.Rudder.COLOR);
     }
 
     @Override
@@ -31,7 +34,7 @@ public class ColorSensorHSVTest extends OpMode {
         telemetry.addData("hue",colors[0]);
         telemetry.addData("saturation",colors[1]);
         telemetry.addData("value",colors[2]);
-        if (colors[1] > 50 && colors[2] > 45) {
+        if (colors[1] > 0.1 && colors[2] <2) {
             if (180 < colors[0] && colors[0] < 260) {
                 telemetry.addData("jewel", "BLUE");
             } else if ((300 < colors[0] && colors[0] < 359) || colors[0] < 30) {
