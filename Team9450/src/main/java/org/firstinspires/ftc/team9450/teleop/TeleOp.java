@@ -17,6 +17,7 @@ import org.firstinspires.ftc.team9450.util.DriveSignal;
  * Created by dhruv on 1/27/18.
  */
 
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOp extends OpMode {
     Drivetrain drive;
     Gyroscope imu;
