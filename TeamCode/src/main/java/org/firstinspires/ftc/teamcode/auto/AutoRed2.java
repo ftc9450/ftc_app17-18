@@ -28,7 +28,7 @@ public class AutoRed2 extends LinearOpMode{
     Rudder rudder;
     Grabber grabber;
     Gyroscope imu;
-    int right = 9;
+    int right = 10;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -87,11 +87,10 @@ public class AutoRed2 extends LinearOpMode{
         }
         telemetry.update();
         drivetrain.pivot(90,1);
-        drivetrain.moveFB(8,1);
+        drivetrain.moveFB(12,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
-        grabber.autoClose();
-        drivetrain.moveFB(9,0.5);
-        drivetrain.moveFB(-5, .5);
+        drivetrain.moveFB(11,0.5);
+        drivetrain.moveFB(-3, .5);
     }
 }

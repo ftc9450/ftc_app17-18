@@ -1,27 +1,28 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.*;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.util.ReadWriteFile;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
+import org.firstinspires.ftc.teamcode.control.ControlBoard;
 import org.firstinspires.ftc.teamcode.sensors.Gyroscope;
-import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.Elevator;
-import org.firstinspires.ftc.teamcode.subsystems.Grabber;
-import org.firstinspires.ftc.teamcode.subsystems.RelicArm;
-import org.firstinspires.ftc.teamcode.subsystems.Rudder;
-import org.firstinspires.ftc.teamcode.subsystems.SubsystemManager;
+import org.firstinspires.ftc.teamcode.subsystems.*;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.DriveSignal;
 
-/**
- * Created by dhruv on 12/28/17.
- */
+import java.io.File;
 
+/**
+ * @author Grace
+ */
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class TeleOp2 extends LinearOpMode{
+public class TeleOpTimmy extends LinearOpMode {
     Drivetrain drive;
     Elevator elevator;
     //Grabber grabber[];
@@ -46,12 +47,16 @@ public class TeleOp2 extends LinearOpMode{
         bottomGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
         bottomGrabber.setState(Grabber.GrabberState.OPEN);
         topGrabber.setState(Grabber.GrabberState.OPEN);
-        arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("pivot"), hardwareMap.servo.get("hand"));
+        //arm = new RelicArm(hardwareMap.dcMotor.get("relic"), hardwareMap.crservo.get("l_pivot"), hardwareMap.crservo.get("r_pivot"), hardwareMap.servo.get("hand"));
         manager = new SubsystemManager();
         manager.add(drive);
         manager.add(elevator);
         manager.add(arm);
         manager.add(rudder);
+        manager.add(topGrabber);
+        manager.add(bottomGrabber);
+        ControlBoard driver = new ControlBoard(gamepad1);
+        ControlBoard operator = new ControlBoard(gamepad2);
 
         waitForStart();
 
@@ -114,14 +119,29 @@ public class TeleOp2 extends LinearOpMode{
 
             drive.setOpenLoop(signal);
 
-//            if (gamepad2.dpad_up) {
-//                topGrabber.setState(Grabber.GrabberState.CLOSED);
-//                elevator.moveUpSixInches();
-//            }
-//            else if (gamepad2.dpad_down) {
-//                topGrabber.setState(Grabber.GrabberState.CLOSED);
-//                elevator.moveDownSixInches();
-//            }
+            if(operator.moveDownSixInches()){elevator.moveDownSixInches();}
+            if(operator.moveUpSixInches()){elevator.moveUpSixInches();}
+            elevator.setState(operator.elevatorCommand());
+            topGrabber.setState(operator.topGrabberCommand());
+            bottomGrabber.setState(operator.bottomGrabberCommand());
+            rudder.setState(Rudder.RudderState.IN);
+            arm.setHumerus(operator.relicCommand());
+            arm.setPollex(operator.handCommand());
+            arm.setCarpals(operator.pivotCommand());
+            //telemetry.addData("glypht position: ",elevator);
+            //telemetry.addData("relic arm position: ",arm);
+            telemetry.addData("elevator",elevator);
+            telemetry.addData("top grabber", topGrabber.getState());
+            telemetry.addData("bottom grabber", bottomGrabber.getState());
+            telemetry.update();
+            /*if (gamepad2.dpad_up) {
+                topGrabber.setState(Grabber.GrabberState.CLOSED);
+                elevator.moveUpSixInches();
+            }
+            else if (gamepad2.dpad_down) {
+                topGrabber.setState(Grabber.GrabberState.CLOSED);
+                elevator.moveDownSixInches();
+            }
             if(gamepad2.left_stick_y<0){
                 elevator.setState(Elevator.ElevatorState.UP);
             }else if(gamepad2.left_stick_y>0){
@@ -131,39 +151,25 @@ public class TeleOp2 extends LinearOpMode{
             }
 
             if (gamepad2.right_bumper) topGrabber.close();
-            else if (gamepad2.left_bumper) topGrabber.open();
+            else if (gamepad2.right_trigger > 0.1) topGrabber.open();
 
-            if (gamepad2.right_trigger > 0.1) bottomGrabber.close();
+            if (gamepad2.left_bumper) bottomGrabber.close();
             else if (gamepad2.left_trigger > 0.1) bottomGrabber.open();
 
             if (gamepad2.right_stick_y < 0) arm.setHumerus(RelicArm.HumerusState.OUT);
             else if (gamepad2.right_stick_y > 0) arm.setHumerus(RelicArm.HumerusState.IN);
             else arm.setHumerus(RelicArm.HumerusState.OFF);
 
-            /*if (gamepad2.x) arm.setCarpals(RelicArm.CarpalState.OUT);
+            if (gamepad2.x) arm.setCarpals(RelicArm.CarpalState.OUT);
             else if (gamepad2.y) arm.setCarpals(RelicArm.CarpalState.IN);
-            else arm.setCarpals(RelicArm.CarpalState.OFF);*/
-            if (gamepad2.a) {
-                if (arm.getPollexState() == RelicArm.PollexState.OPEN) {
-                    arm.setPollex(RelicArm.PollexState.CLOSED);
-                } else {
-                    arm.setPollex(RelicArm.PollexState.OPEN);
-                }
-            }
-            if (gamepad2.b) {
-                arm.setCarpals(RelicArm.CarpalState.IN);
-            } else if (gamepad2.y) {
-                arm.setCarpals(RelicArm.CarpalState.OUT);
-            } else {
-                arm.setCarpals(RelicArm.CarpalState.OFF);
-            }
+            else arm.setCarpals(RelicArm.CarpalState.OFF);
 
-            //if (gamepad2.a) arm.setPollex(RelicArm.PollexState.OPEN);
-            //else if (gamepad2.b) arm.setPollex(RelicArm.PollexState.CLOSED);
+            if (gamepad2.a) arm.setPollex(RelicArm.PollexState.OPEN);
+            else if (gamepad2.b) arm.setPollex(RelicArm.PollexState.CLOSED);
             rudder.setState(Rudder.RudderState.IN);
             telemetry.addData("Top", topGrabber.getPosition());
             telemetry.addData("Bottom", bottomGrabber.getPosition());
-            telemetry.update();
+            telemetry.update();*/
 
             manager.loopSystems();
         }

@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.subsystems;
+package org.firstinspires.ftc.team9450.subsystems;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.util.Constants;
+import org.firstinspires.ftc.team9450.util.Constants;
 
 /**
  * Created by Grace on 12/13/2017.
@@ -16,7 +16,7 @@ public class RelicArm extends Subsystem {
     private CRServo carpal;
     private Servo pollex;
 
-    private double speed = Constants.Elevator.POWER;
+    private double speed = Constants.RelicArm.power;
 
     public enum HumerusState {
         OUT, IN, OFF
@@ -68,7 +68,6 @@ public class RelicArm extends Subsystem {
         pollex.setPosition(pollex.getPosition());
     }
 
-    @Override
     public void zeroSensors() {
     }
 
@@ -76,12 +75,11 @@ public class RelicArm extends Subsystem {
     public void loop() {
         switch (humerusState) {
             case OUT:
-                if(humerus.getCurrentPosition()<Constants.RelicArm.maxEncoder) {
+                if(humerus.getCurrentPosition()<Constants.RelicArm.maxPos) {
                     humerus.setPower(speed);
                 }else{stop();}
                 break;
             case IN:
-                //if(1==1 || humerus.getCurrentPosition()>0) {
                 if(humerus.getCurrentPosition()>=0) {
                     humerus.setPower(-1 * speed);
                 }else{stop();}

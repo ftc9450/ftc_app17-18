@@ -71,11 +71,10 @@ public class AutoRed1 extends LinearOpMode{
             drivetrain.moveFB(35,1);
         }
         drivetrain.pivot(90,1);
-        drivetrain.moveFB(9,1);
+        drivetrain.moveFB(12,1);
         grabber.autoOpen();
         drivetrain.moveFB(-10, -1);
-        grabber.autoClose();
-        drivetrain.moveFB(9,0.5);
-        drivetrain.moveFB(-5, .5);
+        drivetrain.moveFB(11,0.5);
+        drivetrain.moveFB(-3, .5);
     }
 }

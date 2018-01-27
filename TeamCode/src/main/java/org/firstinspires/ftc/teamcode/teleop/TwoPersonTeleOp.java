@@ -29,7 +29,6 @@ public class TwoPersonTeleOp extends OpMode{
     Grabber bottomGrabber;
     Rudder rudder;
     SubsystemManager subsystemManager;
-    double x, y, z;
 
     public void init() {
         subsystemManager=new SubsystemManager();
@@ -43,7 +42,7 @@ public class TwoPersonTeleOp extends OpMode{
         subsystemManager.add(topGrabber);
         bottomGrabber=new Grabber(hardwareMap.servo.get(Constants.Grabber.LB),hardwareMap.servo.get(Constants.Grabber.RB));
         subsystemManager.add(bottomGrabber);
-        relicArm=new RelicArm(hardwareMap.dcMotor.get(Constants.RelicArm.ARM),hardwareMap.crservo.get(Constants.RelicArm.LEFTPIVOT), hardwareMap.crservo.get(Constants.RelicArm.RIGHTPIVOT),hardwareMap.servo.get(Constants.RelicArm.HAND));
+        //relicArm=new RelicArm(hardwareMap.dcMotor.get(Constants.RelicArm.ARM),hardwareMap.crservo.get(Constants.RelicArm.LEFTPIVOT), hardwareMap.crservo.get(Constants.RelicArm.RIGHTPIVOT),hardwareMap.servo.get(Constants.RelicArm.HAND));
         subsystemManager.add(relicArm);
         elevator=new Elevator(hardwareMap.dcMotor.get(Constants.Elevator.ELEVATOR));
         subsystemManager.add(elevator);
@@ -51,8 +50,8 @@ public class TwoPersonTeleOp extends OpMode{
 
     public void loop() {
 
-        if(controlBoard2.moveDownSixInches()){elevator.moveDownSixInches();}
-        if(controlBoard2.moveUpSixInches()){elevator.moveUpSixInches();}
+        //if(controlBoard2.moveDownSixInches()){elevator.moveDownSixInches();}
+        //if(controlBoard2.moveUpSixInches()){elevator.moveUpSixInches();}
         elevator.setState(controlBoard2.elevatorCommand());
         topGrabber.setState(controlBoard2.topGrabberCommand());
         bottomGrabber.setState(controlBoard2.bottomGrabberCommand());
@@ -71,9 +70,9 @@ public class TwoPersonTeleOp extends OpMode{
             d=DriveSignal.BRAKE;
         }
         d.scale(controlBoard1.reduceDriveSpeed());*/
-        x = gamepad1.left_stick_x + (gamepad1.dpad_left?-0.5:0) + (gamepad1.dpad_right?0.5:0);
-        y = gamepad1.left_stick_y + (gamepad1.dpad_down?0.5:0) + (gamepad1.dpad_up?-0.5:0);
-        z = gamepad1.right_stick_x + gamepad1.right_trigger/2 - gamepad1.left_trigger/2;
+        double x = gamepad1.left_stick_x + (gamepad1.dpad_left?-0.5:0) + (gamepad1.dpad_right?0.5:0);
+        double y = gamepad1.left_stick_y + (gamepad1.dpad_down?0.5:0) + (gamepad1.dpad_up?-0.5:0);
+        double z = gamepad1.right_stick_x + gamepad1.right_trigger/2 - gamepad1.left_trigger/2;
 
         d = new DriveSignal(x - y + z, -x - y + z, -x - y - z, x - y - z);
         drivetrain.setOpenLoop(d);
