@@ -40,15 +40,20 @@ public class TeleOp extends OpMode {
     public void loop() {
         double x = Constants.floatToDouble(gamepad1.left_stick_x); double y=-1.0*Constants.floatToDouble(gamepad1.left_stick_y);
         telemetry.addData("xpos",x);telemetry.addData("ypos", y);
-        DriveSignal driveSignal=DriveSignal.translate(Math.atan2(y,x),Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
+        double z = gamepad1.right_stick_x;
+        DriveSignal driveSignal = DriveSignal.translate(Math.atan2(y,x),Math.sqrt(Math.pow(x,2)+Math.pow(y,2)), z);
         drive.setOpenLoop(driveSignal);
 
         if (gamepad1.right_bumper) intake.setState(Intake.IntakeState.IN);
         else if (gamepad1.left_bumper) intake.setState(Intake.IntakeState.OUT);
         else intake.setState(Intake.IntakeState.OFF);
 
-        if (gamepad1.left_trigger > 0.1) ramp.setRampState(Ramp.RampState.IN);
-        else if (gamepad1.right_trigger > 0.1) ramp.setRampState(Ramp.RampState.OUT);
+        if (gamepad1.left_trigger > 0.25 && gamepad1.right_trigger > 0.25) ramp.setRampState(Ramp.RampState.LEVEL);
+        else if (gamepad1.left_trigger > 0.5) ramp.setRampState(Ramp.RampState.IN);
+        else if (gamepad1.right_trigger > 0.5) ramp.setRampState(Ramp.RampState.OUT);
+
+        if (gamepad1.dpad_up) ramp.setLiftState(Ramp.LiftState.UP);
+        else if (gamepad1.dpad_down) ramp.setLiftState(Ramp.LiftState.DOWN);
 
         if (gamepad2.right_trigger > 0.1) {
             arm.setArm(RelicArm.ArmState.OUT);

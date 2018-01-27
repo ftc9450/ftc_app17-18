@@ -27,6 +27,12 @@ public class DriveSignal {
         angle-=Math.PI/4;
         return new DriveSignal(Math.cos(angle), Math.sin(angle), Math.sin(angle), Math.cos(angle)).scale(throttle);
     }
+
+    public static DriveSignal translate(double angle,double throttle, double rot){
+        angle-=Math.PI/4;
+        return new DriveSignal(Math.cos(angle)+rot, Math.sin(angle)+rot, Math.sin(angle)-rot, Math.cos(angle)-rot).scale(throttle);
+    }
+
     public static DriveSignal pivot(float pow){
         // positive power is pivot to right
         double power=Constants.floatToDouble(pow);
