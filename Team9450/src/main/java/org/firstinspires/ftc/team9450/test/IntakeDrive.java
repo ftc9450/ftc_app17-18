@@ -34,7 +34,7 @@ public class IntakeDrive extends OpMode {
         intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
         manager.add(intake);
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-        //ramp = new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
+        ramp = new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP), hardwareMap.dcMotor.get(Constants.Ramp.LIFT));
         manager.add(ramp);
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
     }
@@ -60,8 +60,8 @@ public class IntakeDrive extends OpMode {
         else if (gamepad1.right_bumper) intake.setState(Intake.IntakeState.IN);
         else if (gamepad1.right_trigger > 0.1) intake.setState(Intake.IntakeState.OUT);
 
-        //if (gamepad1.a) ramp.setState(Ramp.RampState.IN);
-        //else if (gamepad1.b) ramp.setState(Ramp.RampState.OUT);
+        if (gamepad1.a) ramp.setRampState(Ramp.RampState.IN);
+        else if (gamepad1.b) ramp.setRampState(Ramp.RampState.OUT);
 
         manager.loop();
     }
