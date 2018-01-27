@@ -40,7 +40,7 @@ public class AutoRed1 extends LinearOpMode {
         rudder.setState(Rudder.RudderState.OUT);rudder.loop();
         Thread.sleep(1000);
 
-        rudder.knockBlue();
+        //rudder.knockBlue();
 
         // if rudder is stuck
         if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN+0.1) {

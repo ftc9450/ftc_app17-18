@@ -17,10 +17,11 @@ import org.firstinspires.ftc.team9450.util.Constants;
 public class Rudder extends Subsystem {
 
     private RudderState state;
-    private Servo topServo;
-    private CRServo bottomServo;
-    private ColorSensor colorSensor;
+    private Servo servo;
+    private CRServo lateral;
+    private ColorSensor color;
     private int twitchTime=600;
+
 
     public enum RudderState {
         OUT, IN,START
@@ -32,11 +33,11 @@ public class Rudder extends Subsystem {
      * @param colorSensor   color sensor for checking color of jewel
      */
     public Rudder(Servo top, CRServo bottom, ColorSensor colorSensor) {
-        this.topServo = top;
-        this.bottomServo=bottom;
-        this.topServo.setDirection(Servo.Direction.FORWARD);
-        this.bottomServo.setDirection(CRServo.Direction.FORWARD);
-        this.colorSensor = colorSensor;
+        this.servo = top;
+        this.lateral = bottom;
+        this.servo.setDirection(Servo.Direction.FORWARD);
+        this.lateral.setDirection(CRServo.Direction.FORWARD);
+        this.color = colorSensor;
         this.setState(RudderState.IN);
     }
 
@@ -51,7 +52,7 @@ public class Rudder extends Subsystem {
     public void stop() {}
     public RudderState getState(){return state;}
     public String toString(){
-        return String.valueOf(topServo.getPosition());
+        return String.valueOf(servo.getPosition());
     }
     /**
      * Check color of jewel
@@ -59,8 +60,9 @@ public class Rudder extends Subsystem {
      */
     public int getColor() {
         float[] colors= new float[3];
-        Color.RGBToHSV(colorSensor.red(),colorSensor.green(),colorSensor.blue(),colors);
-        if (colors[1] > 0.1 && colors[2] <2) {
+        Color.RGBToHSV(color.red(),color.green(),color.blue(),colors);
+
+        if (colors[1] > 0.1 && colors[2] < 2) {
             if (180 < colors[0] && colors[0] < 260) {
                 return Constants.Color.BLUE;
             } else if ((300 < colors[0] && colors[0] < 359) || colors[0] < 50) {
@@ -69,7 +71,12 @@ public class Rudder extends Subsystem {
         }
         return Constants.Color.UNDECIDED;
     }
-    public void knockRed() throws InterruptedException {
+
+    public void setPower(double power) {
+        lateral.setPower(power);
+    }
+
+    /*public void knockRed() throws InterruptedException {
         topServo.setPosition(Constants.Rudder.RUDDER_OUT);
         Thread.sleep(500);
         int color=getColor();
@@ -114,26 +121,25 @@ public class Rudder extends Subsystem {
             topServo.setPosition(Constants.Rudder.RUDDER_IN);
             Thread.sleep(500);
         }
-    }
+    }*/
     public void zeroSensors() {
 
     }
     public double rudderServoPos(){
-        return topServo.getPosition();
+        return servo.getPosition();
     }
     @Override
     public void loop() {
         switch (state) {
             case IN:
-                topServo.setPosition(Constants.Rudder.RUDDER_IN);
+                servo.setPosition(Constants.Rudder.RUDDER_IN);
                 break;
             case OUT:
-                topServo.setPosition(Constants.Rudder.RUDDER_OUT);
+                servo.setPosition(Constants.Rudder.RUDDER_OUT);
                 break;
             case START:
-                topServo.setPosition(Constants.Rudder.RUDDER_START);
+                servo.setPosition(Constants.Rudder.RUDDER_START);
                 break;
-
         }
     }
 }

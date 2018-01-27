@@ -25,10 +25,10 @@ public class RudderTest extends OpMode{
     public void loop() {
         try{
         if(gamepad1.a){
-            rudder.knockRed();
+            //rudder.knockRed();
         }
         if(gamepad1.b){
-            rudder.knockBlue();
+            //rudder.knockBlue();
         }
         if(gamepad1.x){
             int color=rudder.getColor();
