@@ -97,7 +97,7 @@ public class TeleOp extends OpMode {
             arm.setCrhand(RelicArm.HandState.OFF);
         }
 
-        if (gamepad2.right_stick_y < 0.5) {
+        if (gamepad2.right_stick_y < -0.5) {
             ramp.setLiftState(Ramp.LiftState.UP);
         } else if (gamepad2.right_stick_y > 0.5) {
             ramp.setLiftState(Ramp.LiftState.DOWN);
