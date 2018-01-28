@@ -64,7 +64,7 @@ public class Intake extends Subsystem{
                 break;
             case OFF:
             default:
-                stop();
+                setPower(0);
         }
     }
 }

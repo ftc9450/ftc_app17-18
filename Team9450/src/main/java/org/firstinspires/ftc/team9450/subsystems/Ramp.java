@@ -63,19 +63,17 @@ public class Ramp extends Subsystem {
             case OUT:
                 servo.setPosition(Constants.RampLifter.OUTPOS);
                 break;
-            default:
-                stop();
         }
         switch (liftState) {
             case UP:
                 if(rampMotor.getCurrentPosition()< Constants.RampLifter.maxPos) {
                     rampMotor.setPower(speed);
-                }else{stop();}
+                }else{rampMotor.setPower(0);}
                 break;
             case DOWN:
                 if(rampMotor.getCurrentPosition()>=Constants.RampLifter.minPos) {
                     rampMotor.setPower(-1 * speed);
-                }else{stop();}
+                }else{rampMotor.setPower(0);}
                 break;
             case OFF:
                 rampMotor.setPower(0);
