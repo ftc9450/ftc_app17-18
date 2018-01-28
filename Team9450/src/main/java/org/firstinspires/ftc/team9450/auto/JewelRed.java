@@ -20,7 +20,7 @@ public class JewelRed extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         release = hardwareMap.crservo.get("intake_release");
-        release.setDirection(DcMotorSimple.Direction.REVERSE);
+        release.setDirection(CRServo.Direction.REVERSE);
 
         waitForStart();
         rudder.setRudderState(Rudder.RudderState.START);
@@ -45,6 +45,8 @@ public class JewelRed extends LinearOpMode {
         Thread.sleep(500);
 
         release.setPower(1);
-        Thread.sleep(2000);
+        Thread.sleep(5000);
+        release.setPower(-1);
+        Thread.sleep(1500);
     }
 }

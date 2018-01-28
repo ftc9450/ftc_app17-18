@@ -12,10 +12,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class IntakeDeployTest extends LinearOpMode{
     CRServo crServo;
     public void runOpMode() throws InterruptedException {
-        crServo=hardwareMap.crservo.get("intakedeploy");
+        crServo=hardwareMap.crservo.get("intake_release");
         crServo.setDirection(DcMotorSimple.Direction.FORWARD);
         crServo.setPower(1);
-        Thread.sleep(500);
+        Thread.sleep(5000);
         crServo.setPower(0);
     }
 }

@@ -47,9 +47,7 @@ public class TeleOp extends LinearOpMode {
         manager.add(drive).add(intake).add(ramp).add(arm).add(rudder);
 
         release = hardwareMap.crservo.get("intake_release");
-        release.setDirection(DcMotorSimple.Direction.REVERSE);
-        release.setPower(1);
-        Thread.sleep(5000);
+        release.setDirection(CRServo.Direction.REVERSE);
 
         while (opModeIsActive()) {
             double x = Constants.floatToDouble(gamepad1.left_stick_x); double y=-1.0*Constants.floatToDouble(gamepad1.left_stick_y);
@@ -98,7 +96,13 @@ public class TeleOp extends LinearOpMode {
             } else {
                 arm.setStandardpivot(RelicArm.PivotState.OFF);
             }
-
+            if(gamepad2.a&&gamepad2.b&&gamepad2.x&&gamepad2.y){
+                release.setPower(1);
+                Thread.sleep(5000);
+                release.setPower(-1);
+                Thread.sleep(1500);
+                release.setPower(0);
+            }
             if (gamepad2.a) {
                 arm.setCrhand(RelicArm.HandState.OPEN);
             } else if (gamepad2.b) {

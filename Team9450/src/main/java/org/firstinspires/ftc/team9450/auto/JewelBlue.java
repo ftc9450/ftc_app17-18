@@ -46,6 +46,8 @@ public class JewelBlue extends LinearOpMode {
         Thread.sleep(500);
 
         release.setPower(1);
-        Thread.sleep(2000);
+        Thread.sleep(5000);
+        release.setPower(-1);
+        Thread.sleep(1500);
     }
 }
