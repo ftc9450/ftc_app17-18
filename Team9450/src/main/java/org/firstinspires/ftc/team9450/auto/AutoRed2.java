@@ -3,6 +3,8 @@ package org.firstinspires.ftc.team9450.auto;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.team9450.sensors.Gyroscope;
@@ -27,9 +29,12 @@ public class AutoRed2 extends LinearOpMode {
     Intake intake;
     int center=19;
     int glyphPit=10;
+    CRServo release;
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
+
+        //initialize subsystems
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         //ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
@@ -38,15 +43,26 @@ public class AutoRed2 extends LinearOpMode {
         rudder.setRudderState(Rudder.RudderState.START);
         rudder.loop();
         intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
+        release = hardwareMap.crservo.get("intake_release");
+        release.setDirection(DcMotorSimple.Direction.REVERSE);
+        telemetry.addData("step", 0);
+        telemetry.update();
+
+        //detect vumark
+        telemetry.addData("step", 1);
+        telemetry.update();
         detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
         drivetrain.enableAndResetEncoders();
         Thread.sleep(500);
+
+        // knock jewel off
+        telemetry.addData("step", 2);
+        telemetry.update();
         rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
         Thread.sleep(1000);
-
         int color = rudder.getColor();
         if (color == Constants.Color.BLUE) {
             rudder.setLateralState(Rudder.LateralState.FORWARDS);
@@ -61,16 +77,25 @@ public class AutoRed2 extends LinearOpMode {
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
-        // if rudder is stuck
-        if (rudder.rudderServoPos() > Constants.Rudder.RUDDER_IN + 0.1) {
-            drivetrain.moveLR(-2, 0.3);
-            rudder.setRudderState(Rudder.RudderState.IN);
-            drivetrain.moveLR(2, 0.3);
+
+        //move to position and drop intake
+        telemetry.addData("step", 3);
+        telemetry.update();
+        drivetrain.moveFB(-26, 1);
+        telemetry.addData("!", true);
+        telemetry.update();
+        drivetrain.disconnectEncoders();
+        while (imu.getAngle() < -Math.PI/4) {
+            drivetrain.setPower(new double[]{0.1, 0.1, -0.1, -0.1});
+            telemetry.addData("angle", 180*imu.getAngle()/Math.PI);
+            telemetry.update();
         }
+        drivetrain.enableAndResetEncoders();
+        //drivetrain.pivotTo(Math.PI/2, imu);
 
-        drivetrain.moveFB(26, 1);
-        drivetrain.pivotTo(Math.PI/2,imu);
-
+        // deposit glyph
+        telemetry.addData("step", 4);
+        telemetry.update();
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
             drivetrain.moveFB(center + 7, 1);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {

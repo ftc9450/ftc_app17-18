@@ -30,6 +30,8 @@ public class AutoRed1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
+
+        //initialize subsystems
         drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         //ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
