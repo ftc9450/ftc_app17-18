@@ -25,7 +25,6 @@ public class PivotTest extends LinearOpMode {
             telemetry.addData("pos",gyroscope.getAngle());
             telemetry.update();
         }
-
     }
 
 

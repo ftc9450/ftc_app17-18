@@ -14,6 +14,7 @@ import org.firstinspires.ftc.team9450.subsystems.Intake;
 import org.firstinspires.ftc.team9450.subsystems.Ramp;
 import org.firstinspires.ftc.team9450.subsystems.Rudder;
 import org.firstinspires.ftc.team9450.util.Constants;
+import org.firstinspires.ftc.team9450.util.DriveSignal;
 
 /**
  * Created by Grace on 1/24/2018.
@@ -83,9 +84,10 @@ public class AutoBlue1 extends LinearOpMode {
         }
         //drivetrain.pivotTo(Math.PI/4,imu);
         drivetrain.disconnectEncoders();
-//        while(imu.getAngle() > -Math.PI/4.0){
-//            drivetrain.setPower(new double[]{-0.3, -0.3, 0.3, 0.3});
-//        }
+        /*while(imu.getAngle() > -Math.PI/4.0){
+            DriveSignal sig = new DriveSignal(-0.3, -0.3, 0.3, 0.3);
+            drivetrain.setOpenLoop(sig);
+        }*/
         drivetrain.pivot(-45,-1);
         drivetrain.enableAndResetEncoders();
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
