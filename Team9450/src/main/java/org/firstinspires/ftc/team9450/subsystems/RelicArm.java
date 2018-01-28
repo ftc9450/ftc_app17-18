@@ -34,12 +34,16 @@ public class RelicArm extends Subsystem {
     private PivotState pivotState;
     private HandState handState;
 
-    public RelicArm(DcMotor relicArmMotor, Servo LCarpal, CRServo pollex) {
+    public RelicArm(DcMotor relicArmMotor) {
         this.arm = relicArmMotor;
         this.arm.setDirection(DcMotorSimple.Direction.REVERSE);
         this.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.armState = ArmState.OFF;
+    }
+
+    public RelicArm(DcMotor relicArmMotor, Servo LCarpal, CRServo pollex) {
+        this(relicArmMotor);
 
         this.standardpivot = LCarpal;
         this.standardpivot.setDirection(Servo.Direction.FORWARD);
@@ -49,12 +53,9 @@ public class RelicArm extends Subsystem {
         this.crhand.setDirection(CRServo.Direction.FORWARD);
         this.handState = HandState.OPEN;
     }
+
     public RelicArm(DcMotor relicArmMotor, CRServo LCarpal, Servo pollex){
-        this.arm = relicArmMotor;
-        this.arm.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.armState = ArmState.OFF;
+        this(relicArmMotor);
 
         this.crpivot = LCarpal;
         this.crpivot.setDirection(CRServo.Direction.FORWARD);
@@ -64,12 +65,9 @@ public class RelicArm extends Subsystem {
         this.standardhand.setDirection(Servo.Direction.FORWARD);
         this.handState = HandState.OPEN;
     }
+
     public RelicArm(DcMotor relicArmMotor, Servo LCarpal, Servo pollex) {
-        this.arm = relicArmMotor;
-        this.arm.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.armState = ArmState.OFF;
+        this(relicArmMotor);
 
         this.standardpivot = LCarpal;
         this.standardpivot.setDirection(Servo.Direction.FORWARD);
@@ -79,12 +77,9 @@ public class RelicArm extends Subsystem {
         this.standardhand.setDirection(Servo.Direction.FORWARD);
         this.handState = HandState.OPEN;
     }
+
     public RelicArm(DcMotor relicArmMotor, CRServo LCarpal, CRServo pollex) {
-        this.arm = relicArmMotor;
-        this.arm.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.armState = ArmState.OFF;
+        this(relicArmMotor);
 
         this.crpivot = LCarpal;
         this.crpivot.setDirection(CRServo.Direction.FORWARD);
@@ -98,6 +93,9 @@ public class RelicArm extends Subsystem {
     public void setArm(ArmState state) {
         this.armState = state;
     }
+    public void setPower(double power) {
+        arm.setPower(power);
+    }
     public void setStandardpivot(PivotState state) {
         this.pivotState = state;
     }
@@ -108,10 +106,10 @@ public class RelicArm extends Subsystem {
     @Override
     public void stop() {
         arm.setPower(0);
-        if(standardpivot.equals(null)){
+        if(standardpivot == null){
             crpivot.setPower(0);
         }else{standardpivot.setPosition(standardpivot.getPosition());}
-        if(standardhand.equals(null)){
+        if(standardhand == null){
             crhand.setPower(0);
         }else{standardhand.setPosition(standardhand.getPosition());}
 
@@ -122,7 +120,7 @@ public class RelicArm extends Subsystem {
 
     @Override
     public void loop() {
-        switch (armState) {
+        /*switch (armState) {
             case OUT:
                 if(arm.getCurrentPosition()<Constants.RelicArm.maxPos) {
                     arm.setPower(speed);
@@ -136,39 +134,39 @@ public class RelicArm extends Subsystem {
             case OFF:
             default:
                 arm.setPower(0);
-        }
+        }*/
         switch (pivotState) {
             case OUT:
-                if(standardpivot.equals(null)){
+                if(standardpivot == null){
                     crpivot.setPower(1);
                 }else{standardpivot.setPosition(standardpivot.getPosition()+0.01);}
                 break;
             case IN:
-                if(standardpivot.equals(null)) {
+                if(standardpivot == null) {
                    crpivot.setPower(-1);
                 }else{standardpivot.setPosition(standardpivot.getPosition()-0.01);}
                 break;
             case OFF:
             default:
-                if(standardpivot.equals(null)){
+                if(standardpivot == null){
                     crpivot.setPower(0);
                 }else{standardpivot.setPosition(standardpivot.getPosition());}
                 break;
         }
         switch (handState) {
             case OPEN:
-                if(standardhand.equals(null)){
+                if(standardhand == null){
                     crhand.setPower(1);
                 }else{standardhand.setPosition(standardhand.getPosition()+0.01);}
                 break;
             case CLOSE:
-                if(standardhand.equals(null)) {
+                if(standardhand == null) {
                     crhand.setPower(-1);
                 }else{standardhand.setPosition(standardhand.getPosition()-0.01);}
                 break;
             case OFF:
             default:
-                if(standardhand.equals(null)){
+                if(standardhand == null){
                     crhand.setPower(0);
                 }else{standardhand.setPosition(standardhand.getPosition());}
                 break;

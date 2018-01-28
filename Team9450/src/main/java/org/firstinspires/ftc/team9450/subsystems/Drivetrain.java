@@ -2,8 +2,8 @@ package org.firstinspires.ftc.team9450.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gyroscope;
 
+import org.firstinspires.ftc.team9450.sensors.Gyroscope;
 import org.firstinspires.ftc.team9450.util.Constants;
 import org.firstinspires.ftc.team9450.util.DriveSignal;
 
@@ -78,11 +78,11 @@ public class Drivetrain extends Subsystem {
         setPower(new DriveSignal(power, power, power,power));
         try{while(isBusy());}catch (Exception e){}
     }
-    public void pivotTo(double pos, org.firstinspires.ftc.team9450.sensors.Gyroscope imu){
+    public void pivotTo(double pos, Gyroscope imu){
         while(imu.getAngle()!=pos){
-            if(imu.getAngle()<pos){
+            if(imu.getAngle() < pos && Math.abs(imu.getAngle()-pos) < 0.1){
                 setPower(new double[]{0.5,0.5,-0.5,-0.5});
-            }else if(imu.getAngle()>pos){
+            }else if(imu.getAngle() > pos && Math.abs(imu.getAngle()-pos) < 0.1){
                 setPower(new double[]{-0.5,-0.5,0.5,0.5});
             }else{
                 setPower(new double[]{0,0,0,0});

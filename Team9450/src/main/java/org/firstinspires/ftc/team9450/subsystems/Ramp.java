@@ -76,6 +76,7 @@ public class Ramp extends Subsystem {
                 }else{stop();}
                 break;
             case OFF:
+                rampMotor.setPower(0);
         }
 
     }
