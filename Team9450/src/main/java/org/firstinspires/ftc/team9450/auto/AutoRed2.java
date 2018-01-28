@@ -77,16 +77,19 @@ public class AutoRed2 extends LinearOpMode {
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
+        release.setPower(1);
+        Thread.sleep(5000);
+        release.setPower(-1);
+        Thread.sleep(1500);
 
         //move to position and drop intake
         telemetry.addData("step", 3);
         telemetry.update();
-        drivetrain.moveFB(-26, 1);
-        telemetry.addData("!", true);
+        drivetrain.moveFB(-42, 1);
         telemetry.update();
         drivetrain.disconnectEncoders();
-        while (imu.getAngle() < -Math.PI/4) {
-            drivetrain.setPower(new double[]{0.1, 0.1, -0.1, -0.1});
+        while (imu.getAngle() < Math.PI/2) {
+            drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
             telemetry.addData("angle", 180*imu.getAngle()/Math.PI);
             telemetry.update();
         }
@@ -97,18 +100,27 @@ public class AutoRed2 extends LinearOpMode {
         telemetry.addData("step", 4);
         telemetry.update();
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
-            drivetrain.moveFB(center + 7, 1);
+            drivetrain.moveFB(3, 1);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(center - 7, 1);
+            drivetrain.moveFB(9, 1);
         } else {
-            drivetrain.moveFB(center, 1);
+            drivetrain.moveFB(6, 1);
         }
-        drivetrain.pivotTo(3.0*Math.PI/4,imu);
+        //drivetrain.pivotTo(3.0*Math.PI/4,imu);
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        drivetrain.disconnectEncoders();
+        while (imu.getAngle() < Math.PI/4) {
+            drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
+        }
+        drivetrain.enableAndResetEncoders();
         //do some kind of intake deploying
         //drive forward if necessary
         intake.setState(Intake.IntakeState.OUT);
         intake.loop();
         Thread.sleep(1000);
+        drivetrain.moveFB(-5, 1);
+        intake.setState(Intake.IntakeState.OFF);
+
         /*
         dropGlyphs();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){

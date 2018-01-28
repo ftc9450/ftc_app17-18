@@ -37,7 +37,7 @@ public class Ramp extends Subsystem {
     public Ramp(Servo ramp, DcMotor motor) {
         this.servo = ramp;
         servo.setDirection(Servo.Direction.FORWARD);
-        this.setRampState(RampState.OUT);
+        this.setRampState(RampState.IN);
         rampMotor = motor;
         rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rampMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
