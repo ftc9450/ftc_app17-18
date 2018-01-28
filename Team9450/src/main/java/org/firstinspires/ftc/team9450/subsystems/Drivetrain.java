@@ -50,7 +50,7 @@ public class Drivetrain extends Subsystem {
         leftFront.setPower(signal.leftFrontMotor * maxPower);
         leftBack.setPower(signal.leftBackMotor * maxPower);
     }
-    public boolean isClose(DcMotor dcMotor){return dcMotor.getCurrentPosition()>=dcMotor.getTargetPosition()-10&&dcMotor.getCurrentPosition()<=dcMotor.getTargetPosition()+10;}
+    public boolean isClose(DcMotor dcMotor){return Math.abs(dcMotor.getCurrentPosition()-dcMotor.getTargetPosition())<10;}
     public boolean isBusy(){return !(isClose(leftFront) && isClose(leftBack) && isClose(rightFront) && isClose(rightBack));}
     public void enableAndResetEncoders(){
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
