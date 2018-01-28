@@ -34,14 +34,14 @@ public class Constants {
     public class RampLifter{
         public static final double power=1;
         public static final double INPOS=0;
-        public static final double OUTPOS=0.5;
-        public static final double LEVELPOS=0.1;
+        public static final double OUTPOS=0.6;
+        public static final double LEVELPOS=0.2;
         public static final int maxPos=5500;
         public static final int minPos=0;
     }
     public class Ramp {
         public static final String RAMP = "ramp";
-        public static final String LIFT = "lift";
+        public static final String LIFT = "ramp_lifter";
         public static final double IN=0.3;
         public static final double OUT=0.8;
     }

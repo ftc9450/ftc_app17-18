@@ -67,7 +67,7 @@ public class TeleOp extends OpMode {
             ramp.setRampState(Ramp.RampState.LEVEL);
         } else if (gamepad2.left_trigger > 0.5) {
             ramp.setRampState(Ramp.RampState.IN);
-        }  else if (gamepad1.right_trigger > 0.5) {
+        }  else if (gamepad2.right_trigger > 0.5) {
             ramp.setRampState(Ramp.RampState.OUT);
         }
 

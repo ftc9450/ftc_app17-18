@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by dhruv on 1/20/18.
  */
 @TeleOp
+@Deprecated
+@Disabled
 public class RampTest extends OpMode{
     Servo servo;
     DcMotor lift;
