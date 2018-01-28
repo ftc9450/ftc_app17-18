@@ -31,7 +31,9 @@ public class Ramp extends Subsystem {
     public void setLiftState(LiftState state){
         this.liftState = state;
     }
-
+    public String toString(){
+        return rampState.toString();
+    }
     public Ramp(Servo ramp, DcMotor motor) {
         this.servo = ramp;
         servo.setDirection(Servo.Direction.FORWARD);
