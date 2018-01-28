@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.team9450.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.team9450.subsystems.Ramp;
 
 /**
  * Created by Grace on 1/27/2018.
  */
-
+@TeleOp
 public class RampAndTriggerTest extends OpMode{
     Ramp ramp;
     public void init() {
