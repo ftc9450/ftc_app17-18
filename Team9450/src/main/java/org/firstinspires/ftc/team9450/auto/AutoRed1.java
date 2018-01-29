@@ -70,8 +70,8 @@ public class AutoRed1 extends LinearOpMode {
         Thread.sleep(5000);
         release.setPower(-1);
         Thread.sleep(1500);
-        drivetrain.moveFB(-36,-1);
-/*
+        release.setPower(0);
+
         //deposit glyph
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(-33,-1);
@@ -80,20 +80,13 @@ public class AutoRed1 extends LinearOpMode {
         }else{
             drivetrain.moveFB(-36,-1);
         }
-        //drivetrain.pivotTo(Math.PI/4,imu);
-        drivetrain.disconnectEncoders();
-//        while(imu.getAngle() > -3*Math.PI/4.0){
-//            drivetrain.setPower(new double[]{-0.3, -0.3, 0.3, 0.3});
-//        }
-        drivetrain.pivot(-45,-1);
-        drivetrain.enableAndResetEncoders();
+        drivetrain.pivotTo(Math.PI/4.0,imu);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
-        //do some kind of intake deploying
         //drive forward if necessary
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
         drivetrain.moveFB(-5, 1);
         intake.setState(Intake.IntakeState.OFF);
-        */
+
         /*
         dropGlyphs();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
@@ -114,6 +107,7 @@ public class AutoRed1 extends LinearOpMode {
         }
         drivetrain.moveFB(-3, .5);
         */
+
     }
     public void goToPitLeft(int distance){
         intake.setState(Intake.IntakeState.IN);intake.loop();

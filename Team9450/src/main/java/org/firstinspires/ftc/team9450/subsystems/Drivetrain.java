@@ -51,7 +51,7 @@ public class Drivetrain extends Subsystem {
         leftBack.setPower(signal.leftBackMotor * maxPower);
     }
     public boolean isClose(DcMotor dcMotor){return Math.abs(dcMotor.getCurrentPosition()-dcMotor.getTargetPosition())<10;}
-    public boolean isBusy(){return !(isClose(leftFront) && isClose(leftBack) && isClose(rightFront) && isClose(rightBack));}
+    public boolean isBusy(){return !(isClose(leftFront) || isClose(leftBack) || isClose(rightFront) || isClose(rightBack));}
     public void enableAndResetEncoders(){
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -79,11 +79,12 @@ public class Drivetrain extends Subsystem {
         try{while(isBusy());}catch (Exception e){}
     }
     public void pivotTo(double pos, Gyroscope imu){
+        disconnectEncoders();
         while(imu.getAngle()!=pos){
-            if(imu.getAngle() < pos && Math.abs(imu.getAngle()-pos) < 0.1){
-                setPower(new double[]{0.5,0.5,-0.5,-0.5});
-            }else if(imu.getAngle() > pos && Math.abs(imu.getAngle()-pos) < 0.1){
-                setPower(new double[]{-0.5,-0.5,0.5,0.5});
+            if(imu.getAngle() > pos && Math.abs(imu.getAngle()-pos) > 0.1){
+                setPower(new double[]{0.3,0.3,-0.3,-0.3});
+            }else if(imu.getAngle() < pos && Math.abs(imu.getAngle()-pos) > 0.1){
+                setPower(new double[]{-0.3,-0.3,0.3,0.3});
             }else{
                 setPower(new double[]{0,0,0,0});
             }
