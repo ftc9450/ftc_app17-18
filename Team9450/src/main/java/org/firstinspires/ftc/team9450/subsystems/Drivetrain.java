@@ -77,6 +77,7 @@ public class Drivetrain extends Subsystem {
         rightBack.setTargetPosition(sig);
         setPower(new DriveSignal(power, power, power,power));
         try{while(isBusy());}catch (Exception e){}
+        setPower(new DriveSignal(0,0,0,0));
     }
     public void pivotTo(double pos, Gyroscope imu){
         disconnectEncoders();
