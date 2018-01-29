@@ -17,10 +17,12 @@ public class RotateTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-        drive.disconnectEncoders();
         waitForStart();
+        drive.enableAndResetEncoders();
+        drive.disconnectEncoders();
         while (opModeIsActive()) {
             drive.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
         }
+        drive.enableAndResetEncoders();
     }
 }
