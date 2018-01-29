@@ -41,7 +41,7 @@ public class TeleOp extends LinearOpMode {
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         intake = new Intake(hardwareMap.dcMotor.get("intake_left"), hardwareMap.dcMotor.get("intake_right"));
         ramp = new Ramp(hardwareMap.servo.get("ramp"), hardwareMap.dcMotor.get("ramp_lifter"));
-        arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.servo.get("pivot"), hardwareMap.crservo.get("hand"));
+        arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.crservo.get("pivot"), hardwareMap.crservo.get("hand"));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         manager = new SubsystemManager();
         manager.add(drive).add(intake).add(ramp).add(arm).add(rudder);
