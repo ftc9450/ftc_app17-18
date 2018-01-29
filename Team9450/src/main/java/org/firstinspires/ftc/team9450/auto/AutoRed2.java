@@ -81,7 +81,8 @@ public class AutoRed2 extends LinearOpMode {
         Thread.sleep(5000);
         release.setPower(-1);
         Thread.sleep(1500);
-
+        drivetrain.moveFB(-30,-1);
+/*
         //move to position and drop intake
         telemetry.addData("step", 3);
         telemetry.update();

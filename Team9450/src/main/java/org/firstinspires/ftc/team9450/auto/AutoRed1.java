@@ -70,7 +70,8 @@ public class AutoRed1 extends LinearOpMode {
         Thread.sleep(5000);
         release.setPower(-1);
         Thread.sleep(1500);
-
+        drivetrain.moveFB(-36,-1);
+/*
         //deposit glyph
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(-33,-1);
@@ -92,6 +93,7 @@ public class AutoRed1 extends LinearOpMode {
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
         drivetrain.moveFB(-5, 1);
         intake.setState(Intake.IntakeState.OFF);
+        */
         /*
         dropGlyphs();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){

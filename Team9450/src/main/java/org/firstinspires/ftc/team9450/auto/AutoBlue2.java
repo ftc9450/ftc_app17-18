@@ -79,7 +79,8 @@ public class AutoBlue2 extends LinearOpMode {
         Thread.sleep(5000);
         release.setPower(-1);
         Thread.sleep(1500);
-
+        drivetrain.moveFB(30,1);
+/*
         //move to position and drop intake
         telemetry.addData("step", 3);
         telemetry.update();
@@ -141,6 +142,7 @@ public class AutoBlue2 extends LinearOpMode {
         }
         drivetrain.moveFB(-3, .5);
         */
+
     }
     public void goToPitLeft(int distance, int distanceToRight){
         drivetrain.pivot(-90,-1);

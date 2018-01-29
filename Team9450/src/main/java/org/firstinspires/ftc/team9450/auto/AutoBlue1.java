@@ -73,7 +73,8 @@ public class AutoBlue1 extends LinearOpMode {
         Thread.sleep(5000);
         release.setPower(-1);
         Thread.sleep(1500);
-
+        drivetrain.moveFB(36,1);
+/*
         //deposit glyph
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(33,1);
@@ -82,20 +83,22 @@ public class AutoBlue1 extends LinearOpMode {
         }else{
             drivetrain.moveFB(36,1);
         }
+        */
         //drivetrain.pivotTo(Math.PI/4,imu);
-        drivetrain.disconnectEncoders();
+        //drivetrain.disconnectEncoders();
         /*while(imu.getAngle() > -Math.PI/4.0){
             DriveSignal sig = new DriveSignal(-0.3, -0.3, 0.3, 0.3);
             drivetrain.setOpenLoop(sig);
         }*/
-        drivetrain.pivot(-45,-1);
-        drivetrain.enableAndResetEncoders();
-        drivetrain.moveFB(1.5*Math.sqrt(2),1);
+        //drivetrain.pivot(-45,-1);
+        //drivetrain.enableAndResetEncoders();
+        //drivetrain.moveFB(1.5*Math.sqrt(2),1);
         //do some kind of intake deploying
         //drive forward if necessary
-        intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
-        drivetrain.moveFB(-5, 1);
-        intake.setState(Intake.IntakeState.OFF);
+        //intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
+        //drivetrain.moveFB(-5, 1);
+        //intake.setState(Intake.IntakeState.OFF);
+
         /*
         dropGlyphs();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
