@@ -28,7 +28,7 @@ public class AutoBlue1 extends LinearOpMode {
     Gyroscope imu;
     //Ramp ramp;
     Intake intake;
-    int center=-35;
+    int center=24;
     int glyphPit=10;
     CRServo release;
     @Override
@@ -73,31 +73,23 @@ public class AutoBlue1 extends LinearOpMode {
         Thread.sleep(5000);
         release.setPower(-1);
         Thread.sleep(1500);
-        drivetrain.moveFB(36,1);
-/*
+        release.setPower(0);
         //deposit glyph
+        drivetrain.moveFB(12,1);
+        drivetrain.pivotTo(0,imu);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(33,1);
+            drivetrain.moveFB(center+7,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(39,1);
+            drivetrain.moveFB(center-7,1);
         }else{
-            drivetrain.moveFB(36,1);
+            drivetrain.moveFB(center,1);
         }
-        */
-        //drivetrain.pivotTo(Math.PI/4,imu);
-        //drivetrain.disconnectEncoders();
-        /*while(imu.getAngle() > -Math.PI/4.0){
-            DriveSignal sig = new DriveSignal(-0.3, -0.3, 0.3, 0.3);
-            drivetrain.setOpenLoop(sig);
-        }*/
-        //drivetrain.pivot(-45,-1);
-        //drivetrain.enableAndResetEncoders();
-        //drivetrain.moveFB(1.5*Math.sqrt(2),1);
-        //do some kind of intake deploying
-        //drive forward if necessary
-        //intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
-        //drivetrain.moveFB(-5, 1);
-        //intake.setState(Intake.IntakeState.OFF);
+        drivetrain.pivotTo(Math.PI/4,imu);
+        drivetrain.moveFB(1.5*Math.sqrt(2),1);
+
+        intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
+        drivetrain.moveFB(-5, -1);
+        intake.setState(Intake.IntakeState.OFF);
 
         /*
         dropGlyphs();

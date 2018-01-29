@@ -28,7 +28,7 @@ public class AutoRed1 extends LinearOpMode {
     //Ramp ramp;
     Intake intake;
     CRServo release;
-    int center=-28;
+    int center=-24;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -71,21 +71,22 @@ public class AutoRed1 extends LinearOpMode {
         release.setPower(-1);
         Thread.sleep(1500);
         release.setPower(0);
-
+        drivetrain.moveFB(-12,-1);
+        drivetrain.pivotTo(0,imu);
         //deposit glyph
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(-33,-1);
+            drivetrain.moveFB(center+7,-1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(-39,-1);
+            drivetrain.moveFB(center-7,-1);
         }else{
-            drivetrain.moveFB(-36,-1);
+            drivetrain.moveFB(center,-1);
         }
         drivetrain.pivotTo(Math.PI/4.0,imu);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
-        //drive forward if necessary
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
-        drivetrain.moveFB(-5, 1);
+        drivetrain.moveFB(-5, -1);
         intake.setState(Intake.IntakeState.OFF);
+        intake.loop();
 
         /*
         dropGlyphs();

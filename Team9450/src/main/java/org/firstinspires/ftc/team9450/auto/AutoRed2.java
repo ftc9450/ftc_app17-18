@@ -27,7 +27,7 @@ public class AutoRed2 extends LinearOpMode {
     Ramp ramp;
     Gyroscope imu;
     Intake intake;
-    int center=19;
+    int toBox=-18;
     int glyphPit=10;
     CRServo release;
     @Override
@@ -81,21 +81,12 @@ public class AutoRed2 extends LinearOpMode {
         Thread.sleep(5000);
         release.setPower(-1);
         Thread.sleep(1500);
-        drivetrain.moveFB(-30,-1);
-/*
-        //move to position and drop intake
-        telemetry.addData("step", 3);
-        telemetry.update();
-        drivetrain.moveFB(-42, 1);
-        telemetry.update();
-        drivetrain.disconnectEncoders();
-        while (imu.getAngle() < Math.PI/2) {
-            drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
-            telemetry.addData("angle", 180*imu.getAngle()/Math.PI);
-            telemetry.update();
-        }
-        drivetrain.enableAndResetEncoders();
-        //drivetrain.pivotTo(Math.PI/2, imu);
+        release.setPower(0);
+        drivetrain.moveFB(-12,-1);
+        drivetrain.pivotTo(0,imu);
+        drivetrain.moveFB(toBox,-1);
+
+        drivetrain.pivotTo(-Math.PI/2, imu);
 
         // deposit glyph
         telemetry.addData("step", 4);
@@ -107,20 +98,17 @@ public class AutoRed2 extends LinearOpMode {
         } else {
             drivetrain.moveFB(6, 1);
         }
-        //drivetrain.pivotTo(3.0*Math.PI/4,imu);
-        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        drivetrain.pivotTo(-3.0*Math.PI/4,imu);
         drivetrain.disconnectEncoders();
-        while (imu.getAngle() < Math.PI/4) {
-            drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
-        }
+
         drivetrain.enableAndResetEncoders();
-        //do some kind of intake deploying
         //drive forward if necessary
         intake.setState(Intake.IntakeState.OUT);
         intake.loop();
         Thread.sleep(1000);
-        drivetrain.moveFB(-5, 1);
+        drivetrain.moveFB(-5, -1);
         intake.setState(Intake.IntakeState.OFF);
+        intake.loop();
 
         /*
         dropGlyphs();
