@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team9450.test;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -21,6 +22,7 @@ import org.firstinspires.ftc.team9450.util.Vector2D;
  */
 
 @TeleOp
+@Disabled
 public class IntakeDrive extends OpMode {
     private Intake intake;
     private Drivetrain drive;

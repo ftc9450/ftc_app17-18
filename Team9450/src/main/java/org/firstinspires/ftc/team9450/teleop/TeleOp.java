@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team9450.teleop;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.team9450.util.Vector2D;
  */
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
+@Disabled
 public class TeleOp extends LinearOpMode {
     Drivetrain drive;
     Gyroscope imu;
@@ -50,7 +52,7 @@ public class TeleOp extends LinearOpMode {
         release.setDirection(CRServo.Direction.REVERSE);
 
         while (opModeIsActive()) {
-            double x = Constants.floatToDouble(gamepad1.left_stick_x); double y=-1.0*Constants.floatToDouble(gamepad1.left_stick_y);
+            /*double x = Constants.floatToDouble(gamepad1.left_stick_x); double y=-1.0*Constants.floatToDouble(gamepad1.left_stick_y);
             telemetry.addData("xpos",x);telemetry.addData("ypos", y);
             DriveSignal driveSignal = new DriveSignal(0, 0, 0, 0);
 
@@ -63,7 +65,7 @@ public class TeleOp extends LinearOpMode {
                 driveSignal = new DriveSignal(v.x + v.y + z, -v.x + v.y + z, -v.x + v.y - z, v.x + v.y - z);
             } else {
                 driveSignal = DriveSignal.translate(Math.atan2(y,x),Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
-            }*/
+            }*
 
             drive.setOpenLoop(driveSignal);
 
@@ -85,7 +87,7 @@ public class TeleOp extends LinearOpMode {
                 arm.setArm(RelicArm.ArmState.IN);
             } else {
                 arm.setArm(RelicArm.ArmState.OFF);
-            }*/
+            }*
 
             arm.setPower(-gamepad2.left_stick_y);
 
@@ -122,7 +124,7 @@ public class TeleOp extends LinearOpMode {
             rudder.setLateralState(Rudder.LateralState.NEUTRAL);
             rudder.setRudderState(Rudder.RudderState.START);
 
-            manager.loop();
+            manager.loop();*/
         }
     }
 }

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team9450.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.team9450.sensors.Gyroscope;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.team9450.util.DriveSignal;
  */
 
 @Autonomous
+@Disabled
 public class PathTest extends LinearOpMode {
     Drivetrain drive;
     Gyroscope imu;

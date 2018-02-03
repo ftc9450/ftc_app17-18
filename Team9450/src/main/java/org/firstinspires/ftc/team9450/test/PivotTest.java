@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team9450.test;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.team9450.util.DriveSignal;
  * Created by Grace on 1/28/2018.
  */
 @Autonomous
+@Disabled
 public class PivotTest extends LinearOpMode {
     Drivetrain drivetrain;
     Gyroscope gyroscope;

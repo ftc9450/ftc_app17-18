@@ -28,43 +28,6 @@ public class Operator extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad2.left_trigger > 0.25 && gamepad2.right_trigger > 0.25) {
-            ramp.setRampState(Ramp.RampState.LEVEL);
-        } else if (gamepad2.left_trigger > 0.5) {
-            ramp.setRampState(Ramp.RampState.IN);
-        }  else if (gamepad1.right_trigger > 0.5) {
-            ramp.setRampState(Ramp.RampState.OUT);
-        }
 
-        arm.setPower(-gamepad2.left_stick_y);
-
-        if (gamepad2.right_bumper) {
-            arm.setStandardpivot(RelicArm.PivotState.OUT);
-        } else if (gamepad2.left_bumper) {
-            arm.setStandardpivot(RelicArm.PivotState.IN);
-        } else {
-            arm.setStandardpivot(RelicArm.PivotState.OFF);
-        }
-
-        if (gamepad2.a) {
-            arm.setCrhand(RelicArm.HandState.OPEN);
-        } else if (gamepad2.b) {
-            arm.setCrhand(RelicArm.HandState.CLOSE);
-        }else{
-            arm.setCrhand(RelicArm.HandState.OFF);
-        }
-
-        if (gamepad2.right_stick_y < 0.5) {
-            ramp.setLiftState(Ramp.LiftState.UP);
-        } else if (gamepad2.right_stick_y > 0.5) {
-            ramp.setLiftState(Ramp.LiftState.DOWN);
-        } else {
-            ramp.setLiftState(Ramp.LiftState.OFF);
-        }
-
-        rudder.setLateralState(Rudder.LateralState.NEUTRAL);
-        rudder.setRudderState(Rudder.RudderState.START);
-
-        manager.loop();
     }
 }

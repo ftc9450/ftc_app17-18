@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team9450.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.team9450.util.Constants;
  * Created by Grace on 1/25/2018.
  */
 @TeleOp
+@Disabled
 public class RudderTest extends OpMode{
     Rudder rudder;
     CRServo bottomServo;

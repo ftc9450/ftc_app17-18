@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team9450.test;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.team9450.util.Vector2D;
  */
 
 @TeleOp
+@Disabled
 public class BotOrientedDriveTest extends OpMode {
     private Drivetrain drive;
     private Gyroscope imu;

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team9450.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * @author Grace
  */
 @TeleOp
-public class DcMotorTest extends OpMode {
+@Disabled
+public class DrivetrainTest extends OpMode {
     DcMotor leftFront = null;
     DcMotor leftBack=null;
     DcMotor rightFront=null;

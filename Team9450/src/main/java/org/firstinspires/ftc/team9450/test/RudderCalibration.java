@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team9450.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.team9450.util.Constants;
  * Created by Grace on 1/25/2018.
  */
 @TeleOp
+@Disabled
 public class RudderCalibration extends OpMode{
     Servo out;
     Servo lateral;

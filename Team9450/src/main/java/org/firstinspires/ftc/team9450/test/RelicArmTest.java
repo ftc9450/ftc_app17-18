@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team9450.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.team9450.util.Constants;
  */
 
 @TeleOp
+@Disabled
 public class RelicArmTest extends OpMode {
     private DcMotor motor;
     private CRServo crservo;
