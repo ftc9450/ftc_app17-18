@@ -6,7 +6,7 @@ package org.firstinspires.ftc.team9450.util;
 
 public class Constants {
     public class Drivetrain {
-        public static final double HIGH_POWER = 0.75;
+        public static final double HIGH_POWER = 1;
         public static final double LOW_POWER = 0.25;
         public static final int STRAFEINCH = 135;
         public static final int INCH = 90;//1120 cpr for neverest 40
@@ -22,14 +22,14 @@ public class Constants {
         public static final String THUMB="hand";
         public static final double HANDCLOSE=1;
         public static final double HANDOPEN=0;
-        public static final int maxPos = 30400;
+        public static final int maxPos = 1000;
         public static final int minPos = 0;
         public static final double power=1;
     }
     public class Intake{
         public static final String LEFT="intake_left";
         public static final String RIGHT="intake_right";
-        public static final double power=0.75;
+        public static final double power=1;
     }
     public class RampLifter{
         public static final double power=1;
