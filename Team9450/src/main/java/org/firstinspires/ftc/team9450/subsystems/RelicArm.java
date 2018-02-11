@@ -102,6 +102,9 @@ public class RelicArm extends Subsystem {
     public void setCrhand(HandState state) {
         this.handState = state;
     }
+    public HandState getHandState() {
+        return this.handState;
+    }
 
     @Override
     public void stop() {
