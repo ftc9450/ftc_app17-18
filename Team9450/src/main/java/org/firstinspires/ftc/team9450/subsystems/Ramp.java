@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team9450.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.team9450.util.Constants;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.team9450.util.Constants;
 public class Ramp extends Subsystem {
     private Servo servo;
     DcMotor rampMotor;
+    DigitalChannel touch;
     private double speed= Constants.RampLifter.power;
     public enum RampState {
         IN, LEVEL, OUT
@@ -34,7 +36,7 @@ public class Ramp extends Subsystem {
     public String toString(){
         return rampState.toString();
     }
-    public Ramp(Servo ramp, DcMotor motor) {
+    public Ramp(Servo ramp, DcMotor motor, DigitalChannel touch) {
         this.servo = ramp;
         servo.setDirection(Servo.Direction.FORWARD);
         this.setRampState(RampState.IN);
@@ -43,6 +45,8 @@ public class Ramp extends Subsystem {
         rampMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rampMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         this.setLiftState(LiftState.OFF);
+        this.touch = touch;
+        touch.setMode(DigitalChannel.Mode.INPUT);
     }
 
     @Override
@@ -55,13 +59,13 @@ public class Ramp extends Subsystem {
     public void loop() {
         switch (rampState) {
             case IN:
-                servo.setPosition(Constants.RampLifter.INPOS);
-                break;
-            case LEVEL:
-                servo.setPosition(Constants.RampLifter.LEVELPOS);
+                servo.setPosition(Constants.Ramp.IN);
                 break;
             case OUT:
-                servo.setPosition(Constants.RampLifter.OUTPOS);
+                servo.setPosition(Constants.Ramp.OUT);
+                if (touch.getState()) {
+                    servo.setPosition(servo.getPosition());
+                }
                 break;
         }
         switch (liftState) {
