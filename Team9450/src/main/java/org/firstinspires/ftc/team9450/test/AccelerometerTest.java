@@ -17,6 +17,7 @@ public class AccelerometerTest extends OpMode {
     @Override
     public void init() {
         imu = new Localizer(hardwareMap.get(BNO055IMU.class, "imu"));
+        dt = new DriveTest(hardwareMap, gamepad1);
     }
 
     @Override
