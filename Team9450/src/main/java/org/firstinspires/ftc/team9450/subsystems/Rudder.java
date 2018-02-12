@@ -26,7 +26,7 @@ public class Rudder extends Subsystem {
         OUT, IN,START
     }
     public enum LateralState{
-        FORWARDS,BACKWARDS,NEUTRAL
+        FORWARDS,BACKWARDS,NEUTRAL,START
     }
     /**
      * Rudder initialization
@@ -148,6 +148,8 @@ public class Rudder extends Subsystem {
             case BACKWARDS:
                 lateral.setPosition(Constants.Rudder.LATERALBACKWARD);
                 break;
+            case START:
+                lateral.setPosition(Constants.Rudder.LATERALSTART);
             case NEUTRAL:
             default:
                 lateral.setPosition(Constants.Rudder.LATERALNEUTRAL);

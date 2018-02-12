@@ -9,7 +9,7 @@ public class Constants {
         public static final double HIGH_POWER = 1;
         public static final double LOW_POWER = 0.25;
         public static final int STRAFEINCH = 135;
-        public static final int INCH = 90;//1120 cpr for neverest 40
+        public static final int INCH = 83;//1120 cpr for neverest 40
         public static final int DEGREE = 18;
         public static final String LF="frontLeft";
         public static final String LB="backLeft";
@@ -64,13 +64,14 @@ public class Constants {
     }
     public class Rudder{
         public static final double LATERALFORWARD=0.7;
-        public static final double LATERALNEUTRAL=0.4;
+        public static final double LATERALNEUTRAL=0.55;
         public static final double LATERALBACKWARD=0.3;
+        public static final double LATERALSTART=0;
         public static final String RUDDERTOP="rudder_out";
         public static final String RUDDERBOTTOM="rudder_lat";
         public static final String COLOR="color";
-        public static final double RUDDER_IN=0.25;
+        public static final double RUDDER_IN=0.02;
         public static final double RUDDER_OUT=0.8;
-        public static final double RUDDER_START=0.2;
+        public static final double RUDDER_START=0.05;
     }
 }
