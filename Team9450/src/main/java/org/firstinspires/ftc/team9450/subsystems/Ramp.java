@@ -73,12 +73,12 @@ public class Ramp extends Subsystem {
         }
         switch (liftState) {
             case UP:
-                if(lift.getCurrentPosition()< Constants.RampLifter.maxPos) {
+                if(Math.abs(lift.getCurrentPosition()) < Constants.Ramp.MAX) {
                     lift.setPower(speed);
                 }else{lift.setPower(0);}
                 break;
             case DOWN:
-                if(lift.getCurrentPosition()>=Constants.RampLifter.minPos) {
+                if(Math.abs(lift.getCurrentPosition()) >= 0) {
                     lift.setPower(-1 * speed);
                 }else{lift.setPower(0);}
                 break;
