@@ -50,6 +50,9 @@ public class AutoRed1 extends LinearOpMode {
         Thread.sleep(500);
 
         // knock jewel off
+        rudder.setRudderState(Rudder.RudderState.START);
+        rudder.loop();
+        Thread.sleep(500);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
@@ -71,7 +74,7 @@ public class AutoRed1 extends LinearOpMode {
         rudder.loop();
         Thread.sleep(500);
 
-        drivetrain.moveFB(-12,-1);
+        drivetrain.moveFB(-12,-0.3);
         drivetrain.pivotTo(0,imu);
         //deposit glyph
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){

@@ -31,6 +31,13 @@ public class Restring extends OpMode {
         if (gamepad1.dpad_up) lift.setPower(0.5);
         else if (gamepad1.dpad_down) lift.setPower(-0.5);
         else lift.setPower(0);
+
+        if (gamepad1.dpad_left) arm.setPower(0.5);
+        else if (gamepad1.dpad_right) arm.setPower(-0.5);
+        else arm.setPower(0);
+
         arm.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+        telemetry.addData("lift pos", lift.getCurrentPosition());
+        telemetry.addData("arm pos", arm.getCurrentPosition());
     }
 }

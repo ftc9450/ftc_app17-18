@@ -25,32 +25,24 @@ public class RudderTest extends OpMode{
 
     @Override
     public void loop() {
-        try{
         if(gamepad1.a){
-            //rudder.knockRed();
+            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
+        }else if(gamepad1.b){
+            rudder.setLateralState(Rudder.LateralState.FORWARDS);
+        }else if(gamepad1.x){
+            rudder.setLateralState(Rudder.LateralState.NEUTRAL);
+        }else if(gamepad1.y){
+            rudder.setRudderState(Rudder.RudderState.IN);
+        }else if(gamepad1.left_bumper){
+            rudder.setRudderState(Rudder.RudderState.OUT);
+        }else if(gamepad1.right_bumper){
+            rudder.setRudderState(Rudder.RudderState.START);
+        }else{
+            rudder.setRudderState(Rudder.RudderState.START);
+            rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         }
-        if(gamepad1.b){
-            //rudder.knockBlue();
-        }
-        if(gamepad1.x){
-            int color=rudder.getColor();
-            if(color==Constants.Color.RED){
-                bottomServo.setPower(1);
-                Thread.sleep(500);
-                bottomServo.setPower(0);
-                Thread.sleep(500);
-                bottomServo.setPower(-1);
-                Thread.sleep(500);
-            }else if(color==Constants.Color.BLUE){
-                bottomServo.setPower(-1);
-                Thread.sleep(500);
-                bottomServo.setPower(0);
-                Thread.sleep(500);
-                bottomServo.setPower(1);
-                Thread.sleep(500);
-            }
-        }
-        }catch(Exception e){}
+        rudder.loop();
+        try{Thread.sleep(500);}catch(Exception e){}
         telemetry.addData("color", rudder.getColor());
     }
 }

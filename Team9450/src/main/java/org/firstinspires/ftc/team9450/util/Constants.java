@@ -41,7 +41,7 @@ public class Constants {
     }
     public class Ramp {
         public static final String RAMP = "ramp";
-        public static final String LIFT = "ramp_lifter";
+        public static final String LIFT = "lift";
         public static final int MAX = 4632;
         public static final double IN=0.42;
         public static final double OUT=0.83;
