@@ -3,6 +3,8 @@ package org.firstinspires.ftc.team9450.test;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.team9450.sensors.Gyroscope;
 import org.firstinspires.ftc.team9450.subsystems.Drivetrain;
@@ -22,9 +24,12 @@ import org.firstinspires.ftc.team9450.util.Vector2D;
 public class DriveTest extends OpMode {
     private Drivetrain drive;
     private Gyroscope imu;
+    public DriveTest(HardwareMap h, Gamepad g){
+        hardwareMap=h;
+        gamepad1=g;
+    }
     @Override
     public void init() {
-
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
     }
