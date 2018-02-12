@@ -13,7 +13,7 @@ import org.firstinspires.ftc.team9450.util.Constants;
 
 public class Ramp extends Subsystem {
     private Servo servo;
-    DcMotor rampMotor;
+    DcMotor lift;
     DigitalChannel touch;
     private double speed= Constants.RampLifter.power;
     public enum RampState {
@@ -33,6 +33,9 @@ public class Ramp extends Subsystem {
     public void setLiftState(LiftState state){
         this.liftState = state;
     }
+    public double getPosition() {
+        return lift.getCurrentPosition();
+    }
     public String toString(){
         return rampState.toString();
     }
@@ -40,10 +43,10 @@ public class Ramp extends Subsystem {
         this.servo = ramp;
         servo.setDirection(Servo.Direction.FORWARD);
         this.setRampState(RampState.IN);
-        rampMotor = motor;
-        rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rampMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rampMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift = motor;
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
         this.setLiftState(LiftState.OFF);
         this.touch = touch;
         touch.setMode(DigitalChannel.Mode.INPUT);
@@ -52,7 +55,7 @@ public class Ramp extends Subsystem {
     @Override
     public void stop() {
         servo.setPosition(servo.getPosition());
-        rampMotor.setPower(0);
+        lift.setPower(0);
     }
 
     @Override
@@ -70,17 +73,17 @@ public class Ramp extends Subsystem {
         }
         switch (liftState) {
             case UP:
-                if(rampMotor.getCurrentPosition()< Constants.RampLifter.maxPos) {
-                    rampMotor.setPower(speed);
-                }else{rampMotor.setPower(0);}
+                if(lift.getCurrentPosition()< Constants.RampLifter.maxPos) {
+                    lift.setPower(speed);
+                }else{lift.setPower(0);}
                 break;
             case DOWN:
-                if(rampMotor.getCurrentPosition()>=Constants.RampLifter.minPos) {
-                    rampMotor.setPower(-1 * speed);
-                }else{rampMotor.setPower(0);}
+                if(lift.getCurrentPosition()>=Constants.RampLifter.minPos) {
+                    lift.setPower(-1 * speed);
+                }else{lift.setPower(0);}
                 break;
             case OFF:
-                rampMotor.setPower(0);
+                lift.setPower(0);
         }
 
     }

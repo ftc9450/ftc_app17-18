@@ -29,7 +29,7 @@ public class Minimalistic extends OpMode {
     public void init() {
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         intake = new Intake(hardwareMap.dcMotor.get("intake_left"), hardwareMap.dcMotor.get("intake_right"));
-        ramp = new Ramp(hardwareMap.servo.get("ramp"), hardwareMap.dcMotor.get("lift"));
+        //ramp = new Ramp(hardwareMap.servo.get("ramp"), hardwareMap.dcMotor.get("lift"));
         manager = new SubsystemManager();
         manager.add(drive).add(intake).add(ramp);
     }

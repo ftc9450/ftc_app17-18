@@ -23,14 +23,12 @@ import org.firstinspires.ftc.team9450.util.Vector2D;
  */
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-@Disabled
 public class TeleOp extends OpMode {
     Drivetrain drive;
     Gyroscope imu;
     Intake intake;
     Ramp ramp;
     RelicArm arm;
-    Rudder rudder;
     SubsystemManager manager;
 
     @Override
@@ -39,10 +37,9 @@ public class TeleOp extends OpMode {
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         intake = new Intake(hardwareMap.dcMotor.get("intake_left"), hardwareMap.dcMotor.get("intake_right"));
         ramp = new Ramp(hardwareMap.servo.get("ramp"), hardwareMap.dcMotor.get("lift"), hardwareMap.digitalChannel.get("touch"));
-        arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.crservo.get("pivot"), hardwareMap.crservo.get("hand"));
-        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
+        arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.servo.get("pivot"), hardwareMap.crservo.get("hand"));
         manager = new SubsystemManager();
-        manager.add(drive).add(intake).add(ramp).add(arm).add(rudder);
+        manager.add(drive).add(intake).add(ramp);//.add(arm);
     }
 
     @Override
@@ -79,7 +76,7 @@ public class TeleOp extends OpMode {
             arm.setCrhand(RelicArm.HandState.OPEN);
         } else if (gamepad2.b) {
             arm.setCrhand(RelicArm.HandState.CLOSE);
-        }else if (arm.getHandState() == RelicArm.HandState.OPEN){
+        } else if (arm.getHandState() == RelicArm.HandState.OPEN) {
             arm.setCrhand(RelicArm.HandState.OFF);
         }
 
@@ -91,9 +88,6 @@ public class TeleOp extends OpMode {
         } else {
             ramp.setLiftState(Ramp.LiftState.OFF);
         }
-
-        rudder.setLateralState(Rudder.LateralState.NEUTRAL);
-        rudder.setRudderState(Rudder.RudderState.START);
 
         manager.loop();
     }

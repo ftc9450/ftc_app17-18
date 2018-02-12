@@ -36,7 +36,7 @@ public class IntakeDrive extends OpMode {
         intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
         manager.add(intake);
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-        ramp = new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP), hardwareMap.dcMotor.get(Constants.Ramp.LIFT));
+        //ramp = new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP), hardwareMap.dcMotor.get(Constants.Ramp.LIFT));
         manager.add(ramp);
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
     }

@@ -15,7 +15,6 @@ import org.firstinspires.ftc.team9450.util.Constants;
  */
 
 @TeleOp
-@Disabled
 public class RelicArmTest extends OpMode {
     private DcMotor motor;
     private CRServo crservo;
@@ -28,28 +27,24 @@ public class RelicArmTest extends OpMode {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        crservo = hardwareMap.crservo.get("pivot");
-        crservo.setDirection(DcMotorSimple.Direction.FORWARD);
+        servo = hardwareMap.servo.get("pivot");
 
-        servo = hardwareMap.servo.get("hand");
+        crservo = hardwareMap.crservo.get("hand");
         servo.setDirection(Servo.Direction.FORWARD);
+        crservo.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     @Override
     public void loop() {
-        if (gamepad1.dpad_up) motor.setPower(0.5);
-        else if (gamepad1.dpad_down) motor.setPower(-0.5);
-        else motor.setPower(0);
 
-        if (gamepad1.a) servo.setPosition(1);
-        else if (gamepad1.b) servo.setPosition(0);
+        if (gamepad1.x) servo.setPosition(servo.getPosition()+0.1);
+        else if (gamepad1.y) servo.setPosition(servo.getPosition()-0.1);
 
-        if (gamepad1.x) crservo.setPower(0.5);
-        else if (gamepad1.y) crservo.setPower(-0.5);
+        if (gamepad1.a) crservo.setPower(1);
+        else if (gamepad1.b) crservo.setPower(-1);
         else crservo.setPower(0);
 
-        telemetry.addData("arm", motor.getCurrentPosition());
-        telemetry.addData("hand", servo.getPosition());
+        telemetry.addData("hand", crservo.getPower());
         telemetry.update();
     }
 }

@@ -36,7 +36,7 @@ public class RelicArm extends Subsystem {
 
     public RelicArm(DcMotor relicArmMotor) {
         this.arm = relicArmMotor;
-        this.arm.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.arm.setDirection(DcMotorSimple.Direction.FORWARD);
         this.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.armState = ArmState.OFF;
@@ -46,7 +46,7 @@ public class RelicArm extends Subsystem {
         this(relicArmMotor);
 
         this.standardpivot = LCarpal;
-        this.standardpivot.setDirection(Servo.Direction.FORWARD);
+        this.standardpivot.setDirection(Servo.Direction.REVERSE);
         pivotState = PivotState.OFF;
 
         this.crhand = pollex;
@@ -58,7 +58,7 @@ public class RelicArm extends Subsystem {
         this(relicArmMotor);
 
         this.crpivot = LCarpal;
-        this.crpivot.setDirection(CRServo.Direction.FORWARD);
+        this.crpivot.setDirection(CRServo.Direction.REVERSE);
         pivotState = PivotState.OFF;
 
         this.standardhand = pollex;
@@ -70,7 +70,7 @@ public class RelicArm extends Subsystem {
         this(relicArmMotor);
 
         this.standardpivot = LCarpal;
-        this.standardpivot.setDirection(Servo.Direction.FORWARD);
+        this.standardpivot.setDirection(Servo.Direction.REVERSE);
         pivotState = PivotState.OFF;
 
         this.standardhand = pollex;
@@ -82,7 +82,7 @@ public class RelicArm extends Subsystem {
         this(relicArmMotor);
 
         this.crpivot = LCarpal;
-        this.crpivot.setDirection(CRServo.Direction.FORWARD);
+        this.crpivot.setDirection(CRServo.Direction.REVERSE);
         pivotState = PivotState.OFF;
 
         this.crhand = pollex;
@@ -104,6 +104,9 @@ public class RelicArm extends Subsystem {
     }
     public HandState getHandState() {
         return this.handState;
+    }
+    public double getPosition() {
+        return arm.getCurrentPosition();
     }
 
     @Override
