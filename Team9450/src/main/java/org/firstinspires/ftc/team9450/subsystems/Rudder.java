@@ -75,53 +75,6 @@ public class Rudder extends Subsystem {
         return Constants.Color.UNDECIDED;
     }
 
-/*
-    public void knockRed() throws InterruptedException {
-        topServo.setPosition(Constants.Rudder.RUDDER_OUT);
-        Thread.sleep(500);
-        int color=getColor();
-        if(color==Constants.Color.BLUE){
-            bottomServo.setPower(1);
-            Thread.sleep(twitchTime);
-            bottomServo.setPower(0);
-            topServo.setPosition(Constants.Rudder.RUDDER_IN);
-            Thread.sleep(500);
-        }else if(color==Constants.Color.RED){
-            bottomServo.setPower(-1);
-            Thread.sleep(twitchTime);
-            bottomServo.setPower(0);
-            topServo.setPosition(Constants.Rudder.RUDDER_IN);
-            Thread.sleep(500);
-            bottomServo.setPower(1);
-            Thread.sleep(twitchTime);
-        }else{
-            topServo.setPosition(Constants.Rudder.RUDDER_IN);
-            Thread.sleep(500);
-        }
-    }
-    public void knockBlue() throws InterruptedException {
-        topServo.setPosition(Constants.Rudder.RUDDER_OUT);
-        Thread.sleep(500);
-        int color=getColor();
-        if(color==Constants.Color.RED){
-            bottomServo.setPower(1);
-            Thread.sleep(twitchTime);
-            bottomServo.setPower(0);
-            topServo.setPosition(Constants.Rudder.RUDDER_IN);
-            Thread.sleep(500);
-        }else if(color==Constants.Color.BLUE){
-            bottomServo.setPower(-1);
-            Thread.sleep(twitchTime);
-            bottomServo.setPower(0);
-            topServo.setPosition(Constants.Rudder.RUDDER_IN);
-            Thread.sleep(500);
-            bottomServo.setPower(1);
-            Thread.sleep(twitchTime);
-        }else{
-            topServo.setPosition(Constants.Rudder.RUDDER_IN);
-            Thread.sleep(500);
-        }
-    } */
     public void zeroSensors() {
 
     }
@@ -140,6 +93,8 @@ public class Rudder extends Subsystem {
             case START:
                 servo.setPosition(Constants.Rudder.RUDDER_START);
                 break;
+            default:
+                servo.setPosition(servo.getPosition());
         }
         switch (lateralState){
             case FORWARDS:

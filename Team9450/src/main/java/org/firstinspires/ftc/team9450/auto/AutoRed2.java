@@ -29,7 +29,6 @@ public class AutoRed2 extends LinearOpMode {
     Intake intake;
     int toBox=-18;
     int glyphPit=10;
-    CRServo release;
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
@@ -37,20 +36,12 @@ public class AutoRed2 extends LinearOpMode {
         //initialize subsystems
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
-        //ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
+        ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP),hardwareMap.dcMotor.get(Constants.Ramp.LIFT),hardwareMap.digitalChannel.get("touch"));
         vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
-        rudder.setRudderState(Rudder.RudderState.START);
-        rudder.loop();
         intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
-        release = hardwareMap.crservo.get("intake_release");
-        release.setDirection(DcMotorSimple.Direction.REVERSE);
-        telemetry.addData("step", 0);
-        telemetry.update();
 
         //detect vumark
-        telemetry.addData("step", 1);
-        telemetry.update();
         detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
@@ -58,11 +49,12 @@ public class AutoRed2 extends LinearOpMode {
         Thread.sleep(500);
 
         // knock jewel off
-        telemetry.addData("step", 2);
-        telemetry.update();
+        rudder.setLateralState(Rudder.LateralState.NEUTRAL);
+        rudder.loop();
+        Thread.sleep(500);
         rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         int color = rudder.getColor();
         if (color == Constants.Color.BLUE) {
             rudder.setLateralState(Rudder.LateralState.FORWARDS);
@@ -77,11 +69,6 @@ public class AutoRed2 extends LinearOpMode {
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
-        release.setPower(1);
-        Thread.sleep(5000);
-        release.setPower(-1);
-        Thread.sleep(1500);
-        release.setPower(0);
         drivetrain.moveFB(-12,-1);
         drivetrain.pivotTo(0,imu);
         drivetrain.moveFB(toBox,-1);
@@ -99,10 +86,7 @@ public class AutoRed2 extends LinearOpMode {
             drivetrain.moveFB(6, 1);
         }
         drivetrain.pivotTo(-3.0*Math.PI/4,imu);
-        drivetrain.disconnectEncoders();
-
-        drivetrain.enableAndResetEncoders();
-        //drive forward if necessary
+        drivetrain.moveFB(1.5*Math.sqrt(2),1);
         intake.setState(Intake.IntakeState.OUT);
         intake.loop();
         Thread.sleep(1000);

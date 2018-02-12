@@ -26,54 +26,52 @@ public class AutoBlue1 extends LinearOpMode {
     Drivetrain drivetrain;
     Rudder rudder;
     Gyroscope imu;
-    //Ramp ramp;
+    Ramp ramp;
     Intake intake;
     int center=24;
     int glyphPit=10;
-    CRServo release;
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
 
         //initialize subsystems
-        drivetrain=new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
-        //ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
-        vuforia=new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName()));
-        rudder.setRudderState(Rudder.RudderState.START);rudder.loop();
-        intake=new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
-        imu=new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
-        detectedVuMark=vuforia.getVuMark();
-        telemetry.addData("vumark",detectedVuMark);telemetry.update();
-        drivetrain.enableAndResetEncoders();
-        release = hardwareMap.crservo.get("intake_release");
-        release.setDirection(DcMotorSimple.Direction.REVERSE);
+        drivetrain = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
+        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
+        ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP),hardwareMap.dcMotor.get(Constants.Ramp.LIFT),hardwareMap.digitalChannel.get("touch"));
+        vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
 
-        //knock jewel off
-        rudder.setRudderState(Rudder.RudderState.OUT);rudder.setLateralState(Rudder.LateralState.NEUTRAL);rudder.loop();
+        //detect vumark
+        detectedVuMark = vuforia.getVuMark();
+        telemetry.addData("vumark", detectedVuMark);
+        telemetry.update();
+        drivetrain.enableAndResetEncoders();
+        Thread.sleep(500);
+
+        // knock jewel off
+        rudder.setLateralState(Rudder.LateralState.NEUTRAL);
+        rudder.loop();
         Thread.sleep(500);
         rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         int color = rudder.getColor();
-        if (color == Constants.Color.BLUE) {
-            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
-            rudder.loop();
-            Thread.sleep(2000);
-        } else if (color == Constants.Color.RED) {
+        if (color == Constants.Color.RED) {
             rudder.setLateralState(Rudder.LateralState.FORWARDS);
             rudder.loop();
-            Thread.sleep(2000);
+            Thread.sleep(500);
+        } else if (color == Constants.Color.BLUE) {
+            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
+            rudder.loop();
+            Thread.sleep(500);
         }
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
-        release.setPower(1);
-        Thread.sleep(5000);
-        release.setPower(-1);
-        Thread.sleep(1500);
-        release.setPower(0);
+
+
         //deposit glyph
         drivetrain.moveFB(12,1);
         drivetrain.pivotTo(0,imu);

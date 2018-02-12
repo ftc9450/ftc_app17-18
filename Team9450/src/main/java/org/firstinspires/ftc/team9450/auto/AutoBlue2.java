@@ -29,7 +29,6 @@ public class AutoBlue2 extends LinearOpMode {
     Intake intake;
     int toBox=18;
     int glyphPit=10;
-    CRServo release;
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
@@ -37,20 +36,12 @@ public class AutoBlue2 extends LinearOpMode {
         //initialize subsystems
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
-        //ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP));
+        ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP),hardwareMap.dcMotor.get(Constants.Ramp.LIFT),hardwareMap.digitalChannel.get("touch"));
         vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
-        rudder.setRudderState(Rudder.RudderState.START);
-        rudder.loop();
-        intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
-        release = hardwareMap.crservo.get("intake_release");
-        release.setDirection(DcMotorSimple.Direction.REVERSE);
-        telemetry.addData("step", 0);
-        telemetry.update();
 
         //detect vumark
-        telemetry.addData("step", 1);
-        telemetry.update();
+
         detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
@@ -58,46 +49,41 @@ public class AutoBlue2 extends LinearOpMode {
         Thread.sleep(500);
 
         // knock jewel off
+        rudder.setLateralState(Rudder.LateralState.NEUTRAL);
+        rudder.loop();
+        Thread.sleep(500);
         rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         int color = rudder.getColor();
-        if (color == Constants.Color.BLUE) {
-            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
-            rudder.loop();
-            Thread.sleep(2000);
-        } else if (color == Constants.Color.RED) {
+        if (color == Constants.Color.RED) {
             rudder.setLateralState(Rudder.LateralState.FORWARDS);
             rudder.loop();
-            Thread.sleep(2000);
+            Thread.sleep(500);
+        } else if (color == Constants.Color.BLUE) {
+            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
+            rudder.loop();
+            Thread.sleep(500);
         }
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
-        release.setPower(1);
-        Thread.sleep(5000);
-        release.setPower(-1);
-        Thread.sleep(1500);
-        release.setPower(0);
+
         drivetrain.moveFB(12,1);
         drivetrain.pivotTo(0,imu);
         drivetrain.moveFB(toBox,1);
-        drivetrain.enableAndResetEncoders();
         drivetrain.pivotTo(-Math.PI/2, imu);
 
         // deposit glyph
-        telemetry.addData("step", 4);
-        telemetry.update();
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
-            drivetrain.moveFB(3, 1);
-        } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
             drivetrain.moveFB(9, 1);
+        } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
+            drivetrain.moveFB(3, 1);
         } else {
             drivetrain.moveFB(6, 1);
         }
-        drivetrain.pivotTo(-3*Math.PI/4,imu);
-        //do some kind of intake deploying
+        drivetrain.pivotTo(-Math.PI/4,imu);
         //drive forward if necessary
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
         intake.setState(Intake.IntakeState.OUT);
