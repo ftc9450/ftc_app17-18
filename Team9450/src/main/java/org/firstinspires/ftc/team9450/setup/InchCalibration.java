@@ -30,7 +30,7 @@ public class InchCalibration extends OpMode {
             drive.moveFB(-100, 0.5);
         }
         String vals = "";
-        for (double val:drive.getPosition()) vals += val;
+        vals+=drive.getPosition();
         telemetry.addData("pos", vals);
     }
 }

@@ -23,10 +23,13 @@ public class InchCalibration extends OpMode{
         rb=hardwareMap.dcMotor.get(Constants.Drivetrain.RB);
         lf.setDirection(DcMotorSimple.Direction.REVERSE);
         lb.setDirection(DcMotorSimple.Direction.REVERSE);
+        rf.setDirection(DcMotorSimple.Direction.FORWARD);
+        rb.setDirection(DcMotorSimple.Direction.REVERSE);
         lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override
@@ -39,8 +42,8 @@ public class InchCalibration extends OpMode{
         }else if(gamepad1.x) {
             lf.setPower(-0.5);
             lb.setPower(-0.5);
-            rf.setPower(0.5);
-            rb.setPower(0.5);
+            rf.setPower(-0.5);
+            rb.setPower(-0.5);
         }else{
             lf.setPower(0);
             lb.setPower(0);
@@ -51,15 +54,15 @@ public class InchCalibration extends OpMode{
             lf.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             lb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             rf.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            //rb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         telemetry.addData("left front: ",lf.getCurrentPosition());
         telemetry.addData("left back: ",lb.getCurrentPosition());
         telemetry.addData("right front: ",rf.getCurrentPosition());
-        telemetry.addData("right back: ", rb.getCurrentPosition());
+        //telemetry.addData("right back: ", rb.getCurrentPosition());
     }
 }
