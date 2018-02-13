@@ -42,7 +42,7 @@ public class AutoRed1 extends LinearOpMode {
         intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
 
 
-        //detect vumark
+        /*detect vumark
         detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
@@ -72,19 +72,45 @@ public class AutoRed1 extends LinearOpMode {
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(500);*/
 
         drivetrain.moveFB(-12,-0.3);
-        drivetrain.pivotTo(0,imu);
+//        drivetrain.setPower(0.3);
+//        while (opModeIsActive() && drivetrain.getPosition() < 12*Constants.Drivetrain.INCH) {
+//            telemetry.addData("movement", drivetrain.toString());
+//            telemetry.update();
+//        }
+        drivetrain.setPower(0);
+        //drivetrain.setPower(new double[]{-0.3, -0.3, -0.3, -0.3});
+        //drivetrain.pivotTo(0,imu);
+        drivetrain.disconnectEncoders();
+        drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
+        while (opModeIsActive() && Math.abs(imu.getAngle()) < Math.PI/2) {}
+        drivetrain.setPower(new double[]{0, 0, 0, 0});
+        Thread.sleep(500);
+        drivetrain.enableAndResetEncoders();
         //deposit glyph
-        if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        int cmd = 0;
+        while (opModeIsActive() && !gamepad1.x && !gamepad1.a && !gamepad1.b) {
+            if (gamepad1.x) cmd = 0;
+            else if (gamepad1.a) cmd = 1;
+            else if (gamepad1.b) cmd = 2;
+        }
+        if(cmd == 0/*detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)*/){
             drivetrain.moveFB(center+7,-1);
-        }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
+        }else if(cmd == 1/*detectedVuMark.equals(RelicRecoveryVuMark.LEFT)*/){
             drivetrain.moveFB(center-7,-1);
         }else{
             drivetrain.moveFB(center,-1);
         }
-        drivetrain.pivotTo(Math.PI/4.0,imu);
+        //drivetrain.pivotTo(Math.PI/4.0,imu);
+        drivetrain.disconnectEncoders();
+        drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
+        while (opModeIsActive() && Math.abs(imu.getAngle()) < Math.PI/4) {}
+        drivetrain.setPower(new double[]{0, 0, 0, 0});
+        Thread.sleep(500);
+        drivetrain.enableAndResetEncoders();
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
         drivetrain.moveFB(-5, -1);

@@ -24,13 +24,13 @@ public class PathTest extends LinearOpMode {
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         drive.enableAndResetEncoders();
         waitForStart();
-        drive.moveFB(36, 1);
+        drive.moveFB(36, 0.3);
         drive.disconnectEncoders();
 //        while (imu.getAngle() < Math.PI/2) {
 //            telemetry.addData("imu",imu.getAngle());telemetry.update();
 //            drive.setOpenLoop(new DriveSignal(1, 1, -1, -1));drive.loop();
 //        }
         drive.enableAndResetEncoders();
-        drive.moveFB(10, 1);
+        drive.moveFB(10, 0.3);
     }
 }

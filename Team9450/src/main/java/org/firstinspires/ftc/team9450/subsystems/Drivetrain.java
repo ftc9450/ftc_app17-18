@@ -30,8 +30,15 @@ public class Drivetrain extends Subsystem {
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
+    public void setPower(double power) {
+        leftFront.setPower(power);
+        leftBack.setPower(power);
+        rightFront.setPower(power);
+        rightBack.setPower(power);
+    }
     public void setPower(double driveSignal[]) {
         leftFront.setPower(driveSignal[0]);
         leftBack.setPower(driveSignal[1]);
@@ -56,11 +63,14 @@ public class Drivetrain extends Subsystem {
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void disconnectEncoders(){
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -71,13 +81,16 @@ public class Drivetrain extends Subsystem {
     public void moveFB(double distance, double power){ //positive power and distance is move forward
         enableAndResetEncoders();
         int sig = (int) distance * Constants.Drivetrain.INCH;
-        leftFront.setTargetPosition(sig);
-        leftBack.setTargetPosition(sig);
-        rightFront.setTargetPosition(sig);
-        rightBack.setTargetPosition(sig);
-        setPower(new DriveSignal(power, power, power,power));
-        try{while(isBusy());}catch (Exception e){}
+        //leftFront.setTargetPosition(sig);
+        //leftBack.setTargetPosition(sig);
+        //rightFront.setTargetPosition(sig);
+        //rightBack.setTargetPosition(sig);
+        setPower(new DriveSignal(power, power, power, power));
+        try{while((leftFront.getCurrentPosition()+rightFront.getCurrentPosition())/2 < sig);}catch (Exception e){}
         setPower(new DriveSignal(0,0,0,0));
+    }
+    public String toString(){
+        return String.valueOf((leftFront.getCurrentPosition()+rightFront.getCurrentPosition())/2 );
     }
     public void pivotTo(double pos, Gyroscope imu){
         disconnectEncoders();
@@ -119,8 +132,8 @@ public class Drivetrain extends Subsystem {
         rightFront.setPower(0);
         rightBack.setPower(0);
     }
-    public double[] getPosition() {
-        return new double[]{leftFront.getCurrentPosition(), leftBack.getCurrentPosition(), rightFront.getCurrentPosition(), rightBack.getCurrentPosition()};
+    public int getPosition() {
+        return (leftFront.getCurrentPosition() + rightFront.getCurrentPosition())/2;
     }
 
     @Override
