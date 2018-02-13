@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.team9450.subsystems.Rudder;
 import org.firstinspires.ftc.team9450.util.Constants;
@@ -13,14 +14,13 @@ import org.firstinspires.ftc.team9450.util.Constants;
  * Created by Grace on 1/25/2018.
  */
 @TeleOp
-@Disabled
 public class RudderTest extends OpMode{
     Rudder rudder;
-    CRServo bottomServo;
+    Servo bottomServo;
     @Override
     public void init() {
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
-        bottomServo=hardwareMap.crservo.get(Constants.Rudder.RUDDERBOTTOM);
+        bottomServo=hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM);
     }
 
     @Override

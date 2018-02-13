@@ -72,7 +72,7 @@ public class Constants {
         public static final String RUDDERBOTTOM="rudder_lat";
         public static final String COLOR="color";
         public static final double RUDDER_IN=0.26;
-        public static final double RUDDER_OUT=0.7;
+        public static final double RUDDER_OUT=0.85;
         public static final double RUDDER_START=0.05;
     }
 }
