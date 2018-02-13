@@ -33,8 +33,8 @@ public class Localizer {
         imu.startAccelerationIntegration(new Position(), new Velocity(), 100);
     }
 
-    public Velocity getPosition() {
-        return imu.getVelocity();
+    public Acceleration getPosition() {
+        return imu.getAcceleration();
     }
 
     public double getAngle() {

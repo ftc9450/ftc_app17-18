@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.team9450.sensors.Accelerometer;
@@ -29,19 +30,20 @@ public class AccelerometerTest extends LinearOpMode {
         waitForStart();
         imu = new Localizer(hardwareMap.get(BNO055IMU.class, "imu"));
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
-        Velocity pos = imu.getPosition();
+        Acceleration pos = imu.getPosition();
         telemetry.addData("start", true);
-        telemetry.addData("x", pos.xVeloc);
-        telemetry.addData("y", pos.yVeloc);
-        telemetry.addData("z,", pos.zVeloc);
+        telemetry.addData("x", pos.xAccel);
+        telemetry.addData("y", pos.yAccel);
+        telemetry.addData("z,", pos.zAccel);
         telemetry.update();
-        drive.setPower(new double[]{0.3, 0.3, 0,3, 0.3});
-        while (opModeIsActive() && drive.getPosition() < 20 * Constants.Drivetrain.INCH){}
+        drive.setPower(0.5);
+        while (opModeIsActive() && drive.getPosition() < 30 * Constants.Drivetrain.INCH){}
+        drive.setPower(0);
         //drive.moveFB(-20, 0.3);
         pos = imu.getPosition();
-        telemetry.addData("x", pos.xVeloc);
-        telemetry.addData("y", pos.yVeloc);
-        telemetry.addData("z,", pos.zVeloc);
+        telemetry.addData("x", pos.xAccel);
+        telemetry.addData("y", pos.yAccel);
+        telemetry.addData("z,", pos.zAccel);
         telemetry.update();
     }
 }
