@@ -30,11 +30,11 @@ public class Localizer {
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
         this.imu = imu;
         this.imu.initialize(parameters);
-        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 100);
     }
 
-    public Position getPosition() {
-        return imu.getPosition();
+    public Velocity getPosition() {
+        return imu.getVelocity();
     }
 
     public double getAngle() {
