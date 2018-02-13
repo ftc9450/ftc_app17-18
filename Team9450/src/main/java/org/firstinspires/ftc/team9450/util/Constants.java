@@ -64,9 +64,9 @@ public class Constants {
         return f.floatValue();
     }
     public class Rudder{
-        public static final double LATERALFORWARD=0.65;
-        public static final double LATERALNEUTRAL=0.5;
-        public static final double LATERALBACKWARD=0.35;
+        public static final double LATERALFORWARD=0.75;
+        public static final double LATERALNEUTRAL=0.45;
+        public static final double LATERALBACKWARD=0.25;
         public static final double LATERALSTART=0;
         public static final String RUDDERTOP="rudder_out";
         public static final String RUDDERBOTTOM="rudder_lat";
