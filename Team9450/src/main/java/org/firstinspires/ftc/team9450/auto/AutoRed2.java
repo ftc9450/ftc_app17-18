@@ -28,6 +28,7 @@ public class AutoRed2 extends LinearOpMode {
     Gyroscope imu;
     Intake intake;
     int toBox=-18;
+    int center=7;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -49,15 +50,15 @@ public class AutoRed2 extends LinearOpMode {
         Thread.sleep(500);
 
         // knock jewel off
-        rudder.setRudderState(Rudder.RudderState.START);
+        rudder.setRudderState(Rudder.RudderState.IN);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(1000);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(1000);
         rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         int color = rudder.getColor();
         if (color == Constants.Color.BLUE) {
             rudder.setLateralState(Rudder.LateralState.FORWARDS);
@@ -72,23 +73,25 @@ public class AutoRed2 extends LinearOpMode {
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
+
         drivetrain.moveFB(-12,-0.3);
-        drivetrain.pivotTo(0,imu);
+        pivot(0,true);
+        pivot(0,false);
+        pivot(0,true);
+        pivot(0,false);
         drivetrain.moveFB(toBox,-1);
 
-        drivetrain.pivotTo(-Math.PI/2, imu);
+        pivot(Math.PI/2,false);
 
         // deposit glyph
-        telemetry.addData("step", 4);
-        telemetry.update();
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
-            drivetrain.moveFB(3, 1);
+            drivetrain.moveFB(center-7, 1);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(9, 1);
+            drivetrain.moveFB(center, 1);
         } else {
-            drivetrain.moveFB(6, 1);
+            drivetrain.moveFB(center+7, 1);
         }
-        drivetrain.pivotTo(-3.0*Math.PI/4,imu);
+        pivot(Math.PI/4,false);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
         intake.setState(Intake.IntakeState.OUT);
         intake.loop();
@@ -147,5 +150,16 @@ public class AutoRed2 extends LinearOpMode {
         //ramp.setState(Ramp.RampState.IN);ramp.loop();Thread.sleep(500);
         drivetrain.moveFB(12,1);
         drivetrain.pivot(-45,-1);
+    }
+    public void pivot(double angle, boolean cc) {
+        double Q = Math.PI/25;
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        if (cc) {
+            drivetrain.setPower(new double[]{-0.3, -0.3, 0.3, 0.3});
+        } else {
+            drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
+        }
+        while (opModeIsActive() && Math.abs(imu.getAngle()) < angle - Q) {}
+        drivetrain.setPower(0);
     }
 }
