@@ -42,7 +42,7 @@ public class AutoBlue2 extends LinearOpMode {
 
         //detect vumark
 
-        detectedVuMark = vuforia.getVuMark();
+        /*detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
         drivetrain.enableAndResetEncoders();
@@ -71,12 +71,10 @@ public class AutoBlue2 extends LinearOpMode {
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(500);*/
 
         drivetrain.moveFB(12,0.3);
-        drivetrain.pivotTo(0,imu);
-        drivetrain.moveFB(toBox,1);
-        drivetrain.pivotTo(-Math.PI/2, imu);
+        pivot(Math.PI/2, false);
 
         // deposit glyph
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
@@ -86,7 +84,9 @@ public class AutoBlue2 extends LinearOpMode {
         } else {
             drivetrain.moveFB(6, 1);
         }
-        drivetrain.pivotTo(-Math.PI/4,imu);
+
+        pivot(Math.PI/4, true);
+
         //drive forward if necessary
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
         intake.setState(Intake.IntakeState.OUT);
@@ -95,57 +95,16 @@ public class AutoBlue2 extends LinearOpMode {
         drivetrain.moveFB(-5, -1);
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
-
-        /*
-        dropGlyphs();
-        if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            goToPitLeft(7,0);
-            dropGlyphs();
-            goToPitLeft(7,7);
-            dropGlyphs();
-        }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            goToPitRight(7,14);
-            dropGlyphs();
-            goToPitRight(7,7);
-            dropGlyphs();
-        }else{
-            goToPitLeft(7,7);
-            dropGlyphs();
-            goToPitRight(14,14);
-            dropGlyphs();
+    }
+    public void pivot(double angle, boolean cc) {
+        double Q = Math.PI/15;
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        if (cc) {
+            drivetrain.setPower(new double[]{-0.3, -0.3, 0.3, 0.3});
+        } else {
+            drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
         }
-        drivetrain.moveFB(-3, .5);
-        */
-
-    }
-    public void goToPitLeft(int distance, int distanceToRight){
-        drivetrain.pivot(-90,-1);
-        drivetrain.moveFB(6+distanceToRight,1);
-        drivetrain.pivot(90,1);
-        intake.setState(Intake.IntakeState.IN);intake.loop();
-        drivetrain.moveFB(glyphPit, 1);
-        drivetrain.moveFB(-1*glyphPit,1);
-        intake.setState(Intake.IntakeState.OFF);
-        drivetrain.pivot(-90,-1);
-        drivetrain.moveFB(-6-(distanceToRight+distance),-1);
-    }
-    public void goToPitRight(int distance, int distanceToRight){
-        drivetrain.pivot(-90,-1);
-        drivetrain.moveFB(6+distanceToRight,1);
-        drivetrain.pivot(90,1);
-        intake.setState(Intake.IntakeState.IN);intake.loop();
-        drivetrain.moveFB(glyphPit, 1);
-        drivetrain.moveFB(-1*glyphPit,1);
-        intake.setState(Intake.IntakeState.OFF);
-        drivetrain.pivot(-90,-1);
-        drivetrain.moveFB(-6-(distanceToRight-distance),-1);
-    }
-    public void dropGlyphs()throws InterruptedException{
-        drivetrain.pivot(-45,1);
-        drivetrain.moveFB(-12,-1);
-        //ramp.setState(Ramp.RampState.OUT);ramp.loop();Thread.sleep(500);
-        //ramp.setState(Ramp.RampState.IN);ramp.loop();Thread.sleep(500);
-        drivetrain.moveFB(12,1);
-        drivetrain.pivot(-45,-1);
+        while (opModeIsActive() && Math.abs(imu.getAngle()) < angle - Q) {}
+        drivetrain.setPower(0);
     }
 }
