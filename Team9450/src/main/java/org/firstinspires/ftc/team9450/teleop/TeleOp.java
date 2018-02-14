@@ -29,6 +29,7 @@ public class TeleOp extends OpMode {
     Intake intake;
     Ramp ramp;
     RelicArm arm;
+    Rudder rudder;
     SubsystemManager manager;
 
     @Override
@@ -38,8 +39,9 @@ public class TeleOp extends OpMode {
         intake = new Intake(hardwareMap.dcMotor.get("intake_left"), hardwareMap.dcMotor.get("intake_right"));
         ramp = new Ramp(hardwareMap.servo.get("ramp"), hardwareMap.dcMotor.get("lift"), hardwareMap.digitalChannel.get("touch"));
         arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.servo.get("pivot"), hardwareMap.crservo.get("hand"));
+        rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         manager = new SubsystemManager();
-        manager.add(drive).add(intake).add(ramp);//.add(arm);
+        manager.add(drive).add(intake).add(ramp).add(rudder);//.add(arm);
     }
 
     @Override
@@ -89,6 +91,8 @@ public class TeleOp extends OpMode {
             ramp.setLiftState(Ramp.LiftState.OFF);
         }
 
+        rudder.setLateralState(Rudder.LateralState.NEUTRAL);
+        rudder.setRudderState(Rudder.RudderState.IN);
         manager.loop();
     }
 }

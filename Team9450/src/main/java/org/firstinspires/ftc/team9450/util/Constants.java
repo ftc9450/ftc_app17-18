@@ -42,9 +42,9 @@ public class Constants {
     public class Ramp {
         public static final String RAMP = "ramp";
         public static final String LIFT = "lift";
-        public static final int MAX = 4632;
+        public static final int MAX = 4600;
         public static final double IN=0.42;
-        public static final double OUT=0.86;
+        public static final double OUT=0.88;
     }
     public class Setup {
         public static final String VUFORIA_KEY = "AYwm7lb/////AAAAGeQI9HT4B0R2unLNBq/DsId49BJr71nKGdfP8X8fnmtD0Jna47KLigPBytLYBjzOIl6uCfYWbIXHc3FqoabxIITohKJ4VvPispe5kGGFFJyQEIifEL1Bc511jOl00pyY2Tr/YOGwjGk7lSXQ0QrScHVaiwIOM3mUUlsv9Ethn1OCZB2AVhT91gnrUKryxBwfLCGjqpmYdWOVDsJTloDiowWMez0U42S9sILVevNguQXZqTr1uURaUx5Voy+2N6FVK5p4dvraac9+LD6YskUCLqWsK2XVruCpCsRWZxfrqylNyni2ll5AW3Mekw/hSSzfjx70eyKXyaLRiOj4UhHKCjeqWjFCePt0Vb59tyqd9KhS";
