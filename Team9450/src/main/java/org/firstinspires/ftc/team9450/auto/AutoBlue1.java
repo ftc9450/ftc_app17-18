@@ -50,22 +50,22 @@ public class AutoBlue1 extends LinearOpMode {
         Thread.sleep(500);
 
         // knock jewel off
-        rudder.setRudderState(Rudder.RudderState.START);
+        rudder.setRudderState(Rudder.RudderState.IN);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(1000);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(1000);
         rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         int color = rudder.getColor();
-        if (color == Constants.Color.RED) {
-            rudder.setLateralState(Rudder.LateralState.FORWARDS);
+        if (color == Constants.Color.BLUE) {
+            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
             rudder.loop();
             Thread.sleep(500);
-        } else if (color == Constants.Color.BLUE) {
-            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
+        } else if (color == Constants.Color.RED) {
+            rudder.setLateralState(Rudder.LateralState.FORWARDS);
             rudder.loop();
             Thread.sleep(500);
         }
@@ -77,7 +77,10 @@ public class AutoBlue1 extends LinearOpMode {
 
         //deposit glyph
         drivetrain.moveFB(12,0.3);
-        drivetrain.pivotTo(0,imu);
+        pivot(0,true);
+        pivot(0,false);
+        pivot(0,true);
+        pivot(0,false);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(center+7,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
@@ -85,7 +88,7 @@ public class AutoBlue1 extends LinearOpMode {
         }else{
             drivetrain.moveFB(center,1);
         }
-        drivetrain.pivotTo(Math.PI/4,imu);
+        pivot(Math.PI/4,true);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
 
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
@@ -136,5 +139,16 @@ public class AutoBlue1 extends LinearOpMode {
         //ramp.setState(Ramp.RampState.IN);ramp.loop();Thread.sleep(500);
         drivetrain.moveFB(12,1);
         drivetrain.pivot(-45,-1);
+    }
+    public void pivot(double angle, boolean cc) {
+        double Q = Math.PI/25;
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        if (cc) {
+            drivetrain.setPower(new double[]{-0.3, -0.3, 0.3, 0.3});
+        } else {
+            drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
+        }
+        while (opModeIsActive() && Math.abs(imu.getAngle()) < angle - Q) {}
+        drivetrain.setPower(0);
     }
 }

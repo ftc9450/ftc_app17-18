@@ -28,6 +28,7 @@ public class AutoBlue2 extends LinearOpMode {
     Gyroscope imu;
     Intake intake;
     int toBox=18;
+    int center=7;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -39,50 +40,55 @@ public class AutoBlue2 extends LinearOpMode {
         ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP),hardwareMap.dcMotor.get(Constants.Ramp.LIFT),hardwareMap.digitalChannel.get("touch"));
         vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
-
+        intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
         //detect vumark
 
-        /*detectedVuMark = vuforia.getVuMark();
+        detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
         drivetrain.enableAndResetEncoders();
         Thread.sleep(500);
 
         // knock jewel off
-        rudder.setRudderState(Rudder.RudderState.START);
+        rudder.setRudderState(Rudder.RudderState.IN);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(1000);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(1000);
         rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         int color = rudder.getColor();
-        if (color == Constants.Color.RED) {
-            rudder.setLateralState(Rudder.LateralState.FORWARDS);
+        if (color == Constants.Color.BLUE) {
+            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
             rudder.loop();
             Thread.sleep(500);
-        } else if (color == Constants.Color.BLUE) {
-            rudder.setLateralState(Rudder.LateralState.BACKWARDS);
+        } else if (color == Constants.Color.RED) {
+            rudder.setLateralState(Rudder.LateralState.FORWARDS);
             rudder.loop();
             Thread.sleep(500);
         }
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-        Thread.sleep(500);*/
+        Thread.sleep(500);
 
         drivetrain.moveFB(12,0.3);
+        pivot(0,true);
+        pivot(0,false);
+        pivot(0,true);
+        pivot(0,false);
+        drivetrain.moveFB(toBox,1);
         pivot(Math.PI/2, false);
 
         // deposit glyph
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
-            drivetrain.moveFB(9, 1);
+            drivetrain.moveFB(center+7, 1);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(3, 1);
+            drivetrain.moveFB(center-7, 1);
         } else {
-            drivetrain.moveFB(6, 1);
+            drivetrain.moveFB(center, 1);
         }
 
         pivot(Math.PI/4, true);
@@ -97,7 +103,7 @@ public class AutoBlue2 extends LinearOpMode {
         intake.loop();
     }
     public void pivot(double angle, boolean cc) {
-        double Q = Math.PI/15;
+        double Q = Math.PI/25;
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         if (cc) {
             drivetrain.setPower(new double[]{-0.3, -0.3, 0.3, 0.3});
