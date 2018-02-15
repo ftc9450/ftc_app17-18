@@ -44,7 +44,7 @@ public class AutoBlue1 extends LinearOpMode {
 
         //detect vumark
         detectedVuMark = vuforia.getVuMark();
-        telemetry.addData("vumark", detectedVuMark);
+        /*telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
         drivetrain.enableAndResetEncoders();
         Thread.sleep(500);
@@ -72,7 +72,7 @@ public class AutoBlue1 extends LinearOpMode {
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-        Thread.sleep(500);
+        Thread.sleep(500);*/
 
 
         //deposit glyph
