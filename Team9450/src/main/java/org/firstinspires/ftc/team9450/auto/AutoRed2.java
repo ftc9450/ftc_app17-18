@@ -28,7 +28,7 @@ public class AutoRed2 extends LinearOpMode {
     Gyroscope imu;
     Intake intake;
     int toBox=-5;
-    int center=7;
+    int center=3;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
