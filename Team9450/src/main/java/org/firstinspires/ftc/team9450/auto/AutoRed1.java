@@ -93,8 +93,9 @@ public class AutoRed1 extends LinearOpMode {
         pivot(Math.PI/4,true);
         Thread.sleep(500);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
+        Thread.sleep(3000);
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
-        drivetrain.moveFB(-3, -1);
+        drivetrain.moveFB(-1, -1);
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
 
