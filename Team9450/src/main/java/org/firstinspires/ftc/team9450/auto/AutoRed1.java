@@ -27,7 +27,7 @@ public class AutoRed1 extends LinearOpMode {
     Gyroscope imu;
     Ramp ramp;
     Intake intake;
-    int center=-24;
+    int center=-7;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -158,10 +158,10 @@ public class AutoRed1 extends LinearOpMode {
     public void straighten() {
         if(imu.getAngle() > 0){
             drivetrain.setPower(new double[]{0.3,0.3,-0.3,-0.3});
-            while(imu.getAngle() > 0){}
+            while(imu.getAngle() > 0.05){}
         }else if(imu.getAngle() < 0){
             drivetrain.setPower(new double[]{-0.3,-0.3,0.3,0.3});
-            while(imu.getAngle() < 0){}
+            while(imu.getAngle() < -0.05){}
         }
         drivetrain.setPower(new double[]{0,0,0,0});
     }
