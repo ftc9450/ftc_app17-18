@@ -27,7 +27,7 @@ public class AutoRed1 extends LinearOpMode {
     Gyroscope imu;
     Ramp ramp;
     Intake intake;
-    int center=-7;
+    int center=-22;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -94,7 +94,7 @@ public class AutoRed1 extends LinearOpMode {
         Thread.sleep(500);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
-        drivetrain.moveFB(-5, -1);
+        drivetrain.moveFB(-3, -1);
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
 
