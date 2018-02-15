@@ -44,8 +44,8 @@ public class AutoRed1 extends LinearOpMode {
 
         //detect vumark
         //detectedVuMark = vuforia.getVuMark();
-        //telemetry.addData("vumark", detectedVuMark);
-        //telemetry.update();
+        /*telemetry.addData("vumark", detectedVuMark);
+        telemetry.update();
         drivetrain.enableAndResetEncoders();
         Thread.sleep(500);
 
@@ -75,6 +75,7 @@ public class AutoRed1 extends LinearOpMode {
         rudder.loop();
         Thread.sleep(500);
 */
+
         drivetrain.moveFB(-12,-0.3);
         straighten();
 

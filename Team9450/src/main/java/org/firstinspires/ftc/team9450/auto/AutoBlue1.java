@@ -43,9 +43,10 @@ public class AutoBlue1 extends LinearOpMode {
         intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
 
         //detect vumark
+        //detect vumark
         //detectedVuMark = vuforia.getVuMark();
-        //telemetry.addData("vumark", detectedVuMark);
-        //telemetry.update();
+        /*telemetry.addData("vumark", detectedVuMark);
+        telemetry.update();
         drivetrain.enableAndResetEncoders();
         Thread.sleep(500);
 

@@ -44,8 +44,8 @@ public class AutoBlue2 extends LinearOpMode {
         //detect vumark
 
         //detectedVuMark = vuforia.getVuMark();
-        //telemetry.addData("vumark", detectedVuMark);
-        //telemetry.update();
+        /*telemetry.addData("vumark", detectedVuMark);
+        telemetry.update();
         drivetrain.enableAndResetEncoders();
         Thread.sleep(500);
 
@@ -72,8 +72,10 @@ public class AutoBlue2 extends LinearOpMode {
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
+<<<<<<< HEAD
         Thread.sleep(500);
 */
+
         drivetrain.moveFB(12,0.3);
         straighten();
         drivetrain.moveFB(toBox,1);
