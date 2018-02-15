@@ -159,10 +159,10 @@ public class AutoRed1 extends LinearOpMode {
     public void straighten() {
         if(imu.getAngle() > 0){
             drivetrain.setPower(new double[]{0.3,0.3,-0.3,-0.3});
-            while(imu.getAngle() > 0.05){}
+            while(opModeIsActive() && imu.getAngle() > 0.05){}
         }else if(imu.getAngle() < 0){
             drivetrain.setPower(new double[]{-0.3,-0.3,0.3,0.3});
-            while(imu.getAngle() < -0.05){}
+            while(opModeIsActive() && imu.getAngle() < -0.05){}
         }
         drivetrain.setPower(new double[]{0,0,0,0});
     }
