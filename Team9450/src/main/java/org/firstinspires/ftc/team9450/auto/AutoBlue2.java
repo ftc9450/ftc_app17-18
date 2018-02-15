@@ -113,14 +113,12 @@ public class AutoBlue2 extends LinearOpMode {
         drivetrain.setPower(0);
     }
     public void straighten() {
-        while(imu.getAngle()!=0){
-            if(imu.getAngle() > 0){
-                drivetrain.setPower(new double[]{0.3,0.3,-0.3,-0.3});
-            }else if(imu.getAngle() < 0){
-                drivetrain.setPower(new double[]{-0.3,-0.3,0.3,0.3});
-            }else{
-                drivetrain.setPower(new double[]{0,0,0,0});
-            }
+        if(imu.getAngle() > 0){
+            drivetrain.setPower(new double[]{0.3,0.3,-0.3,-0.3});
+            while(imu.getAngle() > 0){}
+        }else if(imu.getAngle() < 0){
+            drivetrain.setPower(new double[]{-0.3,-0.3,0.3,0.3});
+            while(imu.getAngle() < 0){}
         }
         drivetrain.setPower(new double[]{0,0,0,0});
     }
