@@ -102,6 +102,27 @@ public class AutoRed2 extends LinearOpMode {
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
 
+        straighten();
+        pivot(Math.PI/4, false);
+        drivetrain.moveFB(10 - center, 1);
+        straighten();
+        pivot(Math.PI/4, false);
+        drivetrain.moveFB(50, 1);
+        straighten();
+        intake.setPower(1);
+        drivetrain.moveFB(5, 0.3);
+        straighten();
+        for (int i = 0; i < 5; i++) {
+            pivot(Math.PI/10, true);
+            pivot(Math.PI/10, false);
+        }
+        drivetrain.moveFB(5, 0.3);
+        straighten();
+        intake.setPower(0);
+        drivetrain.moveFB(-10, -0.3);
+        straighten();
+
+
         /*
         dropGlyphs();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){

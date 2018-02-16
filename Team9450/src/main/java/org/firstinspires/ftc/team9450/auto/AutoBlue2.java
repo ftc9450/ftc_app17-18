@@ -72,7 +72,6 @@ public class AutoBlue2 extends LinearOpMode {
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-<<<<<<< HEAD
         Thread.sleep(500);
 */
 

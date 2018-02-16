@@ -87,10 +87,23 @@ public class AutoBlue1 extends LinearOpMode {
         }
         pivot(Math.PI/4,true);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
-
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
         drivetrain.moveFB(-3, -1);
         intake.setState(Intake.IntakeState.OFF);
+
+        //next glyph
+        straighten();
+        pivot(Math.PI/2, false);
+        intake.setPower(1);
+        drivetrain.moveFB(30, 1);
+        for (int i = 0; i < 5; i++) {
+            pivot(Math.PI/10, true);
+            pivot(Math.PI/10, false);
+        }
+        drivetrain.moveFB(-10, -1);
+        straighten();
+        pivot(Math.PI, false);
+        /*telemetry.addData("step", "next");
         pivot(3*Math.PI/4,false);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             goToPitLeft(7);
@@ -98,7 +111,7 @@ public class AutoBlue1 extends LinearOpMode {
             goToPitLeft(7);
             dropGlyphs();
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            goToPitRight(7);
+            goToPitRight(7);s
             dropGlyphs();
             goToPitRight(7);
             dropGlyphs();
@@ -108,7 +121,7 @@ public class AutoBlue1 extends LinearOpMode {
             goToPitRight(14);
             dropGlyphs();
         }
-        drivetrain.moveFB(-3, .5);
+        drivetrain.moveFB(-3, .5);*/
 
     }
     public void goToPitLeft(int distance){

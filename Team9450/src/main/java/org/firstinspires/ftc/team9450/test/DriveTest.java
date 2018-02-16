@@ -14,6 +14,7 @@ import org.firstinspires.ftc.team9450.subsystems.RampLifter;
 import org.firstinspires.ftc.team9450.subsystems.Rudder;
 import org.firstinspires.ftc.team9450.subsystems.SubsystemManager;
 import org.firstinspires.ftc.team9450.util.Constants;
+import org.firstinspires.ftc.team9450.util.DriveSignal;
 import org.firstinspires.ftc.team9450.util.Vector2D;
 
 /**
@@ -36,19 +37,18 @@ public class DriveTest extends OpMode {
 
     @Override
     public void loop() {
-        Vector2D v = new Vector2D();
-        v.x = gamepad1.left_stick_x;
-        v.y = -gamepad1.left_stick_y;
+        double x = gamepad1.left_stick_x;
+        double y = -gamepad1.left_stick_y;
         float z = gamepad1.right_stick_x;
 
-        if (gamepad1.right_stick_button) imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
-
-        if (gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_right) {
-            v.x = gamepad1.dpad_right?0.5: gamepad1.dpad_left?-0.5:0;
-            v.y = gamepad1.dpad_up?0.5: gamepad1.dpad_down?-0.5:0;
-            v.rotate(imu.getAngle());
+        DriveSignal signal = new DriveSignal(0, 0, 0, 0);
+        if (Math.abs(z) < 0.1) {
+            signal = DriveSignal.translate(Math.atan2(y,x),Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
+        } else {
+            signal = new DriveSignal(x + y + z, -x + y + z, -x + y - z, x + y - z);
         }
 
-        drive.setPower(new double[]{v.x + v.y + z, -v.x + v.y + z, -v.x + v.y - z, v.x + v.y - z});
+        drive.setOpenLoop(signal);
+        drive.loop();
     }
 }
