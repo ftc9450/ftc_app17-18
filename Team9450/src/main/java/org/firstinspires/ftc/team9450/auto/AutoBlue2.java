@@ -82,13 +82,13 @@ public class AutoBlue2 extends LinearOpMode {
         // deposit glyph
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
             drivetrain.moveFB(center+7, 1);
-            pivot(Math.PI/4, false);
+            pivot(Math.PI/4, true);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
             //drivetrain.moveFB(center, 1);
-            pivot(Math.PI/4, true);
+            pivot(Math.PI/4, false);
         } else {
             drivetrain.moveFB(center, 1);
-            pivot(Math.PI/4, false);
+            pivot(Math.PI/4, true);
         }
         //drivetrain.moveFB(1, 1);
        // pivot(Math.PI/4, true);
@@ -105,6 +105,8 @@ public class AutoBlue2 extends LinearOpMode {
         if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
             drivetrain.moveFB(1, 1);
         }
+
+        
     }
     public void pivot(double angle, boolean cc) {
         double Q = Math.PI/25;
