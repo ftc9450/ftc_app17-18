@@ -20,8 +20,8 @@ import org.firstinspires.ftc.team9450.util.Constants;
  */
 @Autonomous
 public class AutoBlue2 extends LinearOpMode {
-    //Vuforia vuforia;
-    //RelicRecoveryVuMark detectedVuMark;
+    Vuforia vuforia;
+    RelicRecoveryVuMark detectedVuMark;
     Drivetrain drivetrain;
     Rudder rudder;
     Ramp ramp;
@@ -38,19 +38,19 @@ public class AutoBlue2 extends LinearOpMode {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP),hardwareMap.dcMotor.get(Constants.Ramp.LIFT),hardwareMap.digitalChannel.get("touch"));
-        //vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
+        vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
         //detect vumark
 
-        //detectedVuMark = vuforia.getVuMark();
-        /*telemetry.addData("vumark", detectedVuMark);
+        detectedVuMark = vuforia.getVuMark();
+        telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
         drivetrain.enableAndResetEncoders();
         Thread.sleep(500);
 
         // knock jewel off
-        /*rudder.setRudderState(Rudder.RudderState.IN);
+        rudder.setRudderState(Rudder.RudderState.IN);
         rudder.loop();
         Thread.sleep(1000);
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
@@ -73,12 +73,11 @@ public class AutoBlue2 extends LinearOpMode {
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
-*/
 
         drivetrain.moveFB(12,0.3);
         straighten();
         drivetrain.moveFB(toBox,1);
-        //pivot(Math.PI/2, false);
+        pivot(Math.PI/2, false);
 
         // deposit glyph
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
@@ -91,8 +90,8 @@ public class AutoBlue2 extends LinearOpMode {
             drivetrain.moveFB(center, 1);
             pivot(Math.PI/4, true);
         }
-        //drivetrain.moveFB(1, 1);
-        //pivot(Math.PI/4, true);
+        drivetrain.moveFB(1, 1);
+        pivot(Math.PI/4, true);
 
         //drive forward if necessary
         drivetrain.moveFB(1.5*Math.sqrt(2)+2,1);
@@ -103,7 +102,7 @@ public class AutoBlue2 extends LinearOpMode {
         drivetrain.moveFB(-1, -1);
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
-        if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT){
+        if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
             drivetrain.moveFB(1, 1);
         }
     }
