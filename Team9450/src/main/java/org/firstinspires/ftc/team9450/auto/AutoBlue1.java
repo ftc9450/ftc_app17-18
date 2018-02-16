@@ -81,7 +81,7 @@ public class AutoBlue1 extends LinearOpMode {
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(center+7,1);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(center-7,1);
+            drivetrain.moveFB(0,1);
         }else{
             drivetrain.moveFB(center,1);
         }
