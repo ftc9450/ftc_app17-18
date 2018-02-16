@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.team9450.util.Constants;
@@ -15,9 +16,11 @@ import org.firstinspires.ftc.team9450.util.Constants;
 public class RampCalibration extends OpMode{
     Servo ramp;
     DcMotor lift;
+    DigitalChannel touch;
     public void init() {
         ramp=hardwareMap.servo.get(Constants.Ramp.RAMP);
         lift = hardwareMap.dcMotor.get(Constants.Ramp.LIFT);
+        touch = hardwareMap.digitalChannel.get("touch");
         //lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
@@ -26,7 +29,7 @@ public class RampCalibration extends OpMode{
     public void loop() {
         if(gamepad1.start){lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);}
         if(gamepad1.b){ramp.setPosition(ramp.getPosition()+0.01);}
-        if(gamepad1.a){ramp.setPosition(ramp.getPosition()-0.01);}
+        if(gamepad1.a && !touch.getState()){ramp.setPosition(ramp.getPosition()-0.01);}
         if (gamepad1.x) {
             lift.setPower(0.5);
         }
@@ -46,5 +49,6 @@ public class RampCalibration extends OpMode{
         telemetry.addData("ramp position",ramp.getPosition());
         telemetry.addData("lift direction", lift.getDirection());
         telemetry.addData("lift position", lift.getCurrentPosition());
+        telemetry.addData("touch", touch.getState());
     }
 }
