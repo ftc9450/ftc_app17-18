@@ -28,7 +28,7 @@ public class AutoBlue2 extends LinearOpMode {
     Gyroscope imu;
     Intake intake;
     int toBox=5;
-    int center=1;
+    int center=2;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -78,18 +78,21 @@ public class AutoBlue2 extends LinearOpMode {
         drivetrain.moveFB(12,0.3);
         straighten();
         drivetrain.moveFB(toBox,1);
-        pivot(Math.PI/2, false);
+        //pivot(Math.PI/2, false);
 
         // deposit glyph
-        /*if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
+        if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
             drivetrain.moveFB(center+7, 1);
+            pivot(Math.PI/4, true);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
             drivetrain.moveFB(center-7, 1);
+            pivot(Math.PI/4, false);
         } else {
             drivetrain.moveFB(center, 1);
-        }*/
-       // drivetrain.moveFB(center, -1);
-        pivot(Math.PI/4, true);
+            pivot(Math.PI/4, true);
+        }
+        //drivetrain.moveFB(1, 1);
+        //pivot(Math.PI/4, true);
 
         //drive forward if necessary
         drivetrain.moveFB(1.5*Math.sqrt(2)+2,1);
@@ -100,6 +103,9 @@ public class AutoBlue2 extends LinearOpMode {
         drivetrain.moveFB(-1, -1);
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
+        if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT){
+            drivetrain.moveFB(1, 1);
+        }
     }
     public void pivot(double angle, boolean cc) {
         double Q = Math.PI/25;
