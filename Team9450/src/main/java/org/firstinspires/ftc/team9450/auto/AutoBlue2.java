@@ -82,9 +82,9 @@ public class AutoBlue2 extends LinearOpMode {
         // deposit glyph
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
             drivetrain.moveFB(center+7, 1);
-            pivot(Math.PI/4, true);
+            pivot(Math.PI/4, false);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(center, 1);
+            //drivetrain.moveFB(center, 1);
             pivot(Math.PI/4, true);
         } else {
             drivetrain.moveFB(center, 1);
