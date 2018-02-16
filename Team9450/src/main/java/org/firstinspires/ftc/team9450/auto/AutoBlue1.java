@@ -28,7 +28,7 @@ public class AutoBlue1 extends LinearOpMode {
     Gyroscope imu;
     Ramp ramp;
     Intake intake;
-    int center=7;
+    int center=2;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -88,13 +88,13 @@ public class AutoBlue1 extends LinearOpMode {
         pivot(Math.PI/4,true);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
         intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
-        drivetrain.moveFB(-3, -1);
-        intake.setState(Intake.IntakeState.OFF);
-
+        drivetrain.moveFB(-2, -1);
+        //intake.setState(Intake.IntakeState.OFF);
+        intake.setPower(0);
         //next glyph
         straighten();
         pivot(Math.PI/2, false);
-        intake.setPower(1);
+        intake.setPower(-1);
         drivetrain.moveFB(30, 1);
         for (int i = 0; i < 5; i++) {
             pivot(Math.PI/10, true);

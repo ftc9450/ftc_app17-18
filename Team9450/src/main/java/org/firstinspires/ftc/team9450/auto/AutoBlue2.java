@@ -84,14 +84,14 @@ public class AutoBlue2 extends LinearOpMode {
             drivetrain.moveFB(center+7, 1);
             pivot(Math.PI/4, true);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(center-7, 1);
-            pivot(Math.PI/4, false);
-        } else {
             drivetrain.moveFB(center, 1);
             pivot(Math.PI/4, true);
+        } else {
+            drivetrain.moveFB(center, 1);
+            pivot(Math.PI/4, false);
         }
-        drivetrain.moveFB(1, 1);
-        pivot(Math.PI/4, true);
+        //drivetrain.moveFB(1, 1);
+       // pivot(Math.PI/4, true);
 
         //drive forward if necessary
         drivetrain.moveFB(1.5*Math.sqrt(2)+2,1);
