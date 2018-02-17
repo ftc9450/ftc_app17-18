@@ -106,7 +106,7 @@ public class AutoBlue2 extends LinearOpMode {
             drivetrain.moveFB(1, 1);
         }
 //triple glyph
-        straighten();
+/*        straighten();
         pivot(Math.PI/4, false);
         drivetrain.moveFB(10 - center, 1);
         straighten();
@@ -146,7 +146,7 @@ public class AutoBlue2 extends LinearOpMode {
         ramp.setRampState(Ramp.RampState.OUT); ramp.loop();
         ramp.setRampState(Ramp.RampState.IN); ramp.loop();
 
-        
+        */
     }
     public void pivot(double angle, boolean cc) {
         double Q = Math.PI/25;
