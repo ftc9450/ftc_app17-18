@@ -87,22 +87,42 @@ public class AutoBlue1 extends LinearOpMode {
         }
         pivot(Math.PI/4,true);
         drivetrain.moveFB(1.5*Math.sqrt(2),1);
-        intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
+        intake.setPower(.75);
+        Thread.sleep(1000);
         drivetrain.moveFB(-2, -1);
         //intake.setState(Intake.IntakeState.OFF);
         intake.setPower(0);
+        if ( detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
+            drivetrain.moveFB(-2, -1);
+        }
+
+
         //next glyph
-        straighten();
+        //straighten();
         pivot(Math.PI/2, false);
         intake.setPower(-1);
-        drivetrain.moveFB(30, 1);
-        for (int i = 0; i < 5; i++) {
-            pivot(Math.PI/10, true);
-            pivot(Math.PI/10, false);
+        drivetrain.moveFB(15, 1);
+        //straighten();
+
+        //pivot(Math.PI/10, true);
+        //pivot(Math.PI/10, false);
+        drivetrain.moveFB(5, 1);
+        //straighten();
+
+        drivetrain.moveFB(-20, -1);
+        drivetrain.moveFB(25,1);
+        drivetrain.moveFB(-25,1);
+        intake.setPower(0);
+        pivot(Math.PI/2,true);
+        if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
+            drivetrain.moveFB(7,1);
+        }else{
+            drivetrain.moveFB(-7,-1);
         }
-        drivetrain.moveFB(-10, -1);
-        straighten();
-        pivot(Math.PI, false);
+        pivot(Math.PI/4,false);
+        //straighten();
+        ramp.setRampState(Ramp.RampState.OUT);
+        ramp.loop();
         /*telemetry.addData("step", "next");
         pivot(3*Math.PI/4,false);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
@@ -168,11 +188,11 @@ public class AutoBlue1 extends LinearOpMode {
     public void straighten() {
         if(imu.getAngle() > 0){
             drivetrain.setPower(new double[]{0.3,0.3,-0.3,-0.3});
-            while(opModeIsActive() && imu.getAngle() > 0.05){}
+            while(opModeIsActive() && imu.getAngle() > 0.3){}
         }else if(imu.getAngle() < 0){
             drivetrain.setPower(new double[]{-0.3,-0.3,0.3,0.3});
-            while(opModeIsActive() && imu.getAngle() < -0.05){}
+            while(opModeIsActive() && imu.getAngle() < -0.3){}
         }
-        drivetrain.setPower(new double[]{0,0,0,0});
+        drivetrain.setPower(0);
     }
 }
