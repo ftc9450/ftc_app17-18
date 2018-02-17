@@ -105,6 +105,46 @@ public class AutoBlue2 extends LinearOpMode {
         if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
             drivetrain.moveFB(1, 1);
         }
+//triple glyph
+        straighten();
+        pivot(Math.PI/4, false);
+        drivetrain.moveFB(10 - center, 1);
+        straighten();
+        pivot(Math.PI/2, false);
+        drivetrain.moveFB(10, 1);
+        straighten();
+        intake.setPower(-1);
+        drivetrain.moveFB(5, 0.3);
+        straighten();
+        pivot(Math.PI/10, true);
+        pivot(Math.PI/10, false);
+        pivot(Math.PI/10, true);
+        pivot(Math.PI/10, false);
+        pivot(Math.PI/10, true);
+        pivot(Math.PI/10, false);
+        pivot(Math.PI/10, true);
+        pivot(Math.PI/10, false);
+        pivot(Math.PI/10, true);
+        pivot(Math.PI/10, false);
+//        for (int i = 0; i < 5; i++) {
+//            pivot(Math.PI/10, true);
+//            pivot(Math.PI/10, false);
+//        }
+        drivetrain.moveFB(-5, -0.3);
+        straighten();
+        intake.setPower(0);
+        drivetrain.moveFB(-10, -0.3);
+        straighten();
+        pivot(Math.PI/2,false);
+        drivetrain.moveFB(10-center,1);
+        if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
+            drivetrain.moveFB(7,1);
+        }else{
+            drivetrain.moveFB(-7,-1);
+        }
+        pivot(Math.PI/4,true);
+        ramp.setRampState(Ramp.RampState.OUT); ramp.loop();
+        ramp.setRampState(Ramp.RampState.IN); ramp.loop();
 
         
     }
