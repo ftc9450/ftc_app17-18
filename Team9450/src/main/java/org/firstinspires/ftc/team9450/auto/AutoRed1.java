@@ -27,7 +27,7 @@ public class AutoRed1 extends LinearOpMode {
     Gyroscope imu;
     Ramp ramp;
     Intake intake;
-    int center=-15;
+    int center=-4;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -74,44 +74,61 @@ public class AutoRed1 extends LinearOpMode {
         rudder.loop();
         Thread.sleep(500);
 
-        drivetrain.moveFB(-12,-0.3);
+        drivetrain.moveFB(-12,-0.5);
         straighten();
-
-        //deposit glyph
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(center-7,-1);
+            drivetrain.moveFB(center+7,-0.5);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(center+7,-1);
+            drivetrain.moveFB(-1,-0.5);
         }else{
-            drivetrain.moveFB(center,-1);
+            drivetrain.moveFB(-1*center,-0.5);
         }
         pivot(Math.PI/4,true);
-        Thread.sleep(500);
-        drivetrain.moveFB(1.5*Math.sqrt(2),1);
-        Thread.sleep(3000);
-        intake.setState(Intake.IntakeState.OUT);intake.loop();Thread.sleep(1000);
-        drivetrain.moveFB(-1, -1);
-        intake.setState(Intake.IntakeState.OFF);intake.loop();
-        intake.loop();
-        pivot(3*Math.PI/4,false);
-
-        if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            goToPitLeft(7);
-            dropGlyphs();
-            goToPitLeft(7);
-            dropGlyphs();
-        }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            goToPitRight(7);
-            dropGlyphs();
-            goToPitRight(7);
-            dropGlyphs();
-        }else{
-            goToPitLeft(7);
-            dropGlyphs();
-            goToPitRight(14);
-            dropGlyphs();
+        drivetrain.moveFB(1.5*Math.sqrt(2)+4,0.6);
+        intake.setPower(.5);
+        //Thread.sleep(1000);
+        drivetrain.moveFB(-5, -0.6);
+        //drivetrain.moveFB(2, 1);
+        //drivetrain.moveFB(-2, -1);
+        //intake.setState(Intake.IntakeState.OFF);
+        intake.setPower(0);
+        if ( detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){//idk what to do with this line -Grace
+            drivetrain.moveFB(-2, -1);
         }
-        drivetrain.moveFB(-3, .5);
+
+
+
+
+        //next glyph
+        //straighten();
+        pivot(3*Math.PI/4, false);
+        intake.setPower(-1);
+        drivetrain.moveFB(15, 0.5);
+        //straighten();
+
+        //pivot(Math.PI/10, true);
+        //pivot(Math.PI/10, false);
+        drivetrain.moveFB(5, 0.5);
+        //straighten();
+
+        drivetrain.moveFB(-10, -0.5);
+        drivetrain.moveFB(11,0.5);
+        drivetrain.moveFB(-23,-0.5);
+        if(detectedVuMark.equals(RelicRecoveryVuMark.CENTER)){
+            pivot(Math.PI/8,true);
+        }else if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
+            pivot(Math.PI/8,true);
+        }
+        intake.setPower(0);
+        ramp.setRampState(Ramp.RampState.OUT);
+        ramp.loop();
+        //drivetrain.moveFB(-1.5,-0.5);
+        drivetrain.moveFB(-.2,-.5);
+        //drivetrain.moveFB(-.2,-0.5);
+        //straighten();
+        ramp.setRampState(Ramp.RampState.OUT);
+        ramp.loop();
+        drivetrain.moveFB(1, .5);
 
     }
     public void goToPitLeft(int distance){
