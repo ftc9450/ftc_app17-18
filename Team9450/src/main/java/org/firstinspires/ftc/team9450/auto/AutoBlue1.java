@@ -28,7 +28,7 @@ public class AutoBlue1 extends LinearOpMode {
     Gyroscope imu;
     Ramp ramp;
     Intake intake;
-    int center=2;
+    int center=4;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -76,20 +76,22 @@ public class AutoBlue1 extends LinearOpMode {
         Thread.sleep(500);
 
         //deposit glyph
-        drivetrain.moveFB(12,0.3);
+        drivetrain.moveFB(12,0.5);
         straighten();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(center+7,1);
+            drivetrain.moveFB(center+7,0.5);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(0,1);
+            drivetrain.moveFB(1,0.5);
         }else{
-            drivetrain.moveFB(center,1);
+            drivetrain.moveFB(center,0.5);
         }
         pivot(Math.PI/4,true);
-        drivetrain.moveFB(1.5*Math.sqrt(2),1);
-        intake.setPower(.75);
-        Thread.sleep(1000);
-        drivetrain.moveFB(-2, -1);
+        drivetrain.moveFB(1.5*Math.sqrt(2)+4,0.6);
+        intake.setPower(.5);
+        //Thread.sleep(1000);
+        drivetrain.moveFB(-5, -0.6);
+        //drivetrain.moveFB(2, 1);
+        //drivetrain.moveFB(-2, -1);
         //intake.setState(Intake.IntakeState.OFF);
         intake.setPower(0);
         if ( detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
@@ -97,32 +99,38 @@ public class AutoBlue1 extends LinearOpMode {
         }
 
 
+
+
         //next glyph
         //straighten();
-        pivot(Math.PI/2, false);
+        pivot(3*Math.PI/4, false);
         intake.setPower(-1);
-        drivetrain.moveFB(15, 1);
+        drivetrain.moveFB(15, 0.5);
         //straighten();
 
         //pivot(Math.PI/10, true);
         //pivot(Math.PI/10, false);
-        drivetrain.moveFB(5, 1);
+        drivetrain.moveFB(5, 0.5);
         //straighten();
 
-        drivetrain.moveFB(-20, -1);
-        drivetrain.moveFB(25,1);
-        drivetrain.moveFB(-25,1);
-        intake.setPower(0);
-        pivot(Math.PI/2,true);
-        if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(7,1);
-        }else{
-            drivetrain.moveFB(-7,-1);
+        drivetrain.moveFB(-10, -0.5);
+        drivetrain.moveFB(11,0.5);
+        drivetrain.moveFB(-23,-0.5);
+        if(detectedVuMark.equals(RelicRecoveryVuMark.CENTER)){
+            pivot(Math.PI/8,true);
+        }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
+            pivot(Math.PI/8,true);
         }
-        pivot(Math.PI/4,false);
+        intake.setPower(0);
+        ramp.setRampState(Ramp.RampState.OUT);
+        ramp.loop();
+        //drivetrain.moveFB(-1.5,-0.5);
+        drivetrain.moveFB(-.2,-.5);
+        //drivetrain.moveFB(-.2,-0.5);
         //straighten();
         ramp.setRampState(Ramp.RampState.OUT);
         ramp.loop();
+        drivetrain.moveFB(1, .5);
         /*telemetry.addData("step", "next");
         pivot(3*Math.PI/4,false);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){

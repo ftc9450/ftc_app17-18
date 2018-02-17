@@ -87,7 +87,7 @@ public class AutoBlue2 extends LinearOpMode {
             //drivetrain.moveFB(center, 1);
             pivot(Math.PI/4, false);
         } else {
-            drivetrain.moveFB(center, 1);
+            drivetrain.moveFB(3, 1);
             pivot(Math.PI/4, true);
         }
         //drivetrain.moveFB(1, 1);
@@ -99,7 +99,12 @@ public class AutoBlue2 extends LinearOpMode {
         intake.setState(Intake.IntakeState.OUT);
         intake.loop();
         Thread.sleep(1000);
-        drivetrain.moveFB(-1, -1);
+        if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
+            drivetrain.moveFB(-.5, -1);
+        }else{
+            drivetrain.moveFB(-1, -1);
+        }
+        //drivetrain.moveFB(-1, -1);
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
         if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){

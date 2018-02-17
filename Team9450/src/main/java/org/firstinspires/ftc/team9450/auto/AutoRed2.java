@@ -28,7 +28,7 @@ public class AutoRed2 extends LinearOpMode {
     Gyroscope imu;
     Intake intake;
     int toBox=-5;
-    int center=2;
+    int center=1;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -81,15 +81,17 @@ public class AutoRed2 extends LinearOpMode {
         pivot(Math.PI/2,false);
 
         // deposit glyph
-        if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
+        if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
+            drivetrain.moveFB(1.5, 1);
             pivot(Math.PI/4,false);
-            drivetrain.moveFB(center-7, 1);
-        } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
+
+        } else if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
             pivot(Math.PI/4,true);
            // drivetrain.moveFB(center+7, 1);
         } else {
+            drivetrain.moveFB(.5, 1);
             pivot(Math.PI/4,false);
-            drivetrain.moveFB(center, 1);
+
         }
         //pivot(Math.PI/4,false);
         drivetrain.moveFB(1.5*Math.sqrt(2)+2,1);
