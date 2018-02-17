@@ -159,23 +159,25 @@ public class RelicArm extends Subsystem {
                 }else{standardpivot.setPosition(standardpivot.getPosition());}
                 break;
         }
-        switch (handState) {
+        /*switch (handState) {
             case OPEN:
-                if(standardhand == null){
+                if(crhand == null){
+                    standardhand.setPosition(standardhand.getPosition()+0.01);
                     crhand.setPower(1);
-                }else{standardhand.setPosition(standardhand.getPosition()+0.01);}
+                }else{crhand.setPower(1);}
                 break;
             case CLOSE:
-                if(standardhand == null) {
+                if(crhand == null) {
+                    standardhand.setPosition(standardhand.getPosition()-0.01);
                     crhand.setPower(-1);
-                }else{standardhand.setPosition(standardhand.getPosition()-0.01);}
+                }else{crhand.setPower(-1);}
                 break;
             case OFF:
             default:
-                if(standardhand == null){
-                    crhand.setPower(0);
-                }else{standardhand.setPosition(standardhand.getPosition());}
+                if(crhand == null){
+                    standardhand.setPosition(standardhand.getPosition());
+                }else{crhand.setPower(0);}
                 break;
-        }
+        }*/
     }
 }

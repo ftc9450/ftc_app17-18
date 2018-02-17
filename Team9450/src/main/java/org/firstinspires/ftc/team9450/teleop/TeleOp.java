@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.team9450.sensors.Gyroscope;
 import org.firstinspires.ftc.team9450.subsystems.Drivetrain;
@@ -31,6 +32,8 @@ public class TeleOp extends OpMode {
     RelicArm arm;
     Rudder rudder;
     SubsystemManager manager;
+    Servo hand;
+    Servo pivot;
 
     @Override
     public void init() {
@@ -38,10 +41,12 @@ public class TeleOp extends OpMode {
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         intake = new Intake(hardwareMap.dcMotor.get("intake_left"), hardwareMap.dcMotor.get("intake_right"));
         ramp = new Ramp(hardwareMap.servo.get("ramp"), hardwareMap.dcMotor.get("lift"), hardwareMap.digitalChannel.get("touch"));
-        arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.servo.get("pivot"), hardwareMap.crservo.get("hand"));
+        arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.servo.get("pivot"), hardwareMap.servo.get("hand"));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         manager = new SubsystemManager();
         manager.add(drive).add(intake).add(ramp).add(rudder);//.add(arm);
+        hand = hardwareMap.servo.get("hand");
+        pivot = hardwareMap.servo.get("pivot");
     }
 
     @Override
@@ -60,27 +65,32 @@ public class TeleOp extends OpMode {
         else if (gamepad1.left_bumper) intake.setState(Intake.IntakeState.OUT);
         else intake.setState(Intake.IntakeState.OFF);
 
-        if (gamepad2.left_trigger > 0.25) {
+        if (gamepad2.left_trigger > 0.25 && gamepad1.right_trigger > 0.25) {
+            ramp.setRampState(Ramp.RampState.LEVEL);
+        } else if (gamepad2.left_trigger > 0.5) {
             ramp.setRampState(Ramp.RampState.IN);
-        }  else if (gamepad2.right_trigger > 0.25) {
+        }  else if (gamepad2.right_trigger > 0.5) {
             ramp.setRampState(Ramp.RampState.OUT);
         }
 
         arm.setPower(-gamepad2.left_stick_y);
 
         if (gamepad2.right_stick_y < -0.5) {
-            arm.setStandardpivot(RelicArm.PivotState.OUT);
+            pivot.setPosition(pivot.getPosition()+0.01);
+            //arm.setStandardpivot(RelicArm.PivotState.OUT);
         } else if (gamepad2.right_stick_y > 0.5) {
-            arm.setStandardpivot(RelicArm.PivotState.IN);
+            pivot.setPosition(pivot.getPosition()-0.01);
+            //arm.setStandardpivot(RelicArm.PivotState.IN);
         }
 
-        if (gamepad2.a) {
+        /*if (gamepad2.a) {
             arm.setCrhand(RelicArm.HandState.OPEN);
         } else if (gamepad2.b) {
             arm.setCrhand(RelicArm.HandState.CLOSE);
-        } else if (arm.getHandState() == RelicArm.HandState.OPEN) {
-            arm.setCrhand(RelicArm.HandState.OFF);
-        }
+        }*/
+
+        if (gamepad2.a) hand.setPosition(hand.getPosition()+0.1);
+        else if (gamepad2.b) hand.setPosition(hand.getPosition()-0.1);
 
 
         if (gamepad2.dpad_up) {
