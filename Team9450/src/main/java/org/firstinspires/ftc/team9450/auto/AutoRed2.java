@@ -82,14 +82,13 @@ public class AutoRed2 extends LinearOpMode {
 
         // deposit glyph
         if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(1.5, 1);
+            drivetrain.moveFB(1.8, 1);
             pivot(Math.PI/4,false);
 
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
-            pivot(Math.PI/4,true);
+            pivot(Math.PI/3,false);
            // drivetrain.moveFB(center+7, 1);
         } else {
-            drivetrain.moveFB(.5, 1);
             pivot(Math.PI/4,false);
 
         }
