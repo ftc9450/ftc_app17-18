@@ -39,8 +39,8 @@ public class Rudder extends Subsystem {
         this.servo.setDirection(Servo.Direction.FORWARD);
         this.lateral.setDirection(Servo.Direction.FORWARD);
         this.color = colorSensor;
-        this.setRudderState(RudderState.IN);
-        this.setLateralState(LateralState.NEUTRAL);
+        this.setRudderState(RudderState.START);
+        this.setLateralState(LateralState.START);
     }
 
     /**
