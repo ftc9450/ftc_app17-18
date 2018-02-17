@@ -98,7 +98,7 @@ public class AutoBlue1 extends LinearOpMode {
 
 
         //next glyph
-        straighten();
+        //straighten();
         pivot(Math.PI/2, false);
         intake.setPower(-1);
         drivetrain.moveFB(15, 1);
@@ -107,10 +107,20 @@ public class AutoBlue1 extends LinearOpMode {
         //pivot(Math.PI/10, true);
         //pivot(Math.PI/10, false);
         drivetrain.moveFB(5, 1);
-        straighten();
+        //straighten();
 
         drivetrain.moveFB(-20, -1);
-        straighten();
+        drivetrain.moveFB(25,1);
+        drivetrain.moveFB(-25,1);
+        intake.setPower(0);
+        pivot(Math.PI/2,true);
+        if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
+            drivetrain.moveFB(7,1);
+        }else{
+            drivetrain.moveFB(-7,-1);
+        }
+        pivot(Math.PI/4,false);
+        //straighten();
         ramp.setRampState(Ramp.RampState.OUT);
         ramp.loop();
         /*telemetry.addData("step", "next");

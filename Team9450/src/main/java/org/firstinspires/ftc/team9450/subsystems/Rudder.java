@@ -105,8 +105,10 @@ public class Rudder extends Subsystem {
                 break;
             case START:
                 lateral.setPosition(Constants.Rudder.LATERALSTART);
+                break;
             case NEUTRAL:
                 lateral.setPosition(Constants.Rudder.LATERALNEUTRAL);
+                break;
             default:
                 lateral.setPosition(lateral.getPosition());
         }
