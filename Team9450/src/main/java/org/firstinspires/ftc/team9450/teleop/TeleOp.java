@@ -44,7 +44,7 @@ public class TeleOp extends OpMode {
         arm = new RelicArm(hardwareMap.dcMotor.get("arm"), hardwareMap.servo.get("pivot"), hardwareMap.servo.get("hand"));
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM),hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         manager = new SubsystemManager();
-        manager.add(drive).add(intake).add(ramp).add(rudder);//.add(arm);
+        manager.add(drive).add(ramp).add(rudder);//.add(arm);
         hand = hardwareMap.servo.get("hand");
         pivot = hardwareMap.servo.get("pivot");
     }
@@ -61,24 +61,25 @@ public class TeleOp extends OpMode {
         driveSignal = new DriveSignal(v.x + v.y + z, -v.x + v.y + z, -v.x + v.y - z, v.x + v.y - z);
         drive.setOpenLoop(driveSignal);
 
-        if (gamepad1.right_bumper) intake.setState(Intake.IntakeState.IN);
-        else if (gamepad1.left_bumper) intake.setState(Intake.IntakeState.OUT);
-        else intake.setState(Intake.IntakeState.OFF);
+        if (gamepad1.right_bumper) intake.setPower(-1);
+        else if (gamepad1.left_bumper) intake.setPower(1);
+        else if (gamepad2.right_bumper) intake.setPower(-0.5);
+        else if (gamepad2.left_bumper) intake.setPower(0.5);
+        else intake.setPower(0);
 
-        if (gamepad2.left_trigger > 0.25 && gamepad1.right_trigger > 0.25) {
+        if (gamepad2.left_trigger > 0.25 && gamepad2.right_trigger > 0.25) {
             ramp.setRampState(Ramp.RampState.LEVEL);
         } else if (gamepad2.left_trigger > 0.5) {
             ramp.setRampState(Ramp.RampState.IN);
         }  else if (gamepad2.right_trigger > 0.5) {
             ramp.setRampState(Ramp.RampState.OUT);
         }
-
         arm.setPower(-gamepad2.left_stick_y);
 
-        if (gamepad2.right_stick_y < -0.5) {
+        if (gamepad2.right_stick_y < -0.5&&pivot.getPosition()<0.9) {
             pivot.setPosition(pivot.getPosition()+0.01);
             //arm.setStandardpivot(RelicArm.PivotState.OUT);
-        } else if (gamepad2.right_stick_y > 0.5) {
+        } else if (gamepad2.right_stick_y > 0.5&&pivot.getPosition()>0.1) {
             pivot.setPosition(pivot.getPosition()-0.01);
             //arm.setStandardpivot(RelicArm.PivotState.IN);
         }

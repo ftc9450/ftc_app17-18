@@ -45,6 +45,7 @@ public class Constants {
         public static final int MAX = 4600;
         public static final double IN=1.0;
         public static final double OUT=0.3;
+        public static final double LEVEL = 0.94;
     }
     public class Setup {
         public static final String VUFORIA_KEY = "AYwm7lb/////AAAAGeQI9HT4B0R2unLNBq/DsId49BJr71nKGdfP8X8fnmtD0Jna47KLigPBytLYBjzOIl6uCfYWbIXHc3FqoabxIITohKJ4VvPispe5kGGFFJyQEIifEL1Bc511jOl00pyY2Tr/YOGwjGk7lSXQ0QrScHVaiwIOM3mUUlsv9Ethn1OCZB2AVhT91gnrUKryxBwfLCGjqpmYdWOVDsJTloDiowWMez0U42S9sILVevNguQXZqTr1uURaUx5Voy+2N6FVK5p4dvraac9+LD6YskUCLqWsK2XVruCpCsRWZxfrqylNyni2ll5AW3Mekw/hSSzfjx70eyKXyaLRiOj4UhHKCjeqWjFCePt0Vb59tyqd9KhS";
@@ -71,7 +72,7 @@ public class Constants {
         public static final String RUDDERTOP="rudder_out";
         public static final String RUDDERBOTTOM="rudder_lat";
         public static final String COLOR="color";
-        public static final double RUDDER_IN=0.26;
+        public static final double RUDDER_IN=0.187;
         public static final double RUDDER_OUT=0.85;
         public static final double RUDDER_START=0;
     }

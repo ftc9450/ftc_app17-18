@@ -50,6 +50,7 @@ public class AutoRed2 extends LinearOpMode {
         Thread.sleep(500);
 
         // knock jewel off
+
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.loop();
         Thread.sleep(1000);
@@ -73,6 +74,7 @@ public class AutoRed2 extends LinearOpMode {
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
         Thread.sleep(500);
+
 
         drivetrain.moveFB(-12,-0.3);
         straighten();

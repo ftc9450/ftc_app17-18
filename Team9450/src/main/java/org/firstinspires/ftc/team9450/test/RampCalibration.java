@@ -27,9 +27,10 @@ public class RampCalibration extends OpMode{
 
     @Override
     public void loop() {
+        double a=ramp.getPosition();
         if(gamepad1.start){lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);}
-        if(gamepad1.b){ramp.setPosition(ramp.getPosition()+0.01);}
-        if(gamepad1.a && !touch.getState()){ramp.setPosition(ramp.getPosition()-0.01);}
+        if(gamepad1.b){ramp.setPosition(a+0.01);}
+        else if(gamepad1.a && touch.getState()){ramp.setPosition(a-0.01);}
         if (gamepad1.x) {
             lift.setPower(0.5);
         }

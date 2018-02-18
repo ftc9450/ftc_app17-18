@@ -47,8 +47,6 @@ public class AutoBlue1 extends LinearOpMode {
         detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
         telemetry.update();
-        drivetrain.enableAndResetEncoders();
-        Thread.sleep(500);
 
         // knock jewel off
         rudder.setRudderState(Rudder.RudderState.IN);
@@ -76,14 +74,14 @@ public class AutoBlue1 extends LinearOpMode {
         Thread.sleep(500);
 
         //deposit glyph
-        drivetrain.moveFB(12,0.5);
+        drivetrain.moveFB(12,0.7);
         straighten();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(center+7,0.5);
+            drivetrain.moveFB(center+7,0.7);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(1,0.5);
+            drivetrain.moveFB(1,0.7);
         }else{
-            drivetrain.moveFB(center,0.5);
+            drivetrain.moveFB(center,0.7);
         }
         pivot(Math.PI/4,true);
         drivetrain.moveFB(1.5*Math.sqrt(2)+4,0.6);
@@ -105,32 +103,39 @@ public class AutoBlue1 extends LinearOpMode {
         //straighten();
         pivot(3*Math.PI/4, false);
         intake.setPower(-1);
-        drivetrain.moveFB(15, 0.5);
+        drivetrain.moveFB(18, 0.7);
         //straighten();
 
         //pivot(Math.PI/10, true);
         //pivot(Math.PI/10, false);
-        drivetrain.moveFB(5, 0.5);
+        drivetrain.moveFB(5, 0.7);
         //straighten();
 
-        drivetrain.moveFB(-10, -0.5);
-        drivetrain.moveFB(11,0.5);
-        drivetrain.moveFB(-23,-0.5);
+        drivetrain.moveFB(-10, -0.7);
+        drivetrain.moveFB(16,0.7);
+        drivetrain.moveFB(-26,-0.7);
         if(detectedVuMark.equals(RelicRecoveryVuMark.CENTER)){
             pivot(Math.PI/8,true);
+            drivetrain.moveFB(-2,-0.5);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
             pivot(Math.PI/8,true);
+            drivetrain.moveFB(-2,-0.5);
         }
         intake.setPower(0);
         ramp.setRampState(Ramp.RampState.OUT);
         ramp.loop();
         //drivetrain.moveFB(-1.5,-0.5);
-        drivetrain.moveFB(-.2,-.5);
+        drivetrain.moveFB(-1,-.5);
         //drivetrain.moveFB(-.2,-0.5);
         //straighten();
         ramp.setRampState(Ramp.RampState.OUT);
         ramp.loop();
-        drivetrain.moveFB(1, .5);
+        ramp.setRampState(Ramp.RampState.IN);
+        drivetrain.moveFB(3, .5);
+        drivetrain.moveFB(-3, -.5);
+        drivetrain.moveFB(1,0.75);
+        ramp.setRampState(Ramp.RampState.IN);
+        ramp.loop();
         /*telemetry.addData("step", "next");
         pivot(3*Math.PI/4,false);
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
@@ -150,6 +155,7 @@ public class AutoBlue1 extends LinearOpMode {
             dropGlyphs();
         }
         drivetrain.moveFB(-3, .5);*/
+        //intake.setPower(0);
 
     }
     public void goToPitLeft(int distance){

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.team9450.test;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -22,14 +22,36 @@ import org.firstinspires.ftc.team9450.util.Vector2D;
  */
 
 @TeleOp
-public class DriveTest extends OpMode {
+public class DriveTest extends LinearOpMode {
     private Drivetrain drive;
     private Gyroscope imu;
     public DriveTest(HardwareMap h, Gamepad g){
         hardwareMap=h;
         gamepad1=g;
     }
-    @Override
+
+    public void runOpMode() throws InterruptedException {
+        waitForStart();
+        drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        while (opModeIsActive()) {
+            double x = gamepad1.left_stick_x;
+            double y = -gamepad1.left_stick_y;
+            float z = gamepad1.right_stick_x;
+
+            DriveSignal signal = new DriveSignal(0, 0, 0, 0);
+            if (Math.abs(z) < 0.1) {
+                signal = DriveSignal.translate(Math.atan2(y,x),Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
+            } else {
+                signal = new DriveSignal(x + y + z, -x + y + z, -x + y - z, x + y - z);
+            }
+
+            drive.setOpenLoop(signal);
+            drive.loop();
+        }
+    }
+
+    /*@Override
     public void init() {
         drive = new Drivetrain(hardwareMap.dcMotor.get(Constants.Drivetrain.LF), hardwareMap.dcMotor.get(Constants.Drivetrain.LB), hardwareMap.dcMotor.get(Constants.Drivetrain.RF), hardwareMap.dcMotor.get(Constants.Drivetrain.RB));
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
@@ -50,5 +72,5 @@ public class DriveTest extends OpMode {
 
         drive.setOpenLoop(signal);
         drive.loop();
-    }
+    }*/
 }

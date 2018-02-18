@@ -61,14 +61,22 @@ public class Ramp extends Subsystem {
     @Override
     public void loop() {
         switch (rampState) {
+            case LEVEL:
+                if (!touch.getState()) {
+                    servo.setPosition(servo.getPosition());
+                } else {
+                    servo.setPosition(Constants.Ramp.LEVEL);
+                }
+                break;
             case IN:
-                servo.setPosition(Constants.Ramp.IN);
+                if (!touch.getState()) {
+                    servo.setPosition(servo.getPosition());
+                } else {
+                    servo.setPosition(Constants.Ramp.IN);
+                }
                 break;
             case OUT:
                 servo.setPosition(Constants.Ramp.OUT);
-                if (touch.getState()) {
-                    servo.setPosition(servo.getPosition());
-                }
                 break;
         }
         switch (liftState) {
