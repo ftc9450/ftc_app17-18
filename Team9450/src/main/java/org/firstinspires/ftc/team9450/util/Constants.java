@@ -33,9 +33,9 @@ public class Constants {
     }
     public class RampLifter{
         public static final double power=1;
-        public static final double INPOS=0.72;
+        public static final double INPOS=0;
         public static final double OUTPOS=1;
-        public static final double LEVELPOS=0.72;
+        public static final double LEVELPOS=0;
         public static final int maxPos=5500;
         public static final int minPos=0;
     }
