@@ -11,6 +11,8 @@ public class DriveSignal {
     public double leftBackMotor;
     public double rightBackMotor;
     public boolean breakMode;
+    public static DriveSignal buffer[] = new DriveSignal[20];
+    public static int n = 0;
 
     public DriveSignal(double lf, double lb, double rf, double rb) {
         this(lf,lb,rf,rb, false);
@@ -48,13 +50,33 @@ public class DriveSignal {
     }
     public static DriveSignal NEUTRAL = new DriveSignal(0, 0, 0, 0);
     public static DriveSignal BRAKE = new DriveSignal(0, 0, 0, 0, true);
-
+    public void addSignal(DriveSignal signal) {
+        buffer[n] = signal;
+        n = (n + 1) % 20;
+    }
+    public void changeSignal(DriveSignal signal) {
+        this.leftFrontMotor = signal.leftFrontMotor;
+        this.leftBackMotor = signal.leftBackMotor;
+        this.rightFrontMotor = signal.rightFrontMotor;
+        this.rightBackMotor = signal.rightFrontMotor;
+        addSignal(signal);
+    }
+    public DriveSignal value() {
+        double lf = 0, lb = 0, rf = 0, rb = 0;
+        for (DriveSignal sig:buffer) {
+            lf += sig.leftFrontMotor;
+            lb += sig.leftBackMotor;
+            rf += sig.rightFrontMotor;
+            rb += sig.rightBackMotor;
+        }
+        return new DriveSignal(lf/20, lb/20, rf/20, rb/20);
+    }
     @Override
     public String toString() {
         return "LF: " + leftFrontMotor + ",LB: " +leftBackMotor+", RF: " + rightFrontMotor+", RB: "+rightBackMotor;
     }
     public boolean isZero(){
-        return leftFrontMotor==0&&leftBackMotor==0&&rightFrontMotor==0&&rightBackMotor==0;
+        return leftFrontMotor == 0 && leftBackMotor == 0 && rightFrontMotor == 0 && rightBackMotor == 0;
     }
     public DriveSignal scale(double power){
         this.leftBackMotor *= power;
