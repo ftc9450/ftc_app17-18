@@ -43,7 +43,7 @@ public class Constants {
         public static final String RAMP = "ramp";
         public static final String LIFT = "lift";
         public static final int MAX = 4600;
-        public static final double IN = 0.3;
+        public static final double IN = 0.22;
         public static final double OUT = 0.8;
         public static final double LEVEL = 0.3;
     }
