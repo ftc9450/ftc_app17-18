@@ -6,10 +6,10 @@ package org.firstinspires.ftc.team9450.util;
  */
 
 public class DriveSignal {
-    public double leftFrontMotor;
-    public double rightFrontMotor;
-    public double leftBackMotor;
-    public double rightBackMotor;
+    public double leftFrontMotor=0;
+    public double rightFrontMotor=0;
+    public double leftBackMotor=0;
+    public double rightBackMotor=0;
     public boolean breakMode;
     public static DriveSignal buffer[] = new DriveSignal[20];
     public static int n = 0;

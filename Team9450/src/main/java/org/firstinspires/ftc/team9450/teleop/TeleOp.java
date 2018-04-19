@@ -59,7 +59,8 @@ public class TeleOp extends OpMode {
         v.y = -gamepad1.left_stick_y + (gamepad1.dpad_down? -0.5: gamepad1.dpad_up? 0.5:0);
         float z = gamepad1.right_stick_x + (gamepad1.right_trigger - gamepad1.left_trigger)/2;
         driveSignal = new DriveSignal(v.x + v.y + z, -v.x + v.y + z, -v.x + v.y - z, v.x + v.y - z);
-        drive.setOpenLoop(driveSignal);
+        driveSignal.changeSignal(driveSignal);
+        drive.setOpenLoop(driveSignal.value());
 
         if (gamepad1.right_bumper) intake.setPower(-1);
         else if (gamepad1.left_bumper) intake.setPower(1);
