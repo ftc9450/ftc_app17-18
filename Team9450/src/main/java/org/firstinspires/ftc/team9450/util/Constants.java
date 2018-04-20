@@ -9,7 +9,7 @@ public class Constants {
         public static final double HIGH_POWER = 1;
         public static final double LOW_POWER = 0.25;
         public static final int STRAFEINCH = 135;
-        public static final int INCH = 91;//1120 cpr for neverest 40
+        public static final int INCH = 40;//1120 cpr for neverest 40
         public static final int DEGREE = 18;
         public static final String LF="frontLeft";
         public static final String LB="backLeft";

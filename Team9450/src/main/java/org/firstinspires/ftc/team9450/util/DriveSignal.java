@@ -6,13 +6,21 @@ package org.firstinspires.ftc.team9450.util;
  */
 
 public class DriveSignal {
-    public double leftFrontMotor=0;
-    public double rightFrontMotor=0;
-    public double leftBackMotor=0;
-    public double rightBackMotor=0;
+    public double leftFrontMotor;
+    public double rightFrontMotor;
+    public double leftBackMotor;
+    public double rightBackMotor;
     public boolean breakMode;
     public static DriveSignal buffer[] = new DriveSignal[20];
     public static int n = 0;
+
+    public DriveSignal(){
+        this.leftFrontMotor = 0;
+        this.leftBackMotor=0;
+        this.rightFrontMotor = 0;
+        this.rightBackMotor=0;
+        this.breakMode = breakMode;
+    }
 
     public DriveSignal(double lf, double lb, double rf, double rb) {
         this(lf,lb,rf,rb, false);
@@ -64,10 +72,14 @@ public class DriveSignal {
     public DriveSignal value() {
         double lf = 0, lb = 0, rf = 0, rb = 0;
         for (DriveSignal sig:buffer) {
-            lf += sig.leftFrontMotor;
-            lb += sig.leftBackMotor;
-            rf += sig.rightFrontMotor;
-            rb += sig.rightBackMotor;
+            try {
+                lf += sig.leftFrontMotor;
+                lb += sig.leftBackMotor;
+                rf += sig.rightFrontMotor;
+                rb += sig.rightBackMotor;
+            }catch(Exception e){
+                sig=new DriveSignal();
+            }
         }
         return new DriveSignal(lf/20, lb/20, rf/20, rb/20);
     }

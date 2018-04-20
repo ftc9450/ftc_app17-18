@@ -92,7 +92,7 @@ public class Drivetrain extends Subsystem {
         //leftBack.setTargetPosition(sig);
         //rightFront.setTargetPosition(sig);
         //rightBack.setTargetPosition(sig);
-        setPower(new DriveSignal(power, power, power, power));
+        setPower(new DriveSignal(power*0.8, power*0.8, power, power));
         try{while(Math.abs(leftFront.getCurrentPosition()+rightFront.getCurrentPosition())/2 < Math.abs(sig));}catch (Exception e){}
         setPower(new DriveSignal(0,0,0,0));
     }

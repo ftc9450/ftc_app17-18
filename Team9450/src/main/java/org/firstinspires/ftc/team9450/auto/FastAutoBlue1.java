@@ -41,26 +41,34 @@ public class FastAutoBlue1 extends LinearOpMode {
         rudder = new Rudder(hardwareMap.servo.get(Constants.Rudder.RUDDERTOP), hardwareMap.servo.get(Constants.Rudder.RUDDERBOTTOM), hardwareMap.colorSensor.get(Constants.Rudder.COLOR));
         telemetry.addData("status","ramp");telemetry.update();
         ramp=new Ramp(hardwareMap.servo.get(Constants.Ramp.RAMP),hardwareMap.dcMotor.get(Constants.Ramp.LIFT),hardwareMap.digitalChannel.get("touch"));
-        telemetry.addData("status","vuforia");telemetry.update();
-        vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
-        telemetry.addData("status","gyro");telemetry.update();
-        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        //telemetry.addData("status","vuforia");telemetry.update();
+        //vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
+        //telemetry.addData("status","gyro");telemetry.update();
+        //imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         telemetry.addData("status","intake");telemetry.update();
         intake = new Intake(hardwareMap.dcMotor.get(Constants.Intake.LEFT), hardwareMap.dcMotor.get(Constants.Intake.RIGHT));
 
         //detect vumark
         //detect vumark
-        detectedVuMark = vuforia.getVuMark();
+        /*detectedVuMark = vuforia.getVuMark();
         telemetry.addData("vumark", detectedVuMark);
-        telemetry.update();
+        telemetry.update();*/
 
         // knock jewel off
         rudder.setRudderState(Rudder.RudderState.IN);
         rudder.loop();
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
+        vuforia = new Vuforia(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
+        detectedVuMark = vuforia.getVuMark();
+        telemetry.addData("vumark", detectedVuMark);
+        telemetry.update();
+
         rudder.setLateralState(Rudder.LateralState.NEUTRAL);
         rudder.loop();
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
+
+        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+
         rudder.setRudderState(Rudder.RudderState.OUT);
         rudder.loop();
         Thread.sleep(1000);
@@ -80,14 +88,14 @@ public class FastAutoBlue1 extends LinearOpMode {
         Thread.sleep(500);
 
         //deposit glyph
-        drivetrain.moveFB(12,0.7);
+        drivetrain.moveFB(12,0.6);
         straighten();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
-            drivetrain.moveFB(center+7,0.7);
+            drivetrain.moveFB(center+7,0.6);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(1,0.7);
+            drivetrain.moveFB(1,0.6);
         }else{
-            drivetrain.moveFB(center,0.7);
+            drivetrain.moveFB(center,0.6);
         }
         pivot(Math.PI/4,true);
         drivetrain.moveFB(1.5*Math.sqrt(2)+4,0.6);
@@ -134,9 +142,6 @@ public class FastAutoBlue1 extends LinearOpMode {
         drivetrain.moveFB(-1,-.6);
         //drivetrain.moveFB(-.2,-0.5);
         //straighten();
-        ramp.setRampState(Ramp.RampState.OUT);
-        ramp.loop();
-        ramp.setRampState(Ramp.RampState.IN);
         drivetrain.moveFB(3, .5);
         drivetrain.moveFB(-3, -.5);
         drivetrain.moveFB(1,0.75);
