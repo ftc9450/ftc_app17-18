@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team9450.auto;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -19,6 +20,7 @@ import org.firstinspires.ftc.team9450.util.Constants;
  * Created by Grace on 1/24/2018.
  */
 @Autonomous
+@Disabled
 public class AutoBlue2 extends LinearOpMode {
     Vuforia vuforia;
     RelicRecoveryVuMark detectedVuMark;
