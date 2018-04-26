@@ -28,7 +28,7 @@ public class RecalAutoBlue2 extends LinearOpMode {
     Gyroscope imu;
     Intake intake;
     int toBox=0;
-    int center=2;
+    int center=0;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -77,21 +77,23 @@ public class RecalAutoBlue2 extends LinearOpMode {
         Thread.sleep(500);
 
 
-        drivetrain.moveFB(12,0.6);
+        drivetrain.moveFB(15,0.6);
         straighten();
         //drivetrain.moveFB(toBox,0.6);
-        pivot(Math.PI/2, false);
+        //pivot(Math.PI/2, false);
 
         // deposit glyph
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
-            drivetrain.moveFB(center+3, 0.6);
-            pivot(Math.PI/4, true);
-        } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
-            drivetrain.moveFB(center-3, -0.6);
-            pivot(Math.PI/4, false);
-        } else {
+            pivot(Math.PI/2, false);
             drivetrain.moveFB(center, 0.6);
             pivot(Math.PI/4, true);
+        } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
+            pivot(Math.PI/2, false);
+            drivetrain.moveFB(center-3, -0.6);
+            pivot(Math.PI/4, true);
+        } else {
+            //drivetrain.moveFB(center, 0.6);
+            pivot(Math.PI/6, false);
         }
         //drivetrain.moveFB(1, 1);
         // pivot(Math.PI/4, true);
@@ -110,6 +112,7 @@ public class RecalAutoBlue2 extends LinearOpMode {
         //drivetrain.moveFB(-1, -1);
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
+        drivetrain.moveFB(-2,-0.5);
 
 
     }

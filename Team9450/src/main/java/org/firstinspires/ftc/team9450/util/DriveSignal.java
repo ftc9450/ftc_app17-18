@@ -11,7 +11,7 @@ public class DriveSignal {
     public double leftBackMotor;
     public double rightBackMotor;
     public boolean breakMode;
-    public static DriveSignal buffer[] = new DriveSignal[20];
+    public static DriveSignal buffer[] = new DriveSignal[5];
     public static int n = 0;
 
     public DriveSignal(){
@@ -60,17 +60,16 @@ public class DriveSignal {
     public static DriveSignal BRAKE = new DriveSignal(0, 0, 0, 0, true);
     public void addSignal(DriveSignal signal) {
         buffer[n] = signal;
-        n = (n + 1) % 20;
+        n = (n + 1) % 5;
     }
     public void changeSignal(DriveSignal signal) {
         this.leftFrontMotor = signal.leftFrontMotor;
         this.leftBackMotor = signal.leftBackMotor;
         this.rightFrontMotor = signal.rightFrontMotor;
-        this.rightBackMotor = signal.rightFrontMotor;
-        addSignal(signal);
+        this.rightBackMotor = signal.rightBackMotor;
     }
     public DriveSignal value() {
-        double lf = 0, lb = 0, rf = 0, rb = 0;
+        /*double lf = 0, lb = 0, rf = 0, rb = 0;
         for (DriveSignal sig:buffer) {
             try {
                 lf += sig.leftFrontMotor;
@@ -80,8 +79,8 @@ public class DriveSignal {
             }catch(Exception e){
                 sig=new DriveSignal();
             }
-        }
-        return new DriveSignal(lf/20, lb/20, rf/20, rb/20);
+        }*/
+        return new DriveSignal(this.leftFrontMotor, this.leftBackMotor, this.rightFrontMotor, this.rightBackMotor);
     }
     @Override
     public String toString() {

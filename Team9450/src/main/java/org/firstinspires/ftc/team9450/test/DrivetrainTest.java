@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * @author Grace
  */
 @TeleOp
-@Disabled
 public class DrivetrainTest extends OpMode {
     DcMotor leftFront = null;
     DcMotor leftBack=null;

@@ -164,7 +164,7 @@ public class RecalAutoRed1 extends LinearOpMode {
         //straighten();
         drivetrain.moveFB(3, .5);
         drivetrain.moveFB(-3, -.5);
-        drivetrain.moveFB(1,0.6);
+        drivetrain.moveFB(2,0.6);
         ramp.setRampState(Ramp.RampState.IN);
         ramp.loop();
 

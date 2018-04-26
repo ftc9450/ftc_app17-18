@@ -108,6 +108,7 @@ public class RecalAutoRed2 extends LinearOpMode {
         //drivetrain.moveFB(-1, -1);
         intake.setState(Intake.IntakeState.OFF);
         intake.loop();
+        drivetrain.moveFB(-2,-0.5);
 
 
     }

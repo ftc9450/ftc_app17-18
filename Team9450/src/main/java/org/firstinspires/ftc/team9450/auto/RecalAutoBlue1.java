@@ -25,7 +25,7 @@ public class RecalAutoBlue1 extends LinearOpMode {
     Gyroscope imu;
     Ramp ramp;
     Intake intake;
-    int center=3;//do not make less than 3
+    int center=1;//do not make less than 3
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -113,12 +113,12 @@ public class RecalAutoBlue1 extends LinearOpMode {
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(center+3,0.6);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(center-3,0.6);
+            //drivetrain.moveFB(center-3,0.6);
         }else{
             drivetrain.moveFB(center,0.6);
         }
-        pivot(Math.PI/4,true);
-        drivetrain.moveFB(1.5*Math.sqrt(2)+4,0.6);
+        pivot(Math.PI/3,true);
+        drivetrain.moveFB(1.5*Math.sqrt(2)+9,0.6);
         intake.setPower(.5);
         //Thread.sleep(1000);
         drivetrain.moveFB(-3, -0.6);
@@ -146,8 +146,8 @@ public class RecalAutoBlue1 extends LinearOpMode {
         //straighten();
 
         drivetrain.moveFB(-10, -0.6);
-        drivetrain.moveFB(16,0.6);
-        drivetrain.moveFB(-37,-0.6);
+        drivetrain.moveFB(14,0.6);
+        drivetrain.moveFB(-39,-0.6);
         if(detectedVuMark.equals(RelicRecoveryVuMark.CENTER)){
             pivot(Math.PI/8,true);
             drivetrain.moveFB(-2,-0.5);
@@ -164,13 +164,13 @@ public class RecalAutoBlue1 extends LinearOpMode {
         //straighten();
         drivetrain.moveFB(3, .5);
         drivetrain.moveFB(-3, -.5);
-        drivetrain.moveFB(1,0.6);
+        drivetrain.moveFB(2,0.6);
         ramp.setRampState(Ramp.RampState.IN);
         ramp.loop();
 
     }
     public void pivot(double angle, boolean cc) {
-        double Q = Math.PI/15;
+        double Q = Math.PI/25;
         imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
         if (cc) {
             drivetrain.setPower(new double[]{-0.3, -0.3, 0.3, 0.3});
@@ -180,6 +180,22 @@ public class RecalAutoBlue1 extends LinearOpMode {
         while (opModeIsActive() && Math.abs(imu.getAngle()) < angle - Q) {}
         drivetrain.setPower(0);
     }
+    /*
+    public void pivot(double angle, boolean cc) {
+        double Q = Math.PI/20;
+        double target=imu.getAngle();
+//        imu = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"));
+        if (cc) {
+            target+=angle;
+            drivetrain.setPower(new double[]{-0.3, -0.3, 0.3, 0.3});
+        } else {
+            target-=angle;
+            drivetrain.setPower(new double[]{0.3, 0.3, -0.3, -0.3});
+        }
+        //while (opModeIsActive() && (Math.abs(imu.getAngle()) < angle - Q) {}
+        while (opModeIsActive() && (imu.getAngle() < angle - Q||imu.getAngle() > angle + Q)) {}
+        drivetrain.setPower(0);
+    }*/
     public void straighten() {
         if(imu.getAngle() > 0){
             drivetrain.setPower(new double[]{0.3,0.3,-0.3,-0.3});

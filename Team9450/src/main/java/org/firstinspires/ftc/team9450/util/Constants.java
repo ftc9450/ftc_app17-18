@@ -43,9 +43,9 @@ public class Constants {
         public static final String RAMP = "ramp";
         public static final String LIFT = "lift";
         public static final int MAX = 4600;
-        public static final double IN = 0.22;
+        public static final double IN = 0.26;
         public static final double OUT = 0.8;
-        public static final double LEVEL = 0.3;
+        public static final double LEVEL = IN;
     }
     public class Setup {
         public static final String VUFORIA_KEY = "AYwm7lb/////AAAAGeQI9HT4B0R2unLNBq/DsId49BJr71nKGdfP8X8fnmtD0Jna47KLigPBytLYBjzOIl6uCfYWbIXHc3FqoabxIITohKJ4VvPispe5kGGFFJyQEIifEL1Bc511jOl00pyY2Tr/YOGwjGk7lSXQ0QrScHVaiwIOM3mUUlsv9Ethn1OCZB2AVhT91gnrUKryxBwfLCGjqpmYdWOVDsJTloDiowWMez0U42S9sILVevNguQXZqTr1uURaUx5Voy+2N6FVK5p4dvraac9+LD6YskUCLqWsK2XVruCpCsRWZxfrqylNyni2ll5AW3Mekw/hSSzfjx70eyKXyaLRiOj4UhHKCjeqWjFCePt0Vb59tyqd9KhS";
@@ -65,7 +65,7 @@ public class Constants {
         return f.floatValue();
     }
     public class Rudder{
-        public static final double LATERALFORWARD=0.75;
+        public static final double LATERALFORWARD=0.85;
         public static final double LATERALNEUTRAL=0.45;
         public static final double LATERALBACKWARD=0.25;
         public static final double LATERALSTART=0;
