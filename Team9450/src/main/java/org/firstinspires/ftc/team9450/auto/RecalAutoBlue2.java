@@ -86,23 +86,22 @@ public class RecalAutoBlue2 extends LinearOpMode {
         if (detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)) {
             pivot(Math.PI/2, false);
             drivetrain.moveFB(center, 0.6);
-            pivot(Math.PI/4, true);
+            pivot(Math.PI/3, true);
         } else if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)) {
             pivot(Math.PI/2, false);
             drivetrain.moveFB(center-3, -0.6);
             pivot(Math.PI/4, true);
         } else {
             //drivetrain.moveFB(center, 0.6);
-            pivot(Math.PI/6, false);
+            pivot(Math.PI/8, false);
         }
         //drivetrain.moveFB(1, 1);
         // pivot(Math.PI/4, true);
 
         //drive forward if necessary
-        drivetrain.moveFB(1.5*Math.sqrt(2),0.6);
+        drivetrain.moveFB(1.5*Math.sqrt(2)+1,0.6);
         Thread.sleep(1000);
-        intake.setState(Intake.IntakeState.OUT);
-        intake.loop();
+        intake.setPower(-1);
         Thread.sleep(1000);
         if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
             drivetrain.moveFB(-.5, -0.6);
@@ -110,10 +109,19 @@ public class RecalAutoBlue2 extends LinearOpMode {
             drivetrain.moveFB(-1, -0.6);
         }
         //drivetrain.moveFB(-1, -1);
-        intake.setState(Intake.IntakeState.OFF);
-        intake.loop();
+        intake.setPower(0);
         drivetrain.moveFB(-2,-0.5);
 
+        /*drivetrain.moveLR(3, -0.6);
+        pivot(Math.PI/4, false);
+        drivetrain.moveFB(6, 0.6);
+        drivetrain.moveFB(2, -0.6);
+        pivot(Math.PI, true);
+        drivetrain.moveFB(5, 0.6);
+        intake.setPower(-1);
+        Thread.sleep(1000);
+        intake.setPower(0);
+        drivetrain.moveLR(4, 0.6);*/
 
     }
     public void pivot(double angle, boolean cc) {
