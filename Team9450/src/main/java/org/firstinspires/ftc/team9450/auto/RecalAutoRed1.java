@@ -25,7 +25,7 @@ public class RecalAutoRed1 extends LinearOpMode {
     Gyroscope imu;
     Ramp ramp;
     Intake intake;
-    int center=-12;//do not make less than 3
+    int center=-17;//do not make less than 3
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -112,12 +112,14 @@ public class RecalAutoRed1 extends LinearOpMode {
         straighten();
         if(detectedVuMark.equals(RelicRecoveryVuMark.RIGHT)){
             drivetrain.moveFB(center+3,-0.6);
+            pivot(Math.PI/3,true);
         }else if(detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
-            drivetrain.moveFB(center-3,-0.6);
+            drivetrain.moveFB(center,-0.6);
+            pivot(Math.PI/2.5,true);
         }else{
             drivetrain.moveFB(center,-0.6);
+            pivot(Math.PI/3.75,true);
         }
-        pivot(Math.PI/4,true);
         drivetrain.moveFB(1.5*Math.sqrt(2)+4,0.6);
         intake.setPower(.5);
         //Thread.sleep(1000);

@@ -101,7 +101,7 @@ public class RecalAutoBlue2 extends LinearOpMode {
         //drive forward if necessary
         drivetrain.moveFB(1.5*Math.sqrt(2)+1,0.6);
         Thread.sleep(1000);
-        intake.setPower(-1);
+        intake.setPower(1);
         Thread.sleep(1000);
         if (detectedVuMark.equals(RelicRecoveryVuMark.LEFT)){
             drivetrain.moveFB(-.5, -0.6);
