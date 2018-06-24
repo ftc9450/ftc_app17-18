@@ -17,6 +17,7 @@ import org.firstinspires.ftc.team9450.util.Constants;
  * Created by Grace on 1/24/2018.
  */
 @Autonomous
+@Deprecated
 public class RecalAutoBlue1 extends LinearOpMode {
     Vuforia vuforia;
     RelicRecoveryVuMark detectedVuMark;

@@ -22,6 +22,7 @@ import org.firstinspires.ftc.team9450.util.DriveSignal;
  */
 @Autonomous
 @Disabled
+@Deprecated
 public class FastAutoBlue1 extends LinearOpMode {
     Vuforia vuforia;
     RelicRecoveryVuMark detectedVuMark;
