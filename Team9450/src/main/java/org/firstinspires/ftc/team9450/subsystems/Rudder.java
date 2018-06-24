@@ -65,10 +65,10 @@ public class Rudder extends Subsystem {
         float[] colors= new float[3];
         Color.RGBToHSV(color.red(),color.green(),color.blue(),colors);
 
-        if (colors[1] > 0.1 && colors[2] < 2) {
+        if (colors[1] > 0.1 && colors[2] < 1) {
             if (180 < colors[0] && colors[0] < 260) {
                 return Constants.Color.BLUE;
-            } else if ((300 < colors[0] && colors[0] < 359) || colors[0] < 50) {
+            } else if ((300 < colors[0] && colors[0] < 360) || colors[0] < 50) {
                 return Constants.Color.RED;
             }
         }

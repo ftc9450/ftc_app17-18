@@ -26,7 +26,7 @@ public class RecalAutoBlue1 extends LinearOpMode {
     Gyroscope imu;
     Ramp ramp;
     Intake intake;
-    int center=1;//do not make less than 3
+    int center=2;
     int glyphPit=10;
     @Override
     public void runOpMode() throws InterruptedException {
